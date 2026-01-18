@@ -15,10 +15,21 @@
     "subtitle": "Designed for high-concurrency business, providing 1.63µs ultra-low latency and 500,000+ QPS throughput. Built-in visual editor with real-time WASM execution.",
     "cta_playground": "Try Playground Now",
     "cta_github": "View on GitHub",
-    "stat_latency": "Avg Latency",
-    "stat_qps": "Executions / sec",
-    "stat_comparison": "Faster than 1ms target",
-    "stat_rust": "Built with Rust"
+    "stat_latency": "Rule Execution",
+    "stat_qps": "Throughput",
+    "stat_eval": "Expr Evaluation",
+    "stat_api": "HTTP API"
+  },
+  "flow": {
+    "title": "How Ordo Works",
+    "desc": "Ordo processes requests with incredible speed and precision. Here's a glimpse into the execution flow.",
+    "input_title": "Input JSON",
+    "output_title": "Decision Result",
+    "engine_title": "Ordo Engine",
+    "stat_latency": "Rule Execution",
+    "stat_throughput": "Throughput",
+    "stat_api": "HTTP API",
+    "stat_p99": "P99 Latency"
   },
   "benchmarks": {
     "title": "Benchmark Results",

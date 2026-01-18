@@ -64,20 +64,20 @@ const t = useTranslations(lang);
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto pt-10 border-t border-white/5">
       <div class="flex flex-col items-center">
-        <span class="text-3xl font-bold text-white mb-1 font-mono">1.63µs</span>
+        <span class="text-3xl font-bold text-white mb-1 font-mono">1.63<span class="text-lg">µs</span></span>
         <span class="text-xs text-slate-500 uppercase tracking-widest font-mono">{t('hero.stat_latency')}</span>
       </div>
       <div class="flex flex-col items-center">
-        <span class="text-3xl font-bold text-white mb-1 font-mono">500K+</span>
+        <span class="text-3xl font-bold text-white mb-1 font-mono">615K<span class="text-lg">/s</span></span>
         <span class="text-xs text-slate-500 uppercase tracking-widest font-mono">{t('hero.stat_qps')}</span>
       </div>
       <div class="flex flex-col items-center">
-        <span class="text-3xl font-bold text-white mb-1 font-mono">600x</span>
-        <span class="text-xs text-slate-500 uppercase tracking-widest font-mono">{t('hero.stat_comparison')}</span>
+        <span class="text-3xl font-bold text-white mb-1 font-mono">79<span class="text-lg">ns</span></span>
+        <span class="text-xs text-slate-500 uppercase tracking-widest font-mono">{t('hero.stat_eval')}</span>
       </div>
       <div class="flex flex-col items-center">
-        <span class="text-3xl font-bold text-white mb-1 font-mono">100%</span>
-        <span class="text-xs text-slate-500 uppercase tracking-widest font-mono">{t('hero.stat_rust')}</span>
+        <span class="text-3xl font-bold text-white mb-1 font-mono">54K<span class="text-lg">QPS</span></span>
+        <span class="text-xs text-slate-500 uppercase tracking-widest font-mono">{t('hero.stat_api')}</span>
       </div>
     </div>
   </div>

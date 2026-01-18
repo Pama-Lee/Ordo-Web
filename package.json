@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
+    "@xyflow/react": "^12.10.0",
     "astro": "^5.16.11",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
