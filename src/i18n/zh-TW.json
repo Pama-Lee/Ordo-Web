@@ -29,7 +29,22 @@
     "stat_eval": "表達式求值耗時",
     "stat_api_qps": "HTTP API 單線程吞吐",
     "stat_p99": "HTTP API P99 延遲",
-    "stat_heap": "規則執行熱路徑"
+    "stat_heap": "規則執行熱路徑",
+    "modes_title": "多層次執行架构",
+    "modes_desc": "从开发调试到极端性能需求，Ordo 提供全场景覆盖的执行模式。",
+    "mode_treewalk": "AST 遍历",
+    "mode_treewalk_desc": "直接解析执行，适用于开发调试与一次性规则。",
+    "mode_vm": "Bytecode VM",
+    "mode_vm_desc": "编译为高效字节码，生产环境默认，平衡动态性与性能。",
+    "mode_vectorized": "向量化执行",
+    "mode_vectorized_desc": "列式批量处理，大幅提升大规模数据校验吞吐量。",
+    "mode_jit": "Schema-Aware JIT",
+    "mode_jit_desc": "即时编译为机器码，将延迟压缩至纳秒级，压榨硬件极限。",
+    "jit_title": "即將推出: Schema-Aware JIT",
+    "jit_desc": "通過將規則編譯為機器碼，性能再次飛躍。在複雜場景下比現有虛擬機快 30 倍。",
+    "jit_latency": "單次執行延遲",
+    "jit_throughput": "峰值吞吐量",
+    "jit_speedup": "性能提升"
   },
   "features": {
     "title": "核心特性",
@@ -92,5 +107,27 @@
     "resources": "資源",
     "feedback": "反饋",
     "license": "開源許可證"
+  },
+  "integration": {
+    "title": "全方位集成能力",
+    "desc": "Ordo 提供多種集成方式，無論是微服務架構、瀏覽器端還是本地高性能場景，都能完美適配。",
+    "http_create": "創建規則集",
+    "http_execute": "執行規則",
+    "grpc_execute": "執行規則並獲取追蹤",
+    "wasm_execute": "瀏覽器端執行規則",
+    "sdk_title": "多語言 SDK 支持",
+    "deploy_title": "部署與接入方式",
+    "deploy_desc": "Ordo 支持從雲端微服務到瀏覽器邊緣端的全場景部署。",
+    "invoke_title": "多樣化調用協議",
+    "invoke_desc": "標準化的接口協議，確保在任何技術棧下都能實現極速響應。",
+    "method_cloud": "雲端服務部署",
+    "method_cloud_desc": "支持 Docker/K8s/Nomad，通過 HTTP/gRPC 提供中心化規則服務。",
+    "method_edge": "邊緣/客戶端接入",
+    "method_edge_desc": "通過 WASM 在瀏覽器或邊緣節點直接執行，零延遲無網絡開銷。",
+    "method_embedded": "原生嵌入集成",
+    "method_embedded_desc": "作為 Rust 庫直接編譯進業務應用，實現真正的零抽象損耗。",
+    "status_stable": "已發布",
+    "status_beta": "測試中",
+    "status_soon": "即將推出"
   }
 }

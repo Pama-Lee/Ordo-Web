@@ -29,7 +29,22 @@
     "stat_eval": "Expression Eval Time",
     "stat_api_qps": "HTTP API Single-thread QPS",
     "stat_p99": "HTTP API P99 Latency",
-    "stat_heap": "Hot Path Heap Allocations"
+    "stat_heap": "Hot Path Heap Allocations",
+    "modes_title": "Multi-tier Execution Architecture",
+    "modes_desc": "From development debugging to extreme performance needs, Ordo covers all scenarios.",
+    "mode_treewalk": "AST Tree-walk",
+    "mode_treewalk_desc": "Direct interpretation, perfect for development and one-off rules.",
+    "mode_vm": "Bytecode VM",
+    "mode_vm_desc": "High-efficiency bytecode, default for production, balances flexibility and speed.",
+    "mode_vectorized": "Vectorized Execution",
+    "mode_vectorized_desc": "Columnar batch processing, massive throughput for large-scale data validation.",
+    "mode_jit": "Schema-Aware JIT",
+    "mode_jit_desc": "Compiles to native machine code, compressing latency to nanoseconds.",
+    "jit_title": "Coming Soon: Schema-Aware JIT",
+    "jit_desc": "Another leap in performance by compiling rules into machine code. 30x faster than existing VM in complex scenarios.",
+    "jit_latency": "Evaluation Latency",
+    "jit_throughput": "Peak Throughput",
+    "jit_speedup": "Performance Boost"
   },
   "features": {
     "title": "Core Features",
@@ -92,5 +107,27 @@
     "resources": "Resources",
     "feedback": "Feedback",
     "license": "License"
+  },
+  "integration": {
+    "title": "Comprehensive Integration",
+    "desc": "Ordo offers multiple integration methods, perfectly adapting to microservices, browser-side, or local high-performance scenarios.",
+    "http_create": "Create ruleset",
+    "http_execute": "Execute rule",
+    "grpc_execute": "Execute with trace",
+    "wasm_execute": "Browser-side execution",
+    "sdk_title": "Multi-language SDK Support",
+    "deploy_title": "Deployment & Connectivity",
+    "deploy_desc": "Ordo supports all scenarios from cloud microservices to browser edge nodes.",
+    "invoke_title": "Flexible Invocation Protocols",
+    "invoke_desc": "Standardized protocols ensuring rapid response across any technology stack.",
+    "method_cloud": "Cloud Service",
+    "method_cloud_desc": "Deploy via Docker/K8s/Nomad, serving rules via HTTP/gRPC.",
+    "method_edge": "Edge & Client-side",
+    "method_edge_desc": "Execute directly in browser or edge nodes via WASM, zero latency.",
+    "method_embedded": "Native Embedded",
+    "method_embedded_desc": "Compile directly into your Rust application for zero-overhead integration.",
+    "status_stable": "Stable",
+    "status_beta": "Beta",
+    "status_soon": "Coming Soon"
   }
 }
