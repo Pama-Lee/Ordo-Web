@@ -8,7 +8,7 @@ const steps = [
   {
     title: t('quickstart.step1_title'),
     desc: t('quickstart.step1_desc'),
-    code: `docker run -d -p 8080:8080 ordoengine/ordo-server`
+    code: `docker run -d -p 8080:8080 ghcr.io/pama-lee/ordo:latest`
   },
   {
     title: t('quickstart.step2_title'),
@@ -34,18 +34,18 @@ const steps = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-8">
+    <div class="grid grid-cols-1 gap-12">
       {steps.map((step, index) => (
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="flex-grow w-full">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="flex items-center justify-center w-6 h-6 rounded-full bg-brand/20 text-brand text-xs font-bold font-mono">
+        <div class="flex flex-col gap-6 items-start">
+          <div class="w-full">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand text-sm font-bold font-mono shrink-0">
                 {index + 1}
               </span>
-              <h3 class="text-lg font-bold text-white font-mono">{step.title}</h3>
+              <h3 class="text-xl font-bold text-white font-mono">{step.title}</h3>
             </div>
-            <p class="text-slate-400 text-sm mb-4 ml-9">{step.desc}</p>
-            <div class="ml-9 rounded-xl bg-surface border border-white/5 overflow-hidden group">
+            <p class="text-slate-400 text-sm mb-6 md:ml-12">{step.desc}</p>
+            <div class="md:ml-12 rounded-xl bg-surface border border-white/5 overflow-hidden group">
               <div class="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.02]">
                 <div class="flex gap-1.5">
                   <div class="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>

@@ -4,6 +4,8 @@
     "benchmarks": "基準測試",
     "docs": "文檔",
     "playground": "演練場",
+    "integration": "集成",
+    "roadmap": "路線圖",
     "github": "GitHub"
   },
   "hero": {

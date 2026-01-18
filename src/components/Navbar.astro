@@ -4,11 +4,14 @@ import { getLangFromUrl, useTranslations, languages } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+const base = lang === 'zh-CN' ? '' : `/${lang}`;
+
 const navItems = [
-  { name: t('nav.features'), href: "#features" },
-  { name: t('nav.benchmarks'), href: "#benchmarks" },
+  { name: t('nav.features'), href: `${base}/#features` },
+  { name: t('nav.benchmarks'), href: `${base}/benchmarks` },
+  { name: t('nav.integration'), href: `${base}/integration` },
+  { name: t('nav.roadmap'), href: `${base}/roadmap` },
   { name: t('nav.docs'), href: "https://docs.ordoengine.com" },
-  { name: t('nav.playground'), href: "https://pama-lee.github.io/Ordo/" },
 ];
 
 const currentPath = Astro.url.pathname;

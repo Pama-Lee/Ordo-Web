@@ -4,6 +4,8 @@
     "benchmarks": "基准测试",
     "docs": "文档",
     "playground": "演练场",
+    "integration": "集成",
+    "roadmap": "路线图",
     "github": "GitHub"
   },
   "hero": {

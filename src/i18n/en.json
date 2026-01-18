@@ -4,6 +4,8 @@
     "benchmarks": "Benchmarks",
     "docs": "Docs",
     "playground": "Playground",
+    "integration": "Integration",
+    "roadmap": "Roadmap",
     "github": "GitHub"
   },
   "hero": {
