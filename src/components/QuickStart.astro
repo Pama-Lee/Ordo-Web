@@ -1,0 +1,82 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const steps = [
+  {
+    title: t('quickstart.step1_title'),
+    desc: t('quickstart.step1_desc'),
+    code: `docker run -d -p 8080:8080 ordoengine/ordo-server`
+  },
+  {
+    title: t('quickstart.step2_title'),
+    desc: t('quickstart.step2_desc'),
+    code: `curl http://localhost:8080/health`
+  },
+  {
+    title: t('quickstart.step3_title'),
+    desc: t('quickstart.step3_desc'),
+    code: `curl -X POST http://localhost:8080/api/v1/execute/demo \\
+  -H "Content-Type: application/json" \\
+  -d '{"user": {"vip": true}}'`
+  }
+];
+---
+
+<section id="quickstart" class="py-24 relative overflow-hidden reveal">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-mono">{t('quickstart.title')}</h2>
+      <p class="text-slate-400 max-w-2xl mx-auto">
+        {t('quickstart.desc')}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8">
+      {steps.map((step, index) => (
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <div class="flex-grow w-full">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="flex items-center justify-center w-6 h-6 rounded-full bg-brand/20 text-brand text-xs font-bold font-mono">
+                {index + 1}
+              </span>
+              <h3 class="text-lg font-bold text-white font-mono">{step.title}</h3>
+            </div>
+            <p class="text-slate-400 text-sm mb-4 ml-9">{step.desc}</p>
+            <div class="ml-9 rounded-xl bg-surface border border-white/5 overflow-hidden group">
+              <div class="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.02]">
+                <div class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-green-500/40"></div>
+                </div>
+                <button class="text-[10px] text-slate-500 hover:text-white transition-colors uppercase font-mono tracking-wider copy-btn" data-code={step.code}>
+                  Copy
+                </button>
+              </div>
+              <pre class="p-4 text-sm overflow-x-auto"><code class="text-brand font-mono">{step.code}</code></pre>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.getAttribute('data-code');
+      if (code) {
+        navigator.clipboard.writeText(code);
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      }
+    });
+  });
+</script>

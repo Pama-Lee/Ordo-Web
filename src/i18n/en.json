@@ -7,7 +7,7 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "v0.1.0 Released",
+    "badge": "v0.2.0 Released",
     "title_part1": "Ordo: Ultra-Performance",
     "title_part2": "Rust Rule Engine",
     "subtitle": "Designed for high-concurrency business, providing 1.63µs ultra-low latency and 500,000+ QPS throughput. Built-in visual editor with real-time WASM execution.",
@@ -129,5 +129,34 @@
     "status_stable": "Stable",
     "status_beta": "Beta",
     "status_soon": "Coming Soon"
+  },
+  "quickstart": {
+    "title": "Quick Start",
+    "desc": "Launch Ordo Server and execute your first rule in under 2 minutes with Docker.",
+    "step1_title": "1. Start Ordo Server",
+    "step1_desc": "Pull and run the official Docker image",
+    "step2_title": "2. Verify Status",
+    "step2_desc": "Check the health check endpoint",
+    "step3_title": "3. Execute Rule",
+    "step3_desc": "Send execution request via REST API"
+  },
+  "syntax": {
+    "title": "Expression Syntax",
+    "desc": "Ordo uses a C-like syntax with rich operators and built-in functions, ensuring minimal overhead.",
+    "operators": "Operators",
+    "functions": "Functions",
+    "conditionals": "Conditionals",
+    "op_logical": "Logical",
+    "op_comparison": "Comparison",
+    "fn_string": "String",
+    "fn_array": "Array",
+    "fn_math": "Math"
+  },
+  "roadmap": {
+    "title": "Development Roadmap",
+    "desc": "Ordo is evolving rapidly, aiming to be the fastest and easiest enterprise rule engine.",
+    "status_done": "Completed",
+    "status_doing": "In Progress",
+    "status_todo": "Planned"
   }
 }

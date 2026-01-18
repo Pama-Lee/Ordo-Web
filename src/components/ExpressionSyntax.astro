@@ -1,0 +1,101 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const syntaxGroups = [
+  {
+    title: t('syntax.op_comparison'),
+    items: [
+      { name: '==', desc: 'Equal' },
+      { name: '!=', desc: 'Not equal' },
+      { name: '>', desc: 'Greater than' },
+      { name: '>=', desc: 'Greater or equal' },
+      { name: '<', desc: 'Less than' },
+      { name: '<=', desc: 'Less or equal' }
+    ]
+  },
+  {
+    title: t('syntax.op_logical'),
+    items: [
+      { name: '&&', desc: 'Logical AND' },
+      { name: '||', desc: 'Logical OR' },
+      { name: '!', desc: 'Logical NOT' }
+    ]
+  },
+  {
+    title: t('syntax.fn_string'),
+    items: [
+      { name: 'len(s)', desc: 'String length' },
+      { name: 'upper(s)', desc: 'Uppercase' },
+      { name: 'lower(s)', desc: 'Lowercase' },
+      { name: 'contains(s, sub)', desc: 'Substring check' }
+    ]
+  },
+  {
+    title: t('syntax.fn_array'),
+    items: [
+      { name: 'len(arr)', desc: 'Array length' },
+      { name: 'sum(arr)', desc: 'Sum elements' },
+      { name: 'avg(arr)', desc: 'Average' },
+      { name: 'max(arr)', desc: 'Max value' }
+    ]
+  },
+  {
+    title: t('syntax.fn_math'),
+    items: [
+      { name: 'abs(n)', desc: 'Absolute value' },
+      { name: 'round(n)', desc: 'Round' },
+      { name: 'floor(n)', desc: 'Floor' },
+      { name: 'ceil(n)', desc: 'Ceil' }
+    ]
+  },
+  {
+    title: t('syntax.conditionals'),
+    items: [
+      { name: 'exists(field)', desc: 'Field existence' },
+      { name: 'coalesce(a, b)', desc: 'First non-null' },
+      { name: 'if-then-else', desc: 'Ternary logic' }
+    ]
+  }
+];
+---
+
+<section id="syntax" class="py-24 relative overflow-hidden reveal">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-mono">{t('syntax.title')}</h2>
+      <p class="text-slate-400 max-w-2xl mx-auto">
+        {t('syntax.desc')}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {syntaxGroups.map(group => (
+        <div class="p-6 rounded-2xl bg-surface border border-white/5 hover:border-brand/20 transition-all group">
+          <h3 class="text-sm font-bold text-brand mb-4 font-mono uppercase tracking-widest">{group.title}</h3>
+          <div class="space-y-3">
+            {group.items.map(item => (
+              <div class="flex items-center justify-between gap-4">
+                <code class="text-xs text-white font-mono bg-white/5 px-2 py-1 rounded">
+                  {item.name}
+                </code>
+                <span class="text-xs text-slate-500 font-medium">{item.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-12 text-center">
+      <a href="https://docs.ordoengine.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors group">
+        View full documentation
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

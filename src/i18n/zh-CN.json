@@ -7,7 +7,7 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "v0.1.0 已发布",
+    "badge": "v0.2.0 已发布",
     "title_part1": "Ordo: 极致性能的",
     "title_part2": "Rust 规则引擎",
     "subtitle": "专为高并发业务设计，提供 1.63µs 极低延迟与 500,000+ QPS 吞吐量。内置可视化编辑器，支持 WASM 实时执行。",
@@ -129,5 +129,34 @@
     "status_stable": "已发布",
     "status_beta": "测试中",
     "status_soon": "即将推出"
+  },
+  "quickstart": {
+    "title": "快速开始",
+    "desc": "通过 Docker 在 2 分钟内启动 Ordo Server 并执行你的第一条规则。",
+    "step1_title": "1. 启动 Ordo Server",
+    "step1_desc": "拉取并运行官方 Docker 镜像",
+    "step2_title": "2. 确认服务状态",
+    "step2_desc": "检查健康检查接口",
+    "step3_title": "3. 执行规则",
+    "step3_desc": "通过 REST API 发送执行请求"
+  },
+  "syntax": {
+    "title": "表达式语法速查",
+    "desc": "Ordo 使用类 C 语法，支持丰富的运算符与内置函数，性能损耗极低。",
+    "operators": "运算符",
+    "functions": "内置函数",
+    "conditionals": "条件表达式",
+    "op_logical": "逻辑运算",
+    "op_comparison": "比较运算",
+    "fn_string": "字符串处理",
+    "fn_array": "集合运算",
+    "fn_math": "数学函数"
+  },
+  "roadmap": {
+    "title": "发展路线图",
+    "desc": "Ordo 正在快速演进中，致力于成为最快、最易用的企业级规则引擎。",
+    "status_done": "已完成",
+    "status_doing": "开发中",
+    "status_todo": "规划中"
   }
 }
