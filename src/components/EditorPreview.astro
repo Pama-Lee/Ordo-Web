@@ -1,0 +1,123 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-24 bg-bg relative overflow-hidden reveal">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-mono">{t('editor.title')}</h2>
+      <p class="text-slate-400 max-w-2xl mx-auto">
+        {t('editor.desc')}
+      </p>
+    </div>
+
+    <div class="relative group">
+      {/* Glow Effect */}
+      <div class="absolute -inset-1 bg-gradient-to-r from-brand to-accent rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+      
+      <div class="relative bg-surface rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+        <div class="flex items-center gap-4 px-6 py-4 bg-white/5 border-b border-white/10">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500/40"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/40"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/40"></div>
+          </div>
+          <div class="px-3 py-1 bg-white/5 rounded-md text-xs text-slate-400 font-mono">
+            ordo-playground.app
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-4 min-h-[500px]">
+          {/* Sidebar Mockup */}
+          <div class="hidden lg:block border-r border-white/5 p-6 space-y-8 bg-black/20">
+            <div>
+              <h4 class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4">{t('editor.sidebar_steps')}</h4>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-white/5 text-sm text-slate-300 border border-white/5 cursor-move">
+                  <div class="w-4 h-4 rounded bg-blue-500/20 text-blue-500 flex items-center justify-center text-[10px]">D</div>
+                  {t('editor.sidebar_decision')}
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-white/5 text-sm text-slate-300 border border-white/5 cursor-move">
+                  <div class="w-4 h-4 rounded bg-green-500/20 text-green-500 flex items-center justify-center text-[10px]">T</div>
+                  {t('editor.sidebar_terminal')}
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-white/5 text-sm text-slate-300 border border-white/5 cursor-move opacity-50">
+                  <div class="w-4 h-4 rounded bg-purple-500/20 text-purple-500 flex items-center justify-center text-[10px]">J</div>
+                  {t('editor.sidebar_jump')}
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4">{t('editor.sidebar_config')}</h4>
+              <div class="p-3 rounded-lg bg-white/5 border border-white/5 space-y-3">
+                <div class="h-2 w-full bg-white/10 rounded"></div>
+                <div class="h-2 w-3/4 bg-white/10 rounded"></div>
+                <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Main View Area */}
+          <div class="lg:col-span-3 relative bg-[url('/images/grid.svg')] bg-[length:20px_20px]">
+            <img 
+              src="/images/main.png" 
+              alt="Ordo Editor Screenshot" 
+              class="w-full h-full object-cover object-top opacity-90 transition-opacity group-hover:opacity-100" 
+            />
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-40"></div>
+            
+            {/* Overlay CTA */}
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-bg/20 backdrop-blur-[2px]">
+              <a 
+                href="https://pama-lee.github.io/Ordo/" 
+                target="_blank"
+                class="px-8 py-4 bg-white text-bg font-bold rounded-xl shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
+              >
+                {t('editor.cta_playground')}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+      <div class="flex gap-4">
+        <div class="h-10 w-10 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-1">{t('editor.view_multi')}</h4>
+          <p class="text-xs text-slate-500">{t('editor.view_multi_desc')}</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="h-10 w-10 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-1">{t('editor.view_wasm')}</h4>
+          <p class="text-xs text-slate-500">{t('editor.view_wasm_desc')}</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="h-10 w-10 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-1">{t('editor.view_trace')}</h4>
+          <p class="text-xs text-slate-500">{t('editor.view_trace_desc')}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

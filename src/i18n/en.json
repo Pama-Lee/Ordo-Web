@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "features": "Features",
+    "benchmarks": "Benchmarks",
+    "docs": "Docs",
+    "playground": "Playground",
+    "github": "GitHub"
+  },
+  "hero": {
+    "badge": "v0.1.0 Released",
+    "title_part1": "Ordo: Ultra-Performance",
+    "title_part2": "Rust Rule Engine",
+    "subtitle": "Designed for high-concurrency business, providing 1.63µs ultra-low latency and 500,000+ QPS throughput. Built-in visual editor with real-time WASM execution.",
+    "cta_playground": "Try Playground Now",
+    "cta_github": "View on GitHub",
+    "stat_latency": "Avg Latency",
+    "stat_qps": "Executions / sec",
+    "stat_comparison": "Faster than 1ms target",
+    "stat_rust": "Built with Rust"
+  },
+  "benchmarks": {
+    "title": "Benchmark Results",
+    "description": "Single-thread tests on Apple Silicon (M-series) show Ordo's exceptional performance far exceeding industry standards.",
+    "chart_title": "Execution Latency Comparison (µs)",
+    "chart_low_better": "lower is better",
+    "chart_traditional": "Traditional Engine (Typical)",
+    "chart_ordo": "Ordo Rule Engine",
+    "chart_note": "* ~600x performance boost, making real-time business decisions invisible.",
+    "stat_eval": "Expression Eval Time",
+    "stat_api_qps": "HTTP API Single-thread QPS",
+    "stat_p99": "HTTP API P99 Latency",
+    "stat_heap": "Hot Path Heap Allocations"
+  },
+  "features": {
+    "title": "Core Features",
+    "description": "Ordo is more than just a rule engine; it's a complete rule life cycle management platform.",
+    "editor_title": "Visual Rule Editor",
+    "editor_desc": "Dual modes of drag-and-drop Flow and structured Form editing to lower maintenance barriers.",
+    "performance_title": "Ultra-Performance Engine",
+    "performance_desc": "Built with Rust, supports millions of QPS with 1.63µs latency, perfect for financial payments.",
+    "wasm_title": "Real-time WASM Execution",
+    "wasm_desc": "Preview rules instantly in browser via WebAssembly with execution tracing and debugging.",
+    "audit_title": "Versioning & Audit",
+    "audit_desc": "Built-in version management with one-click rollback. Full audit logs for compliance requirements.",
+    "tenant_title": "Multi-tenancy & Isolation",
+    "tenant_desc": "Namespace-level rule isolation and per-tenant QPS limits to easily support SaaS business.",
+    "integration_title": "Comprehensive Integration",
+    "integration_desc": "Provides HTTP REST, gRPC interfaces, and SDKs for Go, Java, Python, and more.",
+    "usecase_title": "Use Cases",
+    "usecase_finance": "Financial Risk Control",
+    "usecase_finance_desc": "Real-time anti-fraud and credit strategy evaluation with millisecond response to massive requests.",
+    "usecase_ecommerce": "E-commerce Marketing",
+    "usecase_ecommerce_desc": "Dynamic coupon issuance and flash sale logic for flexible promotion strategies.",
+    "usecase_routing": "Smart Routing",
+    "usecase_routing_desc": "Payment channel selection and dynamic traffic distribution based on real-time data."
+  },
+  "code": {
+    "title": "Easy to Define, Seconds to Execute",
+    "desc": "Ordo uses intuitive JSON/YAML formats. Supports rich expression syntax including math, logic, and built-in functions. Get decision results and detailed trace in microseconds via simple API calls.",
+    "step1_title": "Structured Rule Definition",
+    "step1_desc": "Define step flow and decision logic",
+    "step2_title": "High-Performance Evaluation",
+    "step2_desc": "Optimized evaluation engine",
+    "step3_title": "Visual Tracing",
+    "step3_desc": "Detailed execution path tracing"
+  },
+  "editor": {
+    "title": "Intuitive Visual Editor",
+    "desc": "Design complex decision flows without writing code. Ordo provides a powerful visual editor with real-time preview and debugging.",
+    "sidebar_steps": "Decision Steps",
+    "sidebar_decision": "Decision Node",
+    "sidebar_terminal": "Terminal Node",
+    "sidebar_jump": "Jump Node",
+    "sidebar_config": "Rule Config",
+    "cta_playground": "Try in Live Playground",
+    "view_multi": "Multi-view Switching",
+    "view_multi_desc": "Seamlessly switch between Flow and Form views to fit different editing habits.",
+    "view_wasm": "Real-time Execution",
+    "view_wasm_desc": "Get identical results to server-side execution instantly in browser using WASM.",
+    "view_trace": "Execution Path Tracing",
+    "view_trace_desc": "Visually trace every node in rule execution to make debugging effortless."
+  },
+  "cta": {
+    "title": "Ready to boost your business decisions?",
+    "desc": "Join us and experience the revolution of development efficiency with performance and visual editing. Ordo is open sourced on GitHub.",
+    "btn_start": "Get Started",
+    "btn_playground": "Playground Demo"
+  },
+  "footer": {
+    "desc": "High-performance, minimalist, self-contained Rust rule engine for financial, payment, and high-concurrency business.",
+    "product": "Product",
+    "resources": "Resources",
+    "feedback": "Feedback",
+    "license": "License"
+  }
+}

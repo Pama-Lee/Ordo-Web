@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Hero from '../../components/Hero.astro';
+import PerformanceShowcase from '../../components/PerformanceShowcase.astro';
+import Features from '../../components/Features.astro';
+import CodeShowcase from '../../components/CodeShowcase.astro';
+import EditorPreview from '../../components/EditorPreview.astro';
+import CTA from '../../components/CTA.astro';
+import Footer from '../../components/Footer.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`Ordo - ${t('hero.title_part2')}`}>
+	<Navbar />
+	<main class="flex-grow">
+		<Hero />
+		<PerformanceShowcase />
+		<Features />
+		<CodeShowcase />
+		<EditorPreview />
+		<CTA />
+	</main>
+	<Footer />
+</Layout>

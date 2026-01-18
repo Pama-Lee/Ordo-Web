@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "features": "特性",
+    "benchmarks": "基准测试",
+    "docs": "文档",
+    "playground": "演练场",
+    "github": "GitHub"
+  },
+  "hero": {
+    "badge": "v0.1.0 已发布",
+    "title_part1": "Ordo: 极致性能的",
+    "title_part2": "Rust 规则引擎",
+    "subtitle": "专为高并发业务设计，提供 1.63µs 极低延迟与 500,000+ QPS 吞吐量。内置可视化编辑器，支持 WASM 实时执行。",
+    "cta_playground": "立即体验 Playground",
+    "cta_github": "在 GitHub 上查看",
+    "stat_latency": "平均执行延迟",
+    "stat_qps": "每秒执行次数",
+    "stat_comparison": "快于 1ms 目标",
+    "stat_rust": "Rust 构建"
+  },
+  "benchmarks": {
+    "title": "基准测试结果",
+    "description": "基于 Apple Silicon (M-series) 芯片单线程测试，Ordo 展现了远超行业标准的极致性能。",
+    "chart_title": "执行延迟对比 (µs)",
+    "chart_low_better": "越低越好",
+    "chart_traditional": "传统规则引擎 (典型值)",
+    "chart_ordo": "Ordo Rule Engine",
+    "chart_note": "* 性能提升约 600 倍，使得实时业务决策无感知。",
+    "stat_eval": "表达式求值耗时",
+    "stat_api_qps": "HTTP API 单线程吞吐",
+    "stat_p99": "HTTP API P99 延迟",
+    "stat_heap": "规则执行热路径"
+  },
+  "features": {
+    "title": "核心特性",
+    "description": "Ordo 不仅仅是一个规则引擎，它是一个完整的规则全生命周期管理平台。",
+    "editor_title": "可视化规则编辑",
+    "editor_desc": "拖拽式 Flow 编辑与结构化 Form 编辑双模式，降低规则维护门槛。",
+    "performance_title": "极致性能引擎",
+    "performance_desc": "基于 Rust 构建，支持百万级 QPS，1.63µs 执行延迟，适合金融支付场景。",
+    "wasm_title": "WASM 实时执行",
+    "wasm_desc": "规则可以在浏览器端通过 WebAssembly 实时预览效果，并支持执行追踪调试。",
+    "audit_title": "规则版本与审计",
+    "audit_desc": "内置规则版本管理，支持一键回滚。全量审计日志，满足合规审计需求。",
+    "tenant_title": "多租户与隔离",
+    "tenant_desc": "Namespace 级别的规则隔离与租户级 QPS 限制，轻松支撑 SaaS 业务。",
+    "integration_title": "全方位集成",
+    "integration_desc": "提供 HTTP REST、gRPC 接口，并支持 Go、Java、Python 等多语言 SDK。",
+    "usecase_title": "应用场景",
+    "usecase_finance": "金融风控",
+    "usecase_finance_desc": "实时反欺诈、信贷策略评估，毫秒级响应海量交易请求。",
+    "usecase_ecommerce": "电商营销",
+    "usecase_ecommerce_desc": "动态优惠券发放、限时秒杀逻辑，灵活调整促销策略。",
+    "usecase_routing": "智能路由",
+    "usecase_routing_desc": "支付通道选择、流量动态分发，基于实时数据自动寻址。"
+  },
+  "code": {
+    "title": "易于定义，秒级执行",
+    "desc": "Ordo 使用直观的 JSON/YAML 格式定义规则。支持丰富的表达式语法，包括数学运算、逻辑判断和内置函数。通过简单的 API 调用，即可在微秒级时间内获得决策结果与详细的执行轨迹。",
+    "step1_title": "结构化规则定义",
+    "step1_desc": "定义步骤流与决策逻辑",
+    "step2_title": "高性能评估",
+    "step2_desc": "极致优化的求值引擎",
+    "step3_title": "可视化追踪",
+    "step3_desc": "详细的执行路径溯源"
+  },
+  "editor": {
+    "title": "直观的可视化编辑器",
+    "desc": "无需编写代码即可设计复杂的决策流。Ordo 提供了功能强大的可视化编辑器，支持实时预览与调试。",
+    "sidebar_steps": "决策步骤",
+    "sidebar_decision": "决策节点",
+    "sidebar_terminal": "终端节点",
+    "sidebar_jump": "跳转节点",
+    "sidebar_config": "规则配置",
+    "cta_playground": "进入 Live Playground 试用",
+    "view_multi": "多视图切换",
+    "view_multi_desc": "在 Flow 视图与 Form 视图间无缝切换，适应不同编辑习惯。",
+    "view_wasm": "实时执行预览",
+    "view_wasm_desc": "基于 WASM 技术，在浏览器中即可获得与服务端完全一致的执行结果。",
+    "view_trace": "执行路径追踪",
+    "view_trace_desc": "可视化展示规则执行经过的每一个节点，让逻辑纠错变得异常简单。"
+  },
+  "cta": {
+    "title": "准备好提升业务决策效率了吗？",
+    "desc": "加入我们，体验极致性能与可视化编辑带来的开发效率革命。Ordo 已在 GitHub 开源。",
+    "btn_start": "快速开始",
+    "btn_playground": "Playground 演示"
+  },
+  "footer": {
+    "desc": "高性能、极简、自洽的 Rust 规则引擎。为金融、支付和高并发业务场景而生。",
+    "product": "产品",
+    "resources": "资源",
+    "feedback": "反馈",
+    "license": "开源许可证"
+  }
+}
