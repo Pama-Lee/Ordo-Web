@@ -7,33 +7,36 @@ const t = useTranslations(lang);
 const roadmap = [
   {
     status: 'done',
-    title: 'Phase 1: Foundations',
+    title: 'Phase 1: Foundation — v0.1 → v0.2',
     items: [
       'Core Rule Engine (Rust)',
       'HTTP & gRPC API Server',
-      'Visual Rule Editor (Vue 3)',
+      'Visual Rule Editor (Vue 3 + React)',
       'WASM Browser Execution',
       'Execution Tracing & Debugging',
-      'Audit Logging'
+      'JIT Compilation (Cranelift)',
+      'Audit Logging & Version History',
+      'Distributed Deployment (NATS JetStream)'
     ]
   },
   {
-    status: 'doing',
-    title: 'Phase 2: Reliability',
+    status: 'done',
+    title: 'Phase 2: Intelligence — v0.3',
     items: [
-      'Local Persistence (SQLite)',
-      'WAL (Write-Ahead Logging)',
-      'Crash Recovery Mechanisms',
-      'SDK Optimization'
+      'Data Filter API (SQL / JSON / MongoDB push-down)',
+      'Partial Evaluation Engine',
+      'Compiled Ruleset (.ordo binary format)',
+      'Multi-tenant QPS Isolation',
+      'Enterprise Plugin System'
     ]
   },
   {
     status: 'todo',
-    title: 'Phase 3: Scale',
+    title: 'Phase 3: Ecosystem',
     items: [
       'Collaborative Editing',
       'Rule Marketplace',
-      'Advanced Multi-tenancy',
+      'Advanced Observability (full OTLP tracing)',
       'Kubernetes Native Operator'
     ]
   }

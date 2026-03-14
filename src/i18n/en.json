@@ -9,10 +9,10 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "v0.2.0 Released",
+    "badge": "v0.3.0 Released",
     "title_part1": "Ordo: Ultra-Performance",
     "title_part2": "Rust Rule Engine",
-    "subtitle": "Designed for high-concurrency business, providing 1.63µs ultra-low latency and 500,000+ QPS throughput. Built-in visual editor with real-time WASM execution.",
+    "subtitle": "Designed for high-concurrency business, providing 1.63µs ultra-low latency, 54K HTTP QPS, and JIT-accelerated execution down to 50ns. Built-in visual editor with real-time WASM execution.",
     "cta_playground": "Try Playground Now",
     "cta_github": "View on GitHub",
     "stat_latency": "Rule Execution",
@@ -53,8 +53,8 @@
     "mode_vectorized_desc": "Columnar batch processing, massive throughput for large-scale data validation.",
     "mode_jit": "Schema-Aware JIT",
     "mode_jit_desc": "Compiles to native machine code, compressing latency to nanoseconds.",
-    "jit_title": "Coming Soon: Schema-Aware JIT",
-    "jit_desc": "Another leap in performance by compiling rules into machine code. 30x faster than existing VM in complex scenarios.",
+    "jit_title": "Schema-Aware JIT — Available Now",
+    "jit_desc": "Compiles numeric rules to native machine code via Cranelift. 20–30x faster than the bytecode VM in compute-heavy scenarios.",
     "jit_latency": "Evaluation Latency",
     "jit_throughput": "Peak Throughput",
     "jit_speedup": "Performance Boost"
@@ -72,6 +72,8 @@
     "audit_desc": "Built-in version management with one-click rollback. Full audit logs for compliance requirements.",
     "tenant_title": "Multi-tenancy & Isolation",
     "tenant_desc": "Namespace-level rule isolation and per-tenant QPS limits to easily support SaaS business.",
+    "filter_title": "Data Filter API",
+    "filter_desc": "Push rule logic into your database. Generates SQL WHERE clauses, JSON predicates, or MongoDB $match stages — no full-table scans, no row-by-row evaluation.",
     "integration_title": "Comprehensive Integration",
     "integration_desc": "Provides HTTP REST, gRPC interfaces, and SDKs for Go, Java, Python, and more.",
     "usecase_title": "Use Cases",

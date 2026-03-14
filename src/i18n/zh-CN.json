@@ -9,10 +9,10 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "v0.2.0 已发布",
+    "badge": "v0.3.0 已发布",
     "title_part1": "Ordo: 极致性能",
     "title_part2": "Rust 规则引擎",
-    "subtitle": "专为高并发业务设计，提供 1.63µs 超低延迟和 500,000+ QPS 吞吐量。内置可视化编辑器，支持 WebAssembly 实时执行。",
+    "subtitle": "专为高并发业务设计，提供 1.63µs 超低延迟、54K HTTP QPS，以及最低 50ns 的 JIT 加速执行。内置可视化编辑器，支持 WebAssembly 实时执行。",
     "cta_playground": "立即试用",
     "cta_github": "查看源码",
     "stat_latency": "规则执行",
@@ -53,8 +53,8 @@
     "mode_vectorized_desc": "列式批处理，大规模数据校验的吞吐量怪兽。",
     "mode_jit": "Schema-Aware JIT",
     "mode_jit_desc": "编译为原生机器码，将延迟压缩至纳秒级。",
-    "jit_title": "即将推出: Schema-Aware JIT",
-    "jit_desc": "通过将规则编译为机器码，再次实现性能飞跃。在复杂场景下比现有 VM 快 30 倍。",
+    "jit_title": "Schema-Aware JIT — 已上线",
+    "jit_desc": "通过 Cranelift 将数值规则编译为原生机器码，在计算密集场景下比字节码 VM 快 20–30 倍。",
     "jit_latency": "求值延迟",
     "jit_throughput": "峰值吞吐",
     "jit_speedup": "性能提升"
@@ -72,6 +72,8 @@
     "audit_desc": "内置版本管理，支持一键回滚。完整的审计日志记录，满足合规要求。",
     "tenant_title": "多租户与隔离",
     "tenant_desc": "支持命名空间级别的规则隔离和租户级 QPS 限制，轻松支持 SaaS 业务。",
+    "filter_title": "数据过滤 API",
+    "filter_desc": "将规则逻辑下推到数据库层。生成 SQL WHERE 子句、JSON 谓词或 MongoDB $match 阶段——告别全表扫描，告别逐行求值。",
     "integration_title": "全方位集成",
     "integration_desc": "提供 HTTP REST、gRPC 接口，以及 Go、Java、Python 等多语言 SDK。",
     "usecase_title": "应用场景",
