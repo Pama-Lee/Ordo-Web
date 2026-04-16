@@ -9,7 +9,7 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "v0.3.0 Released",
+    "badge": "v0.4.0 Released",
     "title_part1": "Ordo: Ultra-Performance",
     "title_part2": "Rust Rule Engine",
     "subtitle": "Designed for high-concurrency business, providing 1.63µs ultra-low latency, 54K HTTP QPS, and JIT-accelerated execution down to 50ns. Built-in visual editor with real-time WASM execution.",

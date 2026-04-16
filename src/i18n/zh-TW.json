@@ -9,7 +9,7 @@
     "github": "GitHub"
   },
   "hero": {
-    "badge": "v0.3.0 已發布",
+    "badge": "v0.4.0 已發布",
     "title_part1": "Ordo: 極致性能",
     "title_part2": "Rust 規則引擎",
     "subtitle": "專為高並發業務設計，提供 1.63µs 超低延遲、54K HTTP QPS，以及最低 50ns 的 JIT 加速執行。內置可視化編輯器，支持 WebAssembly 實時執行。",
