@@ -1,81 +1,131 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import FlowDiagramReact from './FlowDiagramReact';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class="py-24 bg-surface/30 border-y border-white/5 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[url('/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.05),rgba(255,255,255,0))] opacity-30"></div>
-  
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-mono">{t('flow.title')}</h2>
-      <p class="text-slate-400 max-w-2xl mx-auto">
-        {t('flow.desc')}
+<section class="py-24 relative overflow-hidden border-y border-white/[0.06] bg-[#161b22]/60 reveal">
+  <!-- Subtle background texture -->
+  <div class="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-[0.04] pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+        One Platform. Three Layers.
+      </h2>
+      <p class="text-[#848d97] max-w-xl mx-auto text-base leading-relaxed">
+        Every business decision runs through Ordo's three-layer stack — governed on the Platform, authored in Studio, executed by the Engine.
       </p>
     </div>
 
-    <div class="max-w-5xl mx-auto">
-      <FlowDiagramReact 
-        client:visible
-        inputLabel={t('flow.input_title')}
-        outputLabel={t('flow.output_title')}
-        engineLabel="ORDO"
-        engineSubtitle="ENGINE"
-      />
+    <!-- Three-layer cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+
+      <!-- Platform Layer — Blue -->
+      <div class="group relative rounded-[16px] bg-[#161b22] border border-[#3b82f6]/20 p-7 hover:border-[#3b82f6]/40 transition-all duration-300 hover:-translate-y-1">
+        <!-- Top accent bar -->
+        <div class="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-[#3b82f6] to-transparent rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
+
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-10 w-10 rounded-xl bg-[#3b82f6]/10 border border-[#3b82f6]/20 flex items-center justify-center flex-shrink-0">
+            <svg class="h-5 w-5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[11px] font-semibold text-[#3b82f6] uppercase tracking-[0.1em] font-mono">Layer 01</div>
+            <h3 class="text-lg font-semibold text-white leading-tight">Platform</h3>
+          </div>
+        </div>
+
+        <p class="text-[#848d97] text-sm leading-relaxed mb-5">
+          The governance layer. Organize rules by org and project, catalog every input field, define typed contracts, and maintain a full version history with one-click rollback.
+        </p>
+
+        <div class="flex flex-wrap gap-2">
+          {['Orgs & Projects', 'Fact Catalog', 'Contracts', 'Version History', 'Templates'].map(tag => (
+            <span class="px-2.5 py-1 text-[11px] font-medium text-[#3b82f6] bg-[#3b82f6]/8 border border-[#3b82f6]/15 rounded-md font-mono">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Studio Layer — Purple -->
+      <div class="group relative rounded-[16px] bg-[#161b22] border border-[#8b5cf6]/20 p-7 hover:border-[#8b5cf6]/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-[#8b5cf6] to-transparent rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
+
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-10 w-10 rounded-xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 flex items-center justify-center flex-shrink-0">
+            <svg class="h-5 w-5 text-[#8b5cf6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[11px] font-semibold text-[#8b5cf6] uppercase tracking-[0.1em] font-mono">Layer 02</div>
+            <h3 class="text-lg font-semibold text-white leading-tight">Studio</h3>
+          </div>
+        </div>
+
+        <p class="text-[#848d97] text-sm leading-relaxed mb-5">
+          The authoring layer. Drag-and-drop flow editor, decision tables, test case management, and one-click template instantiation — author and validate rules without friction.
+        </p>
+
+        <div class="flex flex-wrap gap-2">
+          {['Flow Editor', 'Decision Tables', 'Test Runner', 'Templates', 'WASM Preview'].map(tag => (
+            <span class="px-2.5 py-1 text-[11px] font-medium text-[#8b5cf6] bg-[#8b5cf6]/8 border border-[#8b5cf6]/15 rounded-md font-mono">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Engine Layer — Orange -->
+      <div class="group relative rounded-[16px] bg-[#161b22] border border-[#f97316]/20 p-7 hover:border-[#f97316]/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-[#f97316] to-transparent rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
+
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-10 w-10 rounded-xl bg-[#f97316]/10 border border-[#f97316]/20 flex items-center justify-center flex-shrink-0">
+            <svg class="h-5 w-5 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[11px] font-semibold text-[#f97316] uppercase tracking-[0.1em] font-mono">Layer 03</div>
+            <h3 class="text-lg font-semibold text-white leading-tight">Engine</h3>
+          </div>
+        </div>
+
+        <p class="text-[#848d97] text-sm leading-relaxed mb-5">
+          The execution layer. Sub-microsecond rule evaluation with Cranelift JIT, hot reload, multi-tenancy, and four deployment modes — all from a single binary.
+        </p>
+
+        <div class="flex flex-wrap gap-2">
+          {['HTTP · gRPC', 'WASM · CLI', 'Cranelift JIT', 'Hot Reload', 'Multi-tenant'].map(tag => (
+            <span class="px-2.5 py-1 text-[11px] font-medium text-[#f97316] bg-[#f97316]/8 border border-[#f97316]/15 rounded-md font-mono">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
     </div>
 
-    {/* Feature highlights below the diagram */}
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
-      <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-        <div class="h-10 w-10 shrink-0 rounded-lg bg-brand/20 flex items-center justify-center">
-          <svg class="h-5 w-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <div>
-          <div class="text-white font-medium text-sm font-mono">1.63µs</div>
-          <div class="text-slate-500 text-xs">{t('flow.stat_latency')}</div>
-        </div>
-      </div>
-      
-      <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-        <div class="h-10 w-10 shrink-0 rounded-lg bg-green-500/20 flex items-center justify-center">
-          <svg class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <div>
-          <div class="text-white font-medium text-sm font-mono">615K/s</div>
-          <div class="text-slate-500 text-xs">{t('flow.stat_throughput')}</div>
-        </div>
-      </div>
-      
-      <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-        <div class="h-10 w-10 shrink-0 rounded-lg bg-blue-500/20 flex items-center justify-center">
-          <svg class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-        </div>
-        <div>
-          <div class="text-white font-medium text-sm font-mono">54K QPS</div>
-          <div class="text-slate-500 text-xs">{t('flow.stat_api')}</div>
-        </div>
-      </div>
-      
-      <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-        <div class="h-10 w-10 shrink-0 rounded-lg bg-purple-500/20 flex items-center justify-center">
-          <svg class="h-5 w-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-          </svg>
-        </div>
-        <div>
-          <div class="text-white font-medium text-sm font-mono">P99 3.9ms</div>
-          <div class="text-slate-500 text-xs">{t('flow.stat_p99')}</div>
-        </div>
-      </div>
+    <!-- Connector hint -->
+    <div class="flex items-center justify-center gap-3 mt-10 text-[#545d68] text-xs font-mono">
+      <span class="px-3 py-1 rounded-md bg-[#3b82f6]/8 border border-[#3b82f6]/15 text-[#3b82f6]">Platform</span>
+      <svg class="h-3.5 w-3.5 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="px-3 py-1 rounded-md bg-[#8b5cf6]/8 border border-[#8b5cf6]/15 text-[#8b5cf6]">Studio</span>
+      <svg class="h-3.5 w-3.5 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="px-3 py-1 rounded-md bg-[#f97316]/8 border border-[#f97316]/15 text-[#f97316]">Engine</span>
     </div>
+
   </div>
 </section>
