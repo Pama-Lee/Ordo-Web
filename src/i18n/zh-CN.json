@@ -10,15 +10,15 @@
   },
   "hero": {
     "badge": "v0.4.0 已发布",
-    "title_part1": "Ordo: 极致性能",
-    "title_part2": "Rust 规则引擎",
-    "subtitle": "专为高并发业务设计，提供 1.63µs 超低延迟、54K HTTP QPS，以及最低 50ns 的 JIT 加速执行。内置可视化编辑器，支持 WebAssembly 实时执行。",
+    "title_part1": "Ordo：",
+    "title_part2": "开源决策平台",
+    "subtitle": "编写、测试、治理业务规则——可视化 Studio、平台级治理，底层引擎快到感觉不到。",
     "cta_playground": "立即试用",
     "cta_github": "查看源码",
-    "stat_latency": "规则执行",
-    "stat_qps": "吞吐量",
-    "stat_eval": "表达式求值",
-    "stat_api": "HTTP API"
+    "stat_engine": "规则引擎",
+    "stat_platform": "治理平台",
+    "stat_studio": "可视化编辑器",
+    "stat_license": "开源许可"
   },
   "flow": {
     "title": "Ordo 如何工作",
@@ -60,29 +60,29 @@
     "jit_speedup": "性能提升"
   },
   "features": {
-    "title": "核心特性",
-    "description": "Ordo 不仅仅是一个规则引擎，更是一个完整的规则生命周期管理平台。",
-    "editor_title": "可视化规则编辑器",
-    "editor_desc": "提供拖拽式流程图和结构化表单双模式编辑，极大降低业务维护门槛。",
-    "performance_title": "极致性能引擎",
-    "performance_desc": "全 Rust 构建，支持百万级 QPS 和 1.63µs 延迟，完美适配金融支付场景。",
-    "wasm_title": "WebAssembly 实时执行",
-    "wasm_desc": "通过 WebAssembly 在浏览器端即时预览规则执行结果，支持可视化追踪调试。",
-    "audit_title": "版本与审计",
-    "audit_desc": "内置版本管理，支持一键回滚。完整的审计日志记录，满足合规要求。",
-    "tenant_title": "多租户与隔离",
-    "tenant_desc": "支持命名空间级别的规则隔离和租户级 QPS 限制，轻松支持 SaaS 业务。",
+    "title": "为什么选择 Ordo？",
+    "description": "大多数团队从规则引擎开始。难点不在执行速度——而在于知道哪些规则存在、谁修改了它们、它们是否仍然正确。",
+    "editor_title": "Studio",
+    "editor_desc": "拖拽式流程编辑器、决策表、一键实例化模板。不用手写 JSON 就能编写规则。",
+    "performance_title": "高性能引擎",
+    "performance_desc": "亚微秒级执行，Cranelift JIT 编译。支持 HTTP · gRPC · WASM · CLI 或嵌入 Rust 应用——快到感觉不到。",
+    "wasm_title": "测试管理",
+    "wasm_desc": "为每个规则集创建、运行、导出测试套件。兼容 ordo-cli 的 YAML 格式，直接接入 CI/CD。",
+    "audit_title": "治理",
+    "audit_desc": "带类型的决策契约、完整版本历史、审计日志。一键回滚规则集，追踪每一次变更。",
+    "tenant_title": "决策平台",
+    "tenant_desc": "组织与项目管理、事实目录、规则模板。让团队在同一个地方拥有、发现和管理所有决策逻辑。",
     "filter_title": "数据过滤 API",
     "filter_desc": "将规则逻辑下推到数据库层。生成 SQL WHERE 子句、JSON 谓词或 MongoDB $match 阶段——告别全表扫描，告别逐行求值。",
-    "integration_title": "全方位集成",
-    "integration_desc": "提供 HTTP REST、gRPC 接口，以及 Go、Java、Python 等多语言 SDK。",
+    "integration_title": "随处运行",
+    "integration_desc": "单二进制服务器、浏览器端 WebAssembly、嵌入式 Rust 集成。HTTP REST、gRPC 或 Unix socket——同一个引擎覆盖所有部署场景。",
     "usecase_title": "应用场景",
-    "usecase_finance": "金融风控",
-    "usecase_finance_desc": "实时反欺诈、信用策略评估，毫秒级响应海量请求。",
-    "usecase_ecommerce": "电商营销",
-    "usecase_ecommerce_desc": "动态发券、秒杀活动逻辑，支持灵活多变的促销策略。",
-    "usecase_routing": "智能路由",
-    "usecase_routing_desc": "根据实时数据进行支付通道优选和流量动态分发。"
+    "usecase_finance": "风控与合规",
+    "usecase_finance_desc": "信用评分、反欺诈、KYC 校验、监管政策——合规团队能直接读懂并审批的规则。",
+    "usecase_ecommerce": "定价与促销",
+    "usecase_ecommerce_desc": "动态定价、折扣资格、活动逻辑——无需部署即可修改规则。",
+    "usecase_routing": "路由与分配",
+    "usecase_routing_desc": "订单路由、支付通道选择、基于实时数据的流量决策。"
   },
   "code": {
     "title": "定义简单，执行极速",
@@ -111,13 +111,13 @@
     "view_trace_desc": "可视化追踪规则执行的每一个节点，让调试变得轻松自如。"
   },
   "cta": {
-    "title": "准备好提升您的业务决策了吗？",
-    "desc": "加入我们，体验性能与可视化编辑带来的开发效率革命。Ordo 已在 GitHub 开源。",
+    "title": "掌控你的决策逻辑。",
+    "desc": "不要让业务规则散落在代码库和电子表格里。Ordo 让团队在同一个地方编写、测试、治理它们。已在 GitHub 开源。",
     "btn_start": "开始使用",
     "btn_playground": "演示 Playground"
   },
   "footer": {
-    "desc": "高性能、极简、自包含的 Rust 规则引擎，专为金融、支付和高并发业务打造。",
+    "desc": "开源决策平台——在规模上编写、测试、治理业务规则。",
     "product": "产品",
     "resources": "资源",
     "feedback": "反馈",
@@ -169,7 +169,7 @@
   },
   "roadmap": {
     "title": "开发路线图",
-    "desc": "Ordo 正在快速演进，旨在成为最快、最易用的企业级规则引擎。",
+    "desc": "Ordo 快速演进——从高性能规则引擎到完整的决策平台。",
     "status_done": "已完成",
     "status_doing": "进行中",
     "status_todo": "计划中"
