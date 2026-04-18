@@ -6,42 +6,57 @@ const t = useTranslations(lang);
 ---
 
 <section class="py-28 relative overflow-hidden reveal">
-  <!-- Blue ambient glow -->
-  <div class="absolute inset-0 -z-10">
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-2/3 opacity-20"
-      style="background: radial-gradient(ellipse, rgba(59,130,246,0.5) 0%, transparent 70%); filter: blur(80px);">
+
+  <!-- Background: faded flow screenshot + glow -->
+  <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+    <img
+      src="/images/flow.png"
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover object-center select-none"
+      style="opacity: 0.04; filter: blur(2px);"
+    />
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, #0d1117 0%, rgba(13,17,23,0.5) 40%, rgba(13,17,23,0.5) 60%, #0d1117 100%);"></div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-2/3"
+      style="background: radial-gradient(ellipse, rgba(59,130,246,0.14) 0%, transparent 70%); filter: blur(60px);">
     </div>
   </div>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Card with gradient border -->
     <div class="relative rounded-[24px] p-[1px]"
-      style="background: linear-gradient(135deg, rgba(59,130,246,0.4), rgba(139,92,246,0.2), rgba(59,130,246,0.1))">
-      <div class="relative bg-[#161b22] rounded-[23px] px-8 py-14 md:px-16 text-center overflow-hidden">
-        <!-- Subtle grid -->
-        <div class="absolute inset-0 bg-[url('/images/grid.svg')] opacity-[0.05] pointer-events-none"></div>
+      style="background: linear-gradient(135deg, rgba(59,130,246,0.45) 0%, rgba(139,92,246,0.25) 50%, rgba(59,130,246,0.15) 100%);">
+      <div class="relative bg-[#0f1419] rounded-[23px] px-8 py-16 md:px-16 text-center overflow-hidden">
+        <!-- Inner dot grid -->
+        <div class="absolute inset-0 pointer-events-none"
+          style="background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);">
+        </div>
         <!-- Inner glow -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 opacity-30 pointer-events-none"
-          style="background: radial-gradient(ellipse, rgba(59,130,246,0.4), transparent 70%); filter: blur(30px);">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-40 pointer-events-none"
+          style="background: radial-gradient(ellipse, rgba(59,130,246,0.28), transparent 70%); filter: blur(30px);">
         </div>
 
-        <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-5 tracking-tight leading-tight relative z-10">
+        <h2 class="relative z-10 font-black text-white tracking-[-0.035em] leading-[1.05] mb-5"
+          style="font-size: clamp(2rem, 5vw, 3.25rem);">
           {t('cta.title')}
         </h2>
-        <p class="text-[#848d97] text-lg mb-10 max-w-xl mx-auto leading-relaxed relative z-10">
+        <p class="relative z-10 text-[#848d97] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
           {t('cta.desc')}
         </p>
 
-        <div class="flex flex-col sm:flex-row justify-center gap-3 relative z-10">
+        <div class="relative z-10 flex flex-col sm:flex-row justify-center gap-3">
           <a
             href="https://github.com/Pama-Lee/Ordo#quick-start"
-            class="px-8 py-3.5 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold rounded-[10px] text-[15px] transition-all shadow-[0_0_24px_rgba(59,130,246,0.3)] hover:shadow-[0_0_32px_rgba(59,130,246,0.45)]"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-8 py-3.5 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold rounded-[10px] text-[15px] transition-all"
+            style="animation: glow-pulse 3s ease-in-out infinite;"
           >
             {t('cta.btn_start')}
           </a>
           <a
             href="https://pama-lee.github.io/Ordo/"
             target="_blank"
+            rel="noopener noreferrer"
             class="px-8 py-3.5 bg-white/[0.06] hover:bg-white/[0.10] text-white font-semibold rounded-[10px] border border-white/[0.10] text-[15px] transition-all"
           >
             {t('cta.btn_playground')}
