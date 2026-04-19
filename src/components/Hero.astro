@@ -9,9 +9,9 @@ const t = useTranslations(lang);
 
   <!-- ── Ambient atmosphere ── -->
   <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
-    <!-- Central blue glow -->
+    <!-- Central warm glow -->
     <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[1100px] h-[760px]"
-      style="background: radial-gradient(ellipse, rgba(125,211,252,0.20) 0%, rgba(59,130,246,0.14) 38%, transparent 70%); filter: blur(80px);">
+      style="background: radial-gradient(ellipse, rgba(251,191,36,0.16) 0%, rgba(251,146,60,0.16) 34%, rgba(245,158,11,0.10) 52%, transparent 72%); filter: blur(82px);">
     </div>
     <!-- Dot grid -->
     <div class="absolute inset-0"
@@ -27,19 +27,19 @@ const t = useTranslations(lang);
   <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center pt-28 pb-16">
 
     <!-- Badge -->
-    <div class="hero-anim-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#3b82f6]/8 border border-[#3b82f6]/20 mb-8">
+    <div class="hero-anim-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#fb923c]/10 border border-[#fb923c]/22 mb-8">
       <span class="relative flex h-1.5 w-1.5">
-        <span class="absolute inset-0 rounded-full bg-[#3b82f6]" style="animation: dot-ping 1.6s ease-out infinite;"></span>
-        <span class="relative h-1.5 w-1.5 rounded-full bg-[#3b82f6]"></span>
+        <span class="absolute inset-0 rounded-full bg-[#fb923c]" style="animation: dot-ping 1.6s ease-out infinite;"></span>
+        <span class="relative h-1.5 w-1.5 rounded-full bg-[#fb923c]"></span>
       </span>
-      <span class="text-[11px] font-semibold text-[#3b82f6] tracking-[0.12em] uppercase font-mono">{t('hero.badge')}</span>
+      <span class="text-[11px] font-semibold text-[#fdba74] tracking-[0.12em] uppercase font-mono">{t('hero.badge')}</span>
     </div>
 
     <!-- Headline -->
     <h1 class="hero-anim-2 font-black text-white leading-[0.92] tracking-[-0.04em] mb-5"
       style="font-size: clamp(2.8rem, 8vw, 5.5rem);">
       <span class="text-[#e6edf3]">{t('hero.title_part1')}</span><br />
-      <span style="background: linear-gradient(110deg, #60a5fa 0%, #3b82f6 40%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      <span style="background: linear-gradient(110deg, #fde68a 0%, #fb923c 36%, #f59e0b 74%, #fdba74 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
         {t('hero.title_part2')}
       </span>
     </h1>
@@ -56,7 +56,7 @@ const t = useTranslations(lang);
         href="https://pama-lee.github.io/Ordo/"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-full sm:w-auto px-8 py-3.5 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold rounded-[10px] text-[15px] transition-all flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-8 py-3.5 bg-[#ea7a22] hover:bg-[#d86a15] text-white font-semibold rounded-[10px] text-[15px] transition-all flex items-center justify-center gap-2"
         style="animation: glow-pulse 3s ease-in-out infinite;"
       >
         {t('hero.cta_playground')}
@@ -79,23 +79,23 @@ const t = useTranslations(lang);
 
     <!-- 4-stat identity strip -->
     <div class="hero-anim-5 flex flex-wrap items-center justify-center gap-2">
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#f97316]/8 border border-[#f97316]/15">
-        <svg class="h-3.5 w-3.5 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#fb923c]/10 border border-[#fb923c]/18">
+        <svg class="h-3.5 w-3.5 text-[#fb923c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#f97316]">{t('hero.stat_engine')}</span>
+        <span class="text-[12px] font-semibold text-[#fdba74]">{t('hero.stat_engine')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#3b82f6]/8 border border-[#3b82f6]/15">
-        <svg class="h-3.5 w-3.5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/18">
+        <svg class="h-3.5 w-3.5 text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#3b82f6]">{t('hero.stat_platform')}</span>
+        <span class="text-[12px] font-semibold text-[#fcd34d]">{t('hero.stat_platform')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#8b5cf6]/8 border border-[#8b5cf6]/15">
-        <svg class="h-3.5 w-3.5 text-[#8b5cf6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#f97316]/10 border border-[#f97316]/18">
+        <svg class="h-3.5 w-3.5 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#8b5cf6]">{t('hero.stat_studio')}</span>
+        <span class="text-[12px] font-semibold text-[#fdba74]">{t('hero.stat_studio')}</span>
       </div>
       <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
         <svg class="h-3.5 w-3.5 text-[#848d97]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -113,7 +113,7 @@ const t = useTranslations(lang);
         border: 1px solid rgba(255,255,255,0.18);
         border-bottom: none;
         box-shadow:
-          0 -24px 80px rgba(125,211,252,0.14),
+          0 -24px 80px rgba(251,146,60,0.12),
           0 -8px 40px rgba(12,18,28,0.32),
           inset 0 1px 0 rgba(255,255,255,0.28);
       ">
@@ -163,13 +163,13 @@ const t = useTranslations(lang);
     </div>
 
     <div class="mt-4 flex items-center justify-center gap-2">
-      <span class="hero-carousel-dot hero-carousel-dot-1 h-1.5 w-8 rounded-full bg-[#3b82f6]/70"></span>
+      <span class="hero-carousel-dot hero-carousel-dot-1 h-1.5 w-8 rounded-full bg-[#fb923c]/70"></span>
       <span class="hero-carousel-dot hero-carousel-dot-2 h-1.5 w-8 rounded-full bg-white/15"></span>
     </div>
 
     <!-- Bottom gradient fade -->
     <div class="absolute bottom-0 left-0 right-0 h-52 pointer-events-none"
-      style="background: linear-gradient(to top, #121926 0%, rgba(18,25,38,0.42) 52%, transparent 100%);">
+      style="background: linear-gradient(to top, #121926 0%, rgba(18,25,38,0.38) 52%, transparent 100%);">
     </div>
   </div>
 
@@ -208,7 +208,7 @@ const t = useTranslations(lang);
 
   @keyframes hero-dot-pulse {
     0%, 45% {
-      background: rgba(59, 130, 246, 0.7);
+      background: rgba(251, 146, 60, 0.7);
     }
     50%, 100% {
       background: rgba(255, 255, 255, 0.15);
