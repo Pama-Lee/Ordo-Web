@@ -76,7 +76,7 @@ const useCases = [
 
     <!-- Section header -->
     <div class="mb-14">
-      <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#545d68] uppercase tracking-[0.12em] mb-3">
+      <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#7f91a8] uppercase tracking-[0.12em] mb-3">
         <div class="h-px w-6 bg-white/20"></div>
         {t('features.title')}
       </div>
@@ -88,8 +88,8 @@ const useCases = [
     <!-- Use cases — large image-first cards -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-16">
       {useCases.map((uc) => (
-        <div class="group relative overflow-hidden rounded-2xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 cursor-default"
-          style={`box-shadow: 0 0 0 0 ${uc.accent}00; transition: box-shadow 0.4s ease;`}>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/[0.12] hover:border-white/[0.22] transition-all duration-500 cursor-default bg-[#182335]/75 backdrop-blur-sm"
+          style={`box-shadow: 0 14px 40px rgba(9,14,23,0.18), 0 0 0 0 ${uc.accent}00; transition: box-shadow 0.4s ease;`}>
 
           <!-- Screenshot - large, takes up most of card -->
           <div class="relative overflow-hidden" style="aspect-ratio: 16/10;">
@@ -97,12 +97,12 @@ const useCases = [
               src={uc.image}
               alt={uc.title}
               class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-              style="opacity: 0.65;"
+              style="opacity: 0.92;"
               loading="lazy"
             />
             <!-- Gradient from bottom -->
             <div class="absolute inset-0"
-              style={`background: linear-gradient(to top, #0d1117 0%, rgba(13,17,23,0.5) 40%, transparent 100%);`}>
+              style={`background: linear-gradient(to top, rgba(24,35,53,0.92) 0%, rgba(24,35,53,0.35) 36%, rgba(24,35,53,0.02) 72%);`}>
             </div>
             <!-- Color accent top bar -->
             <div class="absolute top-0 left-0 right-0 h-[2px]"
@@ -111,9 +111,9 @@ const useCases = [
           </div>
 
           <!-- Caption -->
-          <div class="px-6 py-5 bg-[#0d1117]">
+          <div class="px-6 py-5 bg-[#182335]">
             <h3 class="text-[15px] font-bold text-white mb-1.5 tracking-tight">{uc.title}</h3>
-            <p class="text-[#848d97] text-xs leading-relaxed">{uc.description}</p>
+            <p class="text-[#a8b5c7] text-xs leading-relaxed">{uc.description}</p>
           </div>
         </div>
       ))}
@@ -123,7 +123,7 @@ const useCases = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
       {features.map(f => (
         <div
-          class="group flex items-start gap-4 p-5 rounded-xl bg-[#161b22] border border-white/[0.05] hover:border-white/[0.10] hover:-translate-y-0.5 transition-all duration-200"
+          class="group flex items-start gap-4 p-5 rounded-xl bg-[#1a2433]/95 border border-white/[0.10] hover:border-white/[0.18] hover:-translate-y-0.5 transition-all duration-200 shadow-[0_10px_28px_rgba(9,14,23,0.14)]"
         >
           <div
             class="h-9 w-9 shrink-0 rounded-lg flex items-center justify-center mt-0.5"
@@ -133,7 +133,7 @@ const useCases = [
           </div>
           <div class="min-w-0">
             <h3 class="text-[14px] font-semibold text-white mb-1 tracking-tight">{f.title}</h3>
-            <p class="text-[#848d97] text-[12px] leading-relaxed">{f.description}</p>
+            <p class="text-[#a8b5c7] text-[12px] leading-relaxed">{f.description}</p>
           </div>
         </div>
       ))}

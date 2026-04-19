@@ -77,12 +77,12 @@
     "integration_title": "Runs Everywhere",
     "integration_desc": "Single binary server, browser via WebAssembly, embedded in Rust apps. HTTP REST, gRPC, or Unix socket — one engine for every deployment target.",
     "usecase_title": "Use Cases",
-    "usecase_finance": "Risk & Compliance",
-    "usecase_finance_desc": "Credit scoring, fraud detection, KYC checks, and regulatory policy — rules your compliance team can actually read and approve.",
-    "usecase_ecommerce": "Pricing & Promotions",
-    "usecase_ecommerce_desc": "Dynamic pricing, discount eligibility, and campaign logic — change rules without a deploy.",
-    "usecase_routing": "Routing & Assignment",
-    "usecase_routing_desc": "Order routing, payment channel selection, and load decisions driven by real-time data."
+    "usecase_finance": "Decision Tables",
+    "usecase_finance_desc": "Handle routing matrices, approval policies, and result fields in a table view that operators can review without reading raw JSON.",
+    "usecase_ecommerce": "Template Marketplace",
+    "usecase_ecommerce_desc": "Start from built-in or GitHub templates, inspect the sample, and create a project from a proven ruleset in a few clicks.",
+    "usecase_routing": "Server Visibility",
+    "usecase_routing_desc": "Inspect registered engines, health, and metrics inline so the team can see where rules are running before shipping changes."
   },
   "code": {
     "title": "Easy to Define, Seconds to Execute",
@@ -95,19 +95,19 @@
     "step3_desc": "Detailed execution path tracing"
   },
   "editor": {
-    "title": "Intuitive Visual Editor",
-    "desc": "Design complex decision flows without writing code. Ordo provides a powerful visual editor with real-time preview and debugging.",
+    "title": "Template-First Studio",
+    "desc": "Browse ready-made examples from the marketplace, create a project from the right template, and keep tests close while you adapt it.",
     "sidebar_steps": "Decision Steps",
     "sidebar_decision": "Decision Node",
     "sidebar_terminal": "Terminal Node",
     "sidebar_jump": "Jump Node",
     "sidebar_config": "Rule Config",
     "cta_playground": "Try in Live Playground",
-    "view_multi": "Multi-view Switching",
+    "view_multi": "Built-in and GitHub templates",
     "view_multi_desc": "Seamlessly switch between Flow and Form views to fit different editing habits.",
-    "view_wasm": "Real-time Execution",
+    "view_wasm": "Project creation from a sample",
     "view_wasm_desc": "Get identical results to server-side execution instantly in browser using WASM.",
-    "view_trace": "Execution Path Tracing",
+    "view_trace": "Context, tests, and setup together",
     "view_trace_desc": "Visually trace every node in rule execution to make debugging effortless."
   },
   "cta": {
