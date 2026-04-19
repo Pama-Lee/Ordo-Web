@@ -106,7 +106,7 @@ const t = useTranslations(lang);
     </div>
   </div>
 
-  <!-- ── Product screenshot — the cinematic centerpiece ── -->
+  <!-- ── Product screenshot carousel — the cinematic centerpiece ── -->
   <div class="hero-anim-6 relative px-3 sm:px-6 lg:px-10 max-w-[1440px] mx-auto">
     <div class="relative rounded-t-2xl overflow-hidden"
       style="
@@ -143,14 +143,28 @@ const t = useTranslations(lang);
         </div>
       </div>
 
-      <!-- Screenshot -->
-      <img
-        src="/images/main.png"
-        alt="Ordo Studio — Visual Rule Editor"
-        class="w-full block select-none"
-        loading="eager"
-        draggable="false"
-      />
+      <!-- Screenshot carousel -->
+      <div class="relative aspect-[3474/1924] bg-[#f5f1e8]">
+        <img
+          src="/images/screenshots/image1.png"
+          alt="Ordo Studio — API Gateway Routing flow view"
+          class="hero-carousel-slide hero-carousel-slide-1 absolute inset-0 h-full w-full block select-none object-cover object-top"
+          loading="eager"
+          draggable="false"
+        />
+        <img
+          src="/images/screenshots/image2.png"
+          alt="Ordo Studio — API Gateway Routing decision table"
+          class="hero-carousel-slide hero-carousel-slide-2 absolute inset-0 h-full w-full block select-none object-cover object-top"
+          loading="eager"
+          draggable="false"
+        />
+      </div>
+    </div>
+
+    <div class="mt-4 flex items-center justify-center gap-2">
+      <span class="hero-carousel-dot hero-carousel-dot-1 h-1.5 w-8 rounded-full bg-[#3b82f6]/70"></span>
+      <span class="hero-carousel-dot hero-carousel-dot-2 h-1.5 w-8 rounded-full bg-white/15"></span>
     </div>
 
     <!-- Bottom gradient fade -->
@@ -160,3 +174,44 @@ const t = useTranslations(lang);
   </div>
 
 </div>
+
+<style>
+  .hero-carousel-slide {
+    opacity: 0;
+    animation: hero-carousel-fade 10s ease-in-out infinite;
+  }
+
+  .hero-carousel-slide-1 {
+    opacity: 1;
+  }
+
+  .hero-carousel-slide-2 {
+    animation-delay: 5s;
+  }
+
+  .hero-carousel-dot {
+    animation: hero-dot-pulse 10s ease-in-out infinite;
+  }
+
+  .hero-carousel-dot-2 {
+    animation-delay: 5s;
+  }
+
+  @keyframes hero-carousel-fade {
+    0%, 45% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-dot-pulse {
+    0%, 45% {
+      background: rgba(59, 130, 246, 0.7);
+    }
+    50%, 100% {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+ </style>
