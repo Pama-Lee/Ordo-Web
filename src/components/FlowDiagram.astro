@@ -20,25 +20,25 @@ const t = useTranslations(lang);
     <div class="mb-10">
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#545d68] uppercase tracking-[0.12em] mb-3">
+          <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#7f91a8] uppercase tracking-[0.12em] mb-3">
             <div class="h-px w-6 bg-white/20"></div>
-            Architecture
+            Workspace
           </div>
           <h2 class="text-3xl md:text-[2.5rem] font-black text-white tracking-[-0.03em] leading-tight">
-            One Platform.<br class="sm:hidden" /> Three Layers.
+            Projects, Rules, and Tests.<br class="sm:hidden" /> In One Workspace.
           </h2>
         </div>
         <!-- Layer pills -->
         <div class="flex items-center gap-2 shrink-0">
-          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-[#3b82f6] bg-[#3b82f6]/8 border border-[#3b82f6]/20">Platform</span>
+          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-[#60a5fa] bg-[#60a5fa]/12 border border-[#60a5fa]/28">Projects</span>
           <svg class="h-3 w-3 text-[#545d68]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-[#8b5cf6] bg-[#8b5cf6]/8 border border-[#8b5cf6]/20">Studio</span>
+          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-[#8b5cf6] bg-[#8b5cf6]/12 border border-[#8b5cf6]/28">Rules</span>
           <svg class="h-3 w-3 text-[#545d68]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-[#f97316] bg-[#f97316]/8 border border-[#f97316]/20">Engine</span>
+          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-[#f97316] bg-[#f97316]/12 border border-[#f97316]/28">Tests</span>
         </div>
       </div>
     </div>
@@ -46,27 +46,27 @@ const t = useTranslations(lang);
     <!-- Large flow screenshot — the architecture IS the story -->
     <div class="relative rounded-2xl overflow-hidden"
       style="
-        border: 1px solid rgba(255,255,255,0.07);
-        box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.16);
+        box-shadow: 0 24px 80px rgba(8,12,20,0.34), 0 0 0 1px rgba(255,255,255,0.08);
       ">
 
       <!-- Window chrome -->
-      <div class="flex items-center gap-3 px-5 py-3 bg-[#0d1117] border-b border-white/[0.06]">
+      <div class="flex items-center gap-3 px-5 py-3 bg-[#f4efe6] border-b border-[#e6ddce]">
         <div class="flex gap-1.5">
           <div class="w-2.5 h-2.5 rounded-full bg-white/[0.12]"></div>
           <div class="w-2.5 h-2.5 rounded-full bg-white/[0.12]"></div>
           <div class="w-2.5 h-2.5 rounded-full bg-white/[0.12]"></div>
         </div>
         <div class="flex gap-2 ml-2 overflow-x-auto scrollbar-hide">
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#3b82f6]/10 border border-[#3b82f6]/20 shrink-0">
-            <div class="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></div>
-            <span class="text-[10px] font-mono text-[#3b82f6]">api_gateway_routing</span>
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#60a5fa]/12 border border-[#60a5fa]/25 shrink-0">
+            <div class="w-1.5 h-1.5 rounded-full bg-[#60a5fa]"></div>
+            <span class="text-[10px] font-mono text-[#3b82f6]">API Gateway Routing</span>
           </div>
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] shrink-0">
-            <span class="text-[10px] font-mono text-[#545d68]">rules</span>
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white border border-[#e7ded0] shrink-0">
+            <span class="text-[10px] font-mono text-[#8b7b67]">Rules</span>
           </div>
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] shrink-0">
-            <span class="text-[10px] font-mono text-[#545d68]">tests</span>
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white border border-[#e7ded0] shrink-0">
+            <span class="text-[10px] font-mono text-[#8b7b67]">Tests</span>
           </div>
         </div>
       </div>
@@ -81,55 +81,55 @@ const t = useTranslations(lang);
       />
 
       <!-- Bottom status bar hint -->
-      <div class="flex items-center justify-between px-5 py-2.5 bg-[#0d1117] border-t border-white/[0.06]">
+      <div class="flex items-center justify-between px-5 py-2.5 bg-[#f4efe6] border-t border-[#e6ddce]">
         <div class="flex items-center gap-3">
-          <span class="flex items-center gap-1.5 text-[10px] font-mono text-[#22c55e]">
+          <span class="flex items-center gap-1.5 text-[10px] font-mono text-[#3f8f52]">
             <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
             Ready
           </span>
-          <span class="text-[10px] font-mono text-[#545d68]">7 steps · Mode: Flow</span>
+          <span class="text-[10px] font-mono text-[#8b7b67]">7 steps · Rules + tests side by side</span>
         </div>
-        <div class="flex items-center gap-3 text-[10px] font-mono text-[#545d68]">
-          <span>WASM</span>
-          <span class="text-[#3b82f6]">Auto Layout</span>
-          <span class="px-2 py-0.5 rounded bg-[#22c55e]/15 text-[#22c55e] font-semibold">ROUTE_ASSIGNED</span>
+        <div class="flex items-center gap-3 text-[10px] font-mono text-[#8b7b67]">
+          <span>Flow view</span>
+          <span class="text-[#3b82f6]">Project context</span>
+          <span class="px-2 py-0.5 rounded bg-[#22c55e]/12 text-[#2d7a41] font-semibold">5 TESTS PASSING</span>
         </div>
       </div>
     </div>
 
     <!-- 3 concise layer summaries below the screenshot -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-      <div class="flex items-start gap-3 px-5 py-4 rounded-xl bg-[#161b22] border border-[#3b82f6]/15">
+      <div class="flex items-start gap-3 px-5 py-4 rounded-xl bg-[#192436] border border-[#60a5fa]/18">
         <div class="h-8 w-8 shrink-0 rounded-lg bg-[#3b82f6]/10 border border-[#3b82f6]/20 flex items-center justify-center">
           <svg class="h-4 w-4 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
           </svg>
         </div>
         <div>
-          <div class="text-[10px] font-mono font-semibold text-[#3b82f6] uppercase tracking-widest mb-0.5">Platform</div>
-          <p class="text-xs text-[#848d97] leading-relaxed">Governance, fact catalog, version history, typed contracts.</p>
+          <div class="text-[10px] font-mono font-semibold text-[#60a5fa] uppercase tracking-widest mb-0.5">Projects</div>
+          <p class="text-xs text-[#a8b5c7] leading-relaxed">Keep org, team, and project context visible while you edit a ruleset.</p>
         </div>
       </div>
-      <div class="flex items-start gap-3 px-5 py-4 rounded-xl bg-[#161b22] border border-[#8b5cf6]/15">
+      <div class="flex items-start gap-3 px-5 py-4 rounded-xl bg-[#192436] border border-[#8b5cf6]/18">
         <div class="h-8 w-8 shrink-0 rounded-lg bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 flex items-center justify-center">
           <svg class="h-4 w-4 text-[#8b5cf6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343" />
           </svg>
         </div>
         <div>
-          <div class="text-[10px] font-mono font-semibold text-[#8b5cf6] uppercase tracking-widest mb-0.5">Studio</div>
-          <p class="text-xs text-[#848d97] leading-relaxed">Visual flow editor, decision tables, test runner, WASM preview.</p>
+          <div class="text-[10px] font-mono font-semibold text-[#8b5cf6] uppercase tracking-widest mb-0.5">Rules</div>
+          <p class="text-xs text-[#a8b5c7] leading-relaxed">Switch between rule files and author branching logic visually in the canvas.</p>
         </div>
       </div>
-      <div class="flex items-start gap-3 px-5 py-4 rounded-xl bg-[#161b22] border border-[#f97316]/15">
+      <div class="flex items-start gap-3 px-5 py-4 rounded-xl bg-[#192436] border border-[#f97316]/18">
         <div class="h-8 w-8 shrink-0 rounded-lg bg-[#f97316]/10 border border-[#f97316]/20 flex items-center justify-center">
           <svg class="h-4 w-4 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
         <div>
-          <div class="text-[10px] font-mono font-semibold text-[#f97316] uppercase tracking-widest mb-0.5">Engine</div>
-          <p class="text-xs text-[#848d97] leading-relaxed">HTTP · gRPC · WASM · CLI. Cranelift JIT. Single binary.</p>
+          <div class="text-[10px] font-mono font-semibold text-[#f97316] uppercase tracking-widest mb-0.5">Tests</div>
+          <p class="text-xs text-[#a8b5c7] leading-relaxed">Validate expected outputs without leaving the workspace or opening another tool.</p>
         </div>
       </div>
     </div>

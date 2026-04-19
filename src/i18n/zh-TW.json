@@ -77,12 +77,12 @@
     "integration_title": "隨處執行",
     "integration_desc": "單一二進位伺服器、瀏覽器端 WebAssembly、嵌入式 Rust 整合。HTTP REST、gRPC 或 Unix socket——同一個引擎覆蓋所有部署場景。",
     "usecase_title": "應用場景",
-    "usecase_finance": "風控與合規",
-    "usecase_finance_desc": "信用評分、反欺詐、KYC 校驗、監管政策——合規團隊能直接讀懂並審批的規則。",
-    "usecase_ecommerce": "定價與促銷",
-    "usecase_ecommerce_desc": "動態定價、折扣資格、活動邏輯——無需部署即可修改規則。",
-    "usecase_routing": "路由與分配",
-    "usecase_routing_desc": "訂單路由、支付通道選擇、基於實時數據的流量決策。"
+    "usecase_finance": "決策表視圖",
+    "usecase_finance_desc": "把路由矩陣、審批策略和結果欄位放進表格裡，讓業務與營運無需閱讀原始 JSON 也能審查規則。",
+    "usecase_ecommerce": "模板市集",
+    "usecase_ecommerce_desc": "從內建模板或 GitHub 模板市集挑選合適示例，先看樣例，再一鍵建立專案開始調整。",
+    "usecase_routing": "服務可見性",
+    "usecase_routing_desc": "直接查看已註冊引擎、健康狀態與指標，讓團隊在發佈規則前先確認執行環境。"
   },
   "code": {
     "title": "定義簡單，執行極速",
@@ -95,19 +95,19 @@
     "step3_desc": "詳細的執行路徑追蹤"
   },
   "editor": {
-    "title": "直觀的可視化編輯器",
-    "desc": "無需編寫代碼即可設計複雜的決策流程。Ordo 提供強大的可視化編輯器，支持實時預覽和調試。",
+    "title": "模板優先的 Studio",
+    "desc": "先從模板市集挑一個貼近業務的示例，再基於它建立專案；測試、上下文和配置都能在同一處看到。",
     "sidebar_steps": "決策步驟",
     "sidebar_decision": "決策節點",
     "sidebar_terminal": "終結節點",
     "sidebar_jump": "跳轉節點",
     "sidebar_config": "規則配置",
     "cta_playground": "試用在線演示",
-    "view_multi": "多視圖切換",
+    "view_multi": "內建模板與 GitHub 模板",
     "view_multi_desc": "無縫切換流程圖和表單視圖，適應不同編輯習慣。",
-    "view_wasm": "實時執行",
+    "view_wasm": "從示例直接建立專案",
     "view_wasm_desc": "使用 WASM 在瀏覽器中獲得與服務端完全一致的執行結果。",
-    "view_trace": "執行路徑追蹤",
+    "view_trace": "上下文、測試與配置同屏",
     "view_trace_desc": "可視化追蹤規則執行的每一個節點，讓調試變得輕鬆自如。"
   },
   "cta": {

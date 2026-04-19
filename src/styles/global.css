@@ -2,9 +2,9 @@
 
 @theme {
   /* Background layers */
-  --color-bg:       #0d1117;
-  --color-surface:  #161b22;
-  --color-elevated: #1c2128;
+  --color-bg:       #121926;
+  --color-surface:  #1a2433;
+  --color-elevated: #243246;
 
   /* Brand palette */
   --color-brand:       #3b82f6;
@@ -16,12 +16,12 @@
 
   /* Text */
   --color-text-primary:   #e6edf3;
-  --color-text-secondary: #848d97;
-  --color-text-tertiary:  #545d68;
+  --color-text-secondary: #9aa8bc;
+  --color-text-tertiary:  #72829a;
 
   /* Borders */
-  --color-border-subtle:  rgba(255,255,255,0.06);
-  --color-border-default: rgba(255,255,255,0.12);
+  --color-border-subtle:  rgba(255,255,255,0.10);
+  --color-border-default: rgba(255,255,255,0.18);
 
   /* Semantic */
   --color-success: #22c55e;
@@ -62,10 +62,16 @@
 @layer base {
   body {
     background-color: var(--color-bg);
+    background-image:
+      radial-gradient(circle at top center, rgba(125, 211, 252, 0.18), transparent 28%),
+      radial-gradient(circle at 15% 8%, rgba(255, 255, 255, 0.08), transparent 20%),
+      radial-gradient(circle at 85% 12%, rgba(96, 165, 250, 0.14), transparent 24%),
+      linear-gradient(180deg, #182233 0%, #131c2a 28%, #121926 100%);
     color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
