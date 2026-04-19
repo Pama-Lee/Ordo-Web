@@ -6,40 +6,17 @@ const t = useTranslations(lang);
 ---
 
 <section class="py-28 relative overflow-hidden reveal">
-
-  <!-- Background: faded flow screenshot + glow -->
-  <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
-    <img
-      src="/images/screenshots/servers.png"
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover object-center select-none"
-      style="opacity: 0.08; filter: blur(1px);"
-    />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, #121926 0%, rgba(18,25,38,0.54) 36%, rgba(18,25,38,0.58) 68%, #121926 100%);"></div>
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-2/3"
-      style="background: radial-gradient(ellipse, rgba(125,211,252,0.18) 0%, transparent 70%); filter: blur(60px);">
-    </div>
-  </div>
-
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Card with gradient border -->
+    <!-- Card -->
     <div class="relative rounded-[24px] p-[1px]"
-      style="background: linear-gradient(135deg, rgba(59,130,246,0.45) 0%, rgba(139,92,246,0.25) 50%, rgba(59,130,246,0.15) 100%);">
-      <div class="relative bg-[#182335] rounded-[23px] px-8 py-16 md:px-16 text-center overflow-hidden shadow-[0_24px_80px_rgba(8,12,20,0.22)]">
-        <!-- Inner dot grid -->
-        <div class="absolute inset-0 pointer-events-none"
-          style="background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);">
-        </div>
-        <!-- Inner glow -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-40 pointer-events-none"
-          style="background: radial-gradient(ellipse, rgba(59,130,246,0.28), transparent 70%); filter: blur(30px);">
-        </div>
+      style="background: linear-gradient(135deg, rgba(212,135,77,0.3) 0%, rgba(124,107,90,0.15) 50%, rgba(90,143,123,0.2) 100%);">
+      <div class="relative bg-white rounded-[23px] px-8 py-16 md:px-16 text-center overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
 
-        <h2 class="relative z-10 font-black text-white tracking-[-0.035em] leading-[1.05] mb-5"
+        <h2 class="relative z-10 font-black text-[#2D2A26] tracking-[-0.035em] leading-[1.05] mb-5"
           style="font-size: clamp(2rem, 5vw, 3.25rem);">
           {t('cta.title')}
         </h2>
-        <p class="relative z-10 text-[#a8b5c7] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
+        <p class="relative z-10 text-[#6B6560] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
           {t('cta.desc')}
         </p>
 
@@ -48,7 +25,7 @@ const t = useTranslations(lang);
             href="https://github.com/Pama-Lee/Ordo#quick-start"
             target="_blank"
             rel="noopener noreferrer"
-            class="px-8 py-3.5 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold rounded-[10px] text-[15px] transition-all"
+            class="px-8 py-3.5 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[15px] transition-all"
             style="animation: glow-pulse 3s ease-in-out infinite;"
           >
             {t('cta.btn_start')}
@@ -57,7 +34,7 @@ const t = useTranslations(lang);
             href="https://pama-lee.github.io/Ordo/"
             target="_blank"
             rel="noopener noreferrer"
-            class="px-8 py-3.5 bg-white/[0.06] hover:bg-white/[0.10] text-white font-semibold rounded-[10px] border border-white/[0.10] text-[15px] transition-all"
+            class="px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#2D2A26] font-semibold rounded-xl border border-black/[0.08] text-[15px] transition-all"
           >
             {t('cta.btn_playground')}
           </a>

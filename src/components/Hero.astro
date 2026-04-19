@@ -7,28 +7,10 @@ const t = useTranslations(lang);
 
 <div class="relative overflow-hidden">
 
-  <!-- ── Ambient atmosphere ── -->
+  <!-- ── Subtle warm ambient ── -->
   <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
-    <!-- Soft top gradient wash -->
-    <div class="absolute inset-x-0 top-0 h-[560px]"
-      style="background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(96,165,250,0.03) 18%, rgba(251,146,60,0.04) 40%, rgba(18,25,38,0) 100%);">
-    </div>
-    <div class="absolute -top-28 left-1/2 -translate-x-1/2 w-[1200px] h-[620px]"
-      style="background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, rgba(96,165,250,0.04) 28%, rgba(251,146,60,0.05) 50%, transparent 76%); filter: blur(96px);">
-    </div>
-    <div class="absolute top-16 left-[10%] w-[340px] h-[340px]"
-      style="background: radial-gradient(circle, rgba(96,165,250,0.07) 0%, transparent 72%); filter: blur(60px);">
-    </div>
-    <div class="absolute top-10 right-[8%] w-[380px] h-[380px]"
-      style="background: radial-gradient(circle, rgba(251,146,60,0.08) 0%, transparent 74%); filter: blur(64px);">
-    </div>
-    <!-- Dot grid -->
-    <div class="absolute inset-0"
-      style="
-        background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-        background-size: 48px 48px;
-        mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
-      ">
+    <div class="absolute -top-28 left-1/2 -translate-x-1/2 w-[900px] h-[500px]"
+      style="background: radial-gradient(ellipse, rgba(212,135,77,0.06) 0%, rgba(245,241,234,0.04) 50%, transparent 76%); filter: blur(80px);">
     </div>
   </div>
 
@@ -36,25 +18,25 @@ const t = useTranslations(lang);
   <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center pt-28 pb-16">
 
     <!-- Badge -->
-    <div class="hero-anim-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.10] mb-8">
+    <div class="hero-anim-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#D4874D]/8 border border-[#D4874D]/15 mb-8">
       <span class="relative flex h-1.5 w-1.5">
-        <span class="absolute inset-0 rounded-full bg-[#fb923c]" style="animation: dot-ping 1.6s ease-out infinite;"></span>
-        <span class="relative h-1.5 w-1.5 rounded-full bg-[#fb923c]"></span>
+        <span class="absolute inset-0 rounded-full bg-[#D4874D]" style="animation: dot-ping 1.6s ease-out infinite;"></span>
+        <span class="relative h-1.5 w-1.5 rounded-full bg-[#D4874D]"></span>
       </span>
-      <span class="text-[11px] font-semibold text-[#fdba74] tracking-[0.12em] uppercase font-mono">{t('hero.badge')}</span>
+      <span class="text-[11px] font-semibold text-[#B86E35] tracking-[0.12em] uppercase font-mono">{t('hero.badge')}</span>
     </div>
 
     <!-- Headline -->
-    <h1 class="hero-anim-2 font-black text-white leading-[0.92] tracking-[-0.04em] mb-5"
+    <h1 class="hero-anim-2 font-black text-[#2D2A26] leading-[0.92] tracking-[-0.04em] mb-5"
       style="font-size: clamp(2.8rem, 8vw, 5.5rem);">
-      <span class="text-[#e6edf3]">{t('hero.title_part1')}</span><br />
-      <span style="background: linear-gradient(115deg, #fff7e6 0%, #fbd38d 28%, #fb923c 62%, #f59e0b 88%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      <span>{t('hero.title_part1')}</span><br />
+      <span style="background: linear-gradient(115deg, #D4874D 0%, #B86E35 50%, #9C5A2A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
         {t('hero.title_part2')}
       </span>
     </h1>
 
     <!-- Subtitle -->
-    <p class="hero-anim-3 text-[#a7b4c8] max-w-2xl mx-auto mb-10 leading-relaxed"
+    <p class="hero-anim-3 text-[#6B6560] max-w-2xl mx-auto mb-10 leading-relaxed"
       style="font-size: clamp(0.95rem, 2vw, 1.1rem);">
       {t('hero.subtitle')}
     </p>
@@ -65,7 +47,7 @@ const t = useTranslations(lang);
         href="https://pama-lee.github.io/Ordo/"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-full sm:w-auto px-8 py-3.5 bg-[#e88931] hover:bg-[#d8771f] text-white font-semibold rounded-[10px] text-[15px] transition-all flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-8 py-3.5 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[15px] transition-all flex items-center justify-center gap-2"
         style="animation: glow-pulse 3s ease-in-out infinite;"
       >
         {t('hero.cta_playground')}
@@ -77,7 +59,7 @@ const t = useTranslations(lang);
         href="https://github.com/Pama-Lee/Ordo"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-full sm:w-auto px-8 py-3.5 bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.16] text-[#eef6ff] font-semibold rounded-[10px] text-[15px] transition-all flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] border border-black/[0.10] text-[#2D2A26] font-semibold rounded-xl text-[15px] transition-all flex items-center justify-center gap-2"
       >
         {t('hero.cta_github')}
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -88,46 +70,44 @@ const t = useTranslations(lang);
 
     <!-- 4-stat identity strip -->
     <div class="hero-anim-5 flex flex-wrap items-center justify-center gap-2">
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
-        <svg class="h-3.5 w-3.5 text-[#fb923c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-black/[0.03] border border-black/[0.06]">
+        <svg class="h-3.5 w-3.5 text-[#D4874D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#fdba74]">{t('hero.stat_engine')}</span>
+        <span class="text-[12px] font-semibold text-[#6B6560]">{t('hero.stat_engine')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
-        <svg class="h-3.5 w-3.5 text-[#7dd3fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-black/[0.03] border border-black/[0.06]">
+        <svg class="h-3.5 w-3.5 text-[#7C6B5A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#c5d5e8]">{t('hero.stat_platform')}</span>
+        <span class="text-[12px] font-semibold text-[#6B6560]">{t('hero.stat_platform')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
-        <svg class="h-3.5 w-3.5 text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-black/[0.03] border border-black/[0.06]">
+        <svg class="h-3.5 w-3.5 text-[#D4874D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#fcd34d]">{t('hero.stat_studio')}</span>
+        <span class="text-[12px] font-semibold text-[#6B6560]">{t('hero.stat_studio')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
-        <svg class="h-3.5 w-3.5 text-[#848d97]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-black/[0.03] border border-black/[0.06]">
+        <svg class="h-3.5 w-3.5 text-[#9C9590]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#848d97]">{t('hero.stat_license')}</span>
+        <span class="text-[12px] font-semibold text-[#9C9590]">{t('hero.stat_license')}</span>
       </div>
     </div>
   </div>
 
-  <!-- ── Product screenshot carousel — the cinematic centerpiece ── -->
+  <!-- ── Product screenshot ── -->
   <div class="hero-anim-6 relative px-3 sm:px-6 lg:px-10 max-w-[1440px] mx-auto">
-    <div class="relative rounded-t-2xl overflow-hidden"
+    <div class="relative rounded-2xl overflow-hidden"
       style="
-        border: 1px solid rgba(255,255,255,0.18);
-        border-bottom: none;
+        border: 1px solid rgba(0,0,0,0.10);
         box-shadow:
-          0 -24px 80px rgba(251,146,60,0.12),
-          0 -8px 40px rgba(12,18,28,0.32),
-          inset 0 1px 0 rgba(255,255,255,0.28);
+          0 24px 80px rgba(0,0,0,0.08),
+          0 8px 32px rgba(0,0,0,0.04);
       ">
 
-      <!-- Browser chrome -->
+      <!-- Browser chrome — matching product style -->
       <div class="flex items-center gap-3 px-5 py-3 bg-[#f4efe6] border-b border-[#e6ddce]">
         <div class="flex gap-1.5 shrink-0">
           <div class="w-3 h-3 rounded-full bg-[#ff5f56]/70"></div>
@@ -172,13 +152,13 @@ const t = useTranslations(lang);
     </div>
 
     <div class="mt-4 flex items-center justify-center gap-2">
-      <span class="hero-carousel-dot hero-carousel-dot-1 h-1.5 w-8 rounded-full bg-[#fb923c]/70"></span>
-      <span class="hero-carousel-dot hero-carousel-dot-2 h-1.5 w-8 rounded-full bg-white/15"></span>
+      <span class="hero-carousel-dot hero-carousel-dot-1 h-1.5 w-8 rounded-full bg-[#D4874D]/60"></span>
+      <span class="hero-carousel-dot hero-carousel-dot-2 h-1.5 w-8 rounded-full bg-black/10"></span>
     </div>
 
     <!-- Bottom gradient fade -->
-    <div class="absolute bottom-0 left-0 right-0 h-52 pointer-events-none"
-      style="background: linear-gradient(to top, #121926 0%, rgba(18,25,38,0.38) 52%, transparent 100%);">
+    <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+      style="background: linear-gradient(to top, #FAF8F5 0%, rgba(250,248,245,0.4) 52%, transparent 100%);">
     </div>
   </div>
 
@@ -217,10 +197,10 @@ const t = useTranslations(lang);
 
   @keyframes hero-dot-pulse {
     0%, 45% {
-      background: rgba(251, 146, 60, 0.7);
+      background: rgba(212, 135, 77, 0.6);
     }
     50%, 100% {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.1);
     }
   }
  </style>
