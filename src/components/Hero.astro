@@ -11,16 +11,16 @@ const t = useTranslations(lang);
   <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
     <!-- Soft top gradient wash -->
     <div class="absolute inset-x-0 top-0 h-[560px]"
-      style="background: linear-gradient(180deg, rgba(255,244,214,0.06) 0%, rgba(251,191,36,0.04) 20%, rgba(249,115,22,0.08) 42%, rgba(18,25,38,0) 100%);">
+      style="background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(96,165,250,0.03) 18%, rgba(251,146,60,0.04) 40%, rgba(18,25,38,0) 100%);">
     </div>
     <div class="absolute -top-28 left-1/2 -translate-x-1/2 w-[1200px] h-[620px]"
-      style="background: radial-gradient(ellipse, rgba(255,245,224,0.10) 0%, rgba(251,191,36,0.08) 26%, rgba(249,115,22,0.08) 48%, transparent 74%); filter: blur(92px);">
+      style="background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, rgba(96,165,250,0.04) 28%, rgba(251,146,60,0.05) 50%, transparent 76%); filter: blur(96px);">
     </div>
     <div class="absolute top-16 left-[10%] w-[340px] h-[340px]"
-      style="background: radial-gradient(circle, rgba(251,191,36,0.10) 0%, transparent 72%); filter: blur(60px);">
+      style="background: radial-gradient(circle, rgba(96,165,250,0.07) 0%, transparent 72%); filter: blur(60px);">
     </div>
     <div class="absolute top-10 right-[8%] w-[380px] h-[380px]"
-      style="background: radial-gradient(circle, rgba(249,115,22,0.10) 0%, transparent 74%); filter: blur(64px);">
+      style="background: radial-gradient(circle, rgba(251,146,60,0.08) 0%, transparent 74%); filter: blur(64px);">
     </div>
     <!-- Dot grid -->
     <div class="absolute inset-0"
@@ -36,19 +36,19 @@ const t = useTranslations(lang);
   <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center pt-28 pb-16">
 
     <!-- Badge -->
-    <div class="hero-anim-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/18 mb-8">
+    <div class="hero-anim-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.10] mb-8">
       <span class="relative flex h-1.5 w-1.5">
         <span class="absolute inset-0 rounded-full bg-[#fb923c]" style="animation: dot-ping 1.6s ease-out infinite;"></span>
         <span class="relative h-1.5 w-1.5 rounded-full bg-[#fb923c]"></span>
       </span>
-      <span class="text-[11px] font-semibold text-[#fcd34d] tracking-[0.12em] uppercase font-mono">{t('hero.badge')}</span>
+      <span class="text-[11px] font-semibold text-[#fdba74] tracking-[0.12em] uppercase font-mono">{t('hero.badge')}</span>
     </div>
 
     <!-- Headline -->
     <h1 class="hero-anim-2 font-black text-white leading-[0.92] tracking-[-0.04em] mb-5"
       style="font-size: clamp(2.8rem, 8vw, 5.5rem);">
       <span class="text-[#e6edf3]">{t('hero.title_part1')}</span><br />
-      <span style="background: linear-gradient(115deg, #fff2cf 0%, #fcd34d 20%, #fb923c 58%, #f59e0b 82%, #fcd9aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      <span style="background: linear-gradient(115deg, #fff7e6 0%, #fbd38d 28%, #fb923c 62%, #f59e0b 88%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
         {t('hero.title_part2')}
       </span>
     </h1>
@@ -88,19 +88,19 @@ const t = useTranslations(lang);
 
     <!-- 4-stat identity strip -->
     <div class="hero-anim-5 flex flex-wrap items-center justify-center gap-2">
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#fb923c]/10 border border-[#fb923c]/16">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
         <svg class="h-3.5 w-3.5 text-[#fb923c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
         <span class="text-[12px] font-semibold text-[#fdba74]">{t('hero.stat_engine')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#fcd34d]/10 border border-[#fcd34d]/16">
-        <svg class="h-3.5 w-3.5 text-[#fcd34d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
+        <svg class="h-3.5 w-3.5 text-[#7dd3fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#fde68a]">{t('hero.stat_platform')}</span>
+        <span class="text-[12px] font-semibold text-[#c5d5e8]">{t('hero.stat_platform')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/16">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08]">
         <svg class="h-3.5 w-3.5 text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828" />
         </svg>
