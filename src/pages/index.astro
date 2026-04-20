@@ -3,14 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import FlowDiagram from '../components/FlowDiagram.astro';
-import PerformanceShowcase from '../components/PerformanceShowcase.astro';
 import Features from '../components/Features.astro';
 import QuickStart from '../components/QuickStart.astro';
-import ExpressionSyntax from '../components/ExpressionSyntax.astro';
-import IntegrationShowcase from '../components/IntegrationShowcase.astro';
-import CodeShowcase from '../components/CodeShowcase.astro';
 import EditorPreview from '../components/EditorPreview.astro';
-import Roadmap from '../components/Roadmap.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
@@ -26,7 +21,6 @@ const t = useTranslations(lang);
 		<FlowDiagram />
 		<Features />
 		<EditorPreview />
-		<CodeShowcase />
 		<QuickStart />
 		<CTA />
 	</main>

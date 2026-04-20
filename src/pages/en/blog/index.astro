@@ -1,0 +1,72 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return !data.draft && data.lang === lang;
+});
+
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const dateLocale = lang === 'en' ? 'en-US' : lang === 'zh-TW' ? 'zh-TW' : 'zh-CN';
+const emptyText = lang === 'en' ? 'No posts yet' : lang === 'zh-TW' ? '暫無文章' : '暂无文章';
+---
+
+<Layout title={t('nav.blog')}>
+  <Navbar />
+  <main class="grow pt-24">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+      <h1 class="text-4xl md:text-5xl font-black text-[#2D2A26] tracking-[-0.03em] mb-4">{t('nav.blog')}</h1>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <div class="space-y-1">
+        {posts.map((post) => (
+          <a
+            href={`/en/blog/${post.id}`}
+            class="group block py-6 border-b border-black/[0.06] hover:bg-black/[0.015] -mx-4 px-4 rounded-lg transition-colors"
+          >
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+              <div class="flex-1 min-w-0">
+                <h2 class="text-lg font-bold text-[#2D2A26] group-hover:text-[#D4874D] transition-colors tracking-tight mb-1.5">
+                  {post.data.title}
+                </h2>
+                <p class="text-[#6B6560] text-sm leading-relaxed line-clamp-2">
+                  {post.data.description}
+                </p>
+                <div class="flex items-center gap-3 mt-3">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="text-[11px] font-mono font-medium text-[#9C9590] bg-black/[0.04] px-2 py-0.5 rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div class="sm:text-right shrink-0 sm:ml-8">
+                <time class="text-sm text-[#9C9590] font-mono" datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <div class="text-xs text-[#9C9590] mt-1">{post.data.author}</div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-20">
+          <p class="text-[#9C9590] text-lg">{emptyText}</p>
+        </div>
+      )}
+    </div>
+
+  </main>
+  <Footer />
+</Layout>

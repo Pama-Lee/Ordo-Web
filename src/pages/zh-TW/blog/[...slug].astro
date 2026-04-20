@@ -1,0 +1,152 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+import { useTranslations } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft && data.lang === 'zh-TW');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const postLang = post.data.lang || 'zh-TW';
+const t = useTranslations(postLang as any);
+const dateLocale = postLang === 'en' ? 'en-US' : postLang === 'zh-TW' ? 'zh-TW' : 'zh-CN';
+const backText = postLang === 'en' ? 'Back to blog' : postLang === 'zh-TW' ? '返回部落格' : '返回博客';
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <Navbar />
+  <main class="grow pt-24">
+
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24">
+
+      <!-- Back link -->
+      <a href="/zh-TW/blog" class="inline-flex items-center gap-1.5 text-sm text-[#9C9590] hover:text-[#2D2A26] transition-colors mb-8">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        {backText}
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          {post.data.tags.map((tag: string) => (
+            <span class="text-[11px] font-mono font-semibold text-[#D4874D] bg-[#D4874D]/8 px-2.5 py-1 rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <h1 class="text-3xl md:text-4xl font-black text-[#2D2A26] tracking-[-0.03em] leading-tight mb-4">
+          {post.data.title}
+        </h1>
+        <p class="text-[#6B6560] text-lg leading-relaxed mb-6">
+          {post.data.description}
+        </p>
+        <div class="flex items-center gap-4 text-sm text-[#9C9590] border-t border-black/[0.06] pt-4">
+          <span class="font-medium text-[#6B6560]">{post.data.author}</span>
+          <span>·</span>
+          <time datetime={post.data.date.toISOString()}>
+            {post.data.date.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-warm">
+        <Content />
+      </div>
+
+    </article>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style is:global>
+  .prose-warm {
+    color: #2D2A26;
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+  .prose-warm h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2D2A26;
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    letter-spacing: -0.02em;
+  }
+  .prose-warm h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2D2A26;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+  }
+  .prose-warm p {
+    margin-bottom: 1.2em;
+    color: #4a4540;
+  }
+  .prose-warm strong {
+    color: #2D2A26;
+    font-weight: 600;
+  }
+  .prose-warm a {
+    color: #D4874D;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-warm a:hover {
+    color: #B86E35;
+  }
+  .prose-warm ul, .prose-warm ol {
+    padding-left: 1.5em;
+    margin-bottom: 1.2em;
+  }
+  .prose-warm li {
+    margin-bottom: 0.4em;
+    color: #4a4540;
+  }
+  .prose-warm li::marker {
+    color: #D4874D;
+  }
+  .prose-warm code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(0,0,0,0.05);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #B86E35;
+  }
+  .prose-warm pre {
+    background: #2D2A26 !important;
+    padding: 1.2em 1.5em !important;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+  }
+  .prose-warm pre code {
+    background: transparent;
+    color: #e6e1da;
+    padding: 0;
+  }
+  .prose-warm blockquote {
+    border-left: 3px solid #D4874D;
+    padding-left: 1em;
+    margin: 1.5em 0;
+    color: #6B6560;
+    font-style: italic;
+  }
+  .prose-warm hr {
+    border-color: rgba(0,0,0,0.08);
+    margin: 2em 0;
+  }
+</style>

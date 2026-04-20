@@ -34,29 +34,22 @@ const steps = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-8">
+    <div class="max-w-3xl mx-auto grid grid-cols-1 gap-6">
       {steps.map((step, index) => (
-        <div class="flex flex-col gap-4 items-start">
+        <div class="flex flex-col gap-3 items-start">
           <div class="w-full">
-            <div class="flex items-center gap-4 mb-3">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#D4874D]/10 text-[#D4874D] text-sm font-bold font-mono shrink-0">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[#F5F1EA] border border-black/[0.08] text-[#D4874D] text-xs font-bold font-mono shrink-0">
                 {index + 1}
               </span>
-              <h3 class="text-xl font-bold text-[#2D2A26] tracking-tight">{step.title}</h3>
+              <h3 class="text-base font-bold text-[#2D2A26] tracking-tight">{step.title}</h3>
             </div>
-            <p class="text-[#6B6560] text-sm mb-4 md:ml-12">{step.desc}</p>
-            <div class="md:ml-12 rounded-xl bg-[#2D2A26] border border-black/5 overflow-hidden group">
-              <div class="flex items-center justify-between px-4 py-2 border-b border-white/8 bg-black/10">
-                <div class="flex gap-1.5">
-                  <div class="w-2.5 h-2.5 rounded-full bg-red-500/30"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/30"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-green-500/30"></div>
-                </div>
-                <button class="text-[10px] text-white/40 hover:text-white/70 transition-colors uppercase font-mono tracking-wider copy-btn" data-code={step.code}>
-                  Copy
-                </button>
-              </div>
-              <div class="text-sm overflow-x-auto p-3"><code class="text-[#D4874D] font-mono">{step.code}</code></div>
+            <p class="text-[#6B6560] text-sm mb-3 ml-10">{step.desc}</p>
+            <div class="ml-10 rounded-xl bg-[#F5F1EA] border border-black/[0.06] overflow-hidden group relative">
+              <button class="absolute top-2.5 right-3 text-[10px] text-[#9C9590] hover:text-[#2D2A26] transition-colors uppercase font-mono tracking-wider copy-btn z-10" data-code={step.code}>
+                Copy
+              </button>
+              <div class="text-[13px] overflow-x-auto px-4 py-3.5 font-mono text-[#6B6560] leading-relaxed whitespace-pre">{step.code}</div>
             </div>
           </div>
         </div>

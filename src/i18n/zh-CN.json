@@ -6,7 +6,9 @@
     "playground": "试用",
     "integration": "集成",
     "roadmap": "路线图",
-    "github": "GitHub"
+    "github": "GitHub",
+    "blog": "博客",
+    "changelog": "更新日志"
   },
   "hero": {
     "badge": "v0.4.0 已发布",
@@ -29,7 +31,15 @@
     "stat_latency": "规则执行",
     "stat_throughput": "吞吐量",
     "stat_api": "HTTP API",
-    "stat_p99": "P99 延迟"
+    "stat_p99": "P99 延迟",
+    "workspace_label": "工作区",
+    "workspace_title": "项目、规则、测试，一站搞定。",
+    "layer_projects": "项目",
+    "layer_rules": "规则",
+    "layer_tests": "测试",
+    "layer_projects_desc": "编辑规则集时，组织、团队和项目上下文始终可见。",
+    "layer_rules_desc": "在画布中切换规则文件，可视化编写分支逻辑。",
+    "layer_tests_desc": "无需离开工作区，直接验证预期输出。"
   },
   "benchmarks": {
     "title": "基准测试结果",
