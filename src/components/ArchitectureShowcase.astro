@@ -7,149 +7,367 @@ const copy = {
   'zh-CN': {
     eyebrow: 'Architecture',
     title: 'Ordo 整体架构',
-    subtitle: 'Studio 负责建模与治理，Platform 负责组织、发布与审批，ordo-server 集群负责执行，NATS 负责控制面同步与节点发现。',
-    layers: [
-      { label: 'Studio',          accent: '#D4874D', text: '可视化规则编辑、模板创建、测试、环境绑定与发布控制台。' },
-      { label: 'Platform',        accent: '#7C6B5A', text: '组织、项目、权限、模板市场、发布单、审批流与 Server 注册表。' },
-      { label: 'ordo-server',     accent: '#5A8F7B', text: '多节点多副本执行集群，由 Nomad 调度，按节点上报注册和心跳。' },
-      { label: 'NATS Control',    accent: '#4A9E6B', text: '承载节点注册、心跳、规则同步与控制事件的控制面总线。' },
-      { label: 'PostgreSQL',      accent: '#7C6B5A', text: '保存组织、项目、角色、发布单、审批记录与 Server 元数据。' },
-      { label: 'Nomad + Traefik', accent: '#D4874D', text: 'Nomad 编排服务，Traefik 暴露域名入口并路由到 Studio / Engine。' },
-    ],
-    flowTitle: '核心数据流',
-    flowItems: [
-      { tag: '01', title: '建模与治理', bullets: [
-        '团队在 Studio 中创建项目、规则集、环境与测试。',
-        'Platform 提供组织、角色、模板、审计与发布策略。',
-        '所有治理与元数据写入 PostgreSQL。',
-      ]},
-      { tag: '02', title: '发布与发现', bullets: [
-        '发布由 Platform 发起，走审批流，再进入发布控制台。',
-        'ordo-server 启动后通过 NATS 注册并持续发送心跳。',
-        'Platform 订阅 NATS 控制事件，实时维护 Server 注册表。',
-      ]},
-      { tag: '03', title: '执行与观测', bullets: [
-        '规则内容通过 NATS 同步到执行节点。',
-        'Traefik / Platform 将流量路由到健康的 ordo-server。',
-        '平台侧展示节点状态、健康结果、指标与发布执行进度。',
-      ]},
-    ],
-    topologyTitle: '部署拓扑',
-    topologyBody: '当前推荐拓扑是 1 个 Platform 控制面、1 个 Studio 入口、多个 ordo-server 执行节点，以及一个 NATS 控制面总线。治理与执行分离，同时保留水平扩展能力。',
-    topologyPoints: [
-      'Studio 通过域名接入，作为可视化工作台。',
-      'Platform 依赖 PostgreSQL 保存控制面状态。',
-      'ordo-server 可在多个 Nomad 节点上横向扩容。',
-      'NATS 负责发现、同步与控制事件，不承担最终用户入口。',
-    ],
+    subtitle: 'Studio 是可视化工作台，Platform 是控制面，ordo-server 是执行引擎。三层通过 NATS JetStream 做规则同步，PostgreSQL 保存全部控制面状态。',
+    diagramTitle: '系统层级概览',
+    diagramSubtitle: '基于 compose.yml 的真实部署拓扑',
+    componentsTitle: '组件详解',
+    flowTitle: '请求执行路径',
+    flowSubtitle: 'Studio → Platform → ordo-server 的完整请求链路',
     releaseTitle: '发布与审批路径',
-    releaseBody: '规则发布不再是单次按钮动作。团队先创建发布单，指定目标环境、审批人和放量策略，审批通过后再进入执行与回退流程。',
-    releasePoints: [
-      '发布单记录提单人、审批人、版本差异与内容差异。',
-      '审批通过后生成执行任务，并关联目标实例。',
-      '实例状态、版本与错误信息回流到平台控制台。',
+    releaseSubtitle: '规则发布不是单次按钮，而是一个完整的治理流程',
+    components: [
+      {
+        label: 'Studio',
+        port: ':3002',
+        accent: '#D4874D',
+        tech: 'Vue 3 · @xyflow/react · Vite',
+        desc: '可视化规则编辑器。拖拽式流程图、决策表编辑、模板实例化、执行追踪与测试。所有 API 请求通过 Vite proxy 转发到 ordo-platform。',
+        details: ['Flow 编辑器（xyflow）', '决策表编辑器', '执行 Trace 调试', '模板市场', '版本历史'],
+      },
+      {
+        label: 'ordo-platform',
+        port: ':3001',
+        accent: '#7C6B5A',
+        tech: 'Rust · Axum · SQLx · NATS',
+        desc: '控制面。管理组织、项目、成员、RBAC、模板、Fact Catalog、契约、发布单与 Server 注册表。通过 NATS 订阅 Server 心跳，维护实时注册表。',
+        details: ['Org / Project / RBAC', 'Fact Catalog & Contracts', 'Release Center', 'Server Registry', 'GitHub OAuth'],
+      },
+      {
+        label: 'platform-worker',
+        port: 'internal',
+        accent: '#5A8F7B',
+        tech: 'Rust · Tokio · NATS',
+        desc: '后台异步工作进程。处理发布执行任务、规则同步调度、通知推送等耗时操作，与主进程共享数据库但独立运行。',
+        details: ['发布任务执行', '规则同步调度', '实例状态轮询', '通知推送'],
+      },
+      {
+        label: 'ordo-server',
+        port: ':8080',
+        accent: '#4A9E6B',
+        tech: 'Rust · Axum · Cranelift JIT · gRPC',
+        desc: '规则执行引擎。支持 HTTP / gRPC / WASM / CLI 四种接入方式。JIT 编译（Cranelift）执行延迟 50-80 ns，解释器 1.63 µs，HTTP 单线程 54k QPS。启动后自动向 Platform 注册并通过 NATS 持续发送心跳。',
+        details: ['Cranelift JIT 编译器', 'HTTP + gRPC + WASM', '多租户隔离', 'WAL 崩溃恢复', 'NATS 热重载'],
+      },
+      {
+        label: 'NATS JetStream',
+        port: ':4222',
+        accent: '#7C6B5A',
+        tech: 'NATS 2.10 · JetStream',
+        desc: '控制面消息总线。承载 Server 注册（ordo.rules.*）、心跳、规则内容同步事件。Platform 和 ordo-server 均订阅此总线，实现解耦的节点发现与规则推送。',
+        details: ['节点注册与心跳', '规则内容同步', '控制事件广播', 'JetStream 持久化'],
+      },
+      {
+        label: 'PostgreSQL',
+        port: ':5432',
+        accent: '#D4874D',
+        tech: 'PostgreSQL 16 · SQLx migrations',
+        desc: '控制面唯一持久化存储（ordo_platform 数据库）。保存组织、项目、角色、Fact、契约、发布单、审批记录、Server 元数据与规则快照。',
+        details: ['组织 / 项目 / 角色', '发布单与审批记录', 'Server 元数据', '规则版本快照', '自动迁移 (sqlx)'],
+      },
     ],
+    mermaidFlow: `flowchart LR
+    classDef studio fill:#fdf3ea,stroke:#D4874D,color:#2D2A26
+    classDef platform fill:#f5f0eb,stroke:#7C6B5A,color:#2D2A26
+    classDef engine fill:#ecf5f1,stroke:#4A9E6B,color:#2D2A26
+    classDef infra fill:#f0ebe3,stroke:#9C9590,color:#2D2A26
+
+    Studio["Studio :3002\\n(Vue 3 + xyflow)"]:::studio
+    Platform["ordo-platform :3001\\n(Rust · Axum)"]:::platform
+    Worker["platform-worker\\n(Rust · Tokio)"]:::platform
+    Server["ordo-server :8080\\n(Rust · Cranelift JIT)"]:::engine
+    NATS[("NATS JetStream\\n:4222")]:::infra
+    PG[("PostgreSQL\\nordo_platform")]:::infra
+    Client(["Client\\nHTTP / gRPC / WASM"]):::infra
+
+    Studio -->|"Vite /api proxy"| Platform
+    Platform -->|"/engine proxy"| Server
+    Server -->|"register + heartbeat"| Platform
+    Platform <-->|"ordo.rules.*\\nrule sync / events"| NATS
+    Server <-->|"subscribe rule updates"| NATS
+    Platform --> PG
+    Worker --> PG
+    Worker <-->|"consume tasks"| NATS
+    Client -->|"execute rules"| Server`,
+    mermaidRelease: `sequenceDiagram
+    actor U as 用户 (Studio)
+    participant P as ordo-platform
+    participant W as platform-worker
+    participant N as NATS JetStream
+    participant S as ordo-server
+
+    U->>P: 创建发布单 (POST /releases)
+    P->>P: 校验规则版本 + 创建审批流
+    P-->>U: 待审批状态
+    U->>P: 审批通过 (PATCH /releases/:id/approve)
+    P->>W: 入队执行任务
+    W->>N: 发布规则同步事件 (ordo.rules.sync)
+    N->>S: 推送规则更新
+    S->>S: 热加载新规则版本
+    S->>P: 上报实例状态 + 心跳
+    P-->>U: 发布完成`,
   },
   en: {
     eyebrow: 'Architecture',
-    title: 'How Ordo fits together',
-    subtitle: 'Studio handles modeling and governance, Platform owns orgs and release flow, the ordo-server cluster executes, and NATS carries control-plane discovery and sync.',
-    layers: [
-      { label: 'Studio',          accent: '#D4874D', text: 'Visual rule authoring, templates, tests, environment binding, and release controls.' },
-      { label: 'Platform',        accent: '#7C6B5A', text: 'Organizations, projects, RBAC, marketplace, release requests, approvals, and the server registry.' },
-      { label: 'ordo-server',     accent: '#5A8F7B', text: 'Multi-node execution cluster scheduled by Nomad, each replica reporting registration and heartbeat.' },
-      { label: 'NATS Control',    accent: '#4A9E6B', text: 'Control-plane bus carrying server registration, heartbeats, rule sync, and control events.' },
-      { label: 'PostgreSQL',      accent: '#7C6B5A', text: 'Stores organizations, projects, roles, releases, approvals, and server metadata.' },
-      { label: 'Nomad + Traefik', accent: '#D4874D', text: 'Nomad schedules services while Traefik exposes domain entrypoints for Studio and Engine traffic.' },
-    ],
-    flowTitle: 'Core data flow',
-    flowItems: [
-      { tag: '01', title: 'Modeling & governance', bullets: [
-        'Teams create projects, rulesets, environments, and tests in Studio.',
-        'Platform provides org management, roles, templates, audit, and release policy.',
-        'Control-plane state is persisted in PostgreSQL.',
-      ]},
-      { tag: '02', title: 'Release & discovery', bullets: [
-        'Releases start in Platform, go through approval, then enter the release console.',
-        'Each ordo-server registers itself and keeps sending heartbeats over NATS.',
-        'Platform subscribes to NATS control events and maintains the live server registry.',
-      ]},
-      { tag: '03', title: 'Execution & observability', bullets: [
-        'Rules are synchronized to execution nodes over NATS.',
-        'Traefik / Platform routes traffic to healthy ordo-server instances.',
-        'The control plane surfaces node state, health, metrics, and release progress.',
-      ]},
-    ],
-    topologyTitle: 'Deployment topology',
-    topologyBody: 'The current recommended topology is one Platform control plane, one Studio entrypoint, multiple ordo-server execution nodes, and one NATS control bus. Governance and execution stay separate while preserving horizontal scale.',
-    topologyPoints: [
-      'Studio is exposed on its own domain as the visual workspace.',
-      'Platform uses PostgreSQL as the persistent control-plane store.',
-      'ordo-server scales out across multiple Nomad nodes.',
-      'NATS handles discovery, sync, and control events — not the end-user ingress.',
-    ],
+    title: 'How Ordo is built',
+    subtitle: 'Studio is the visual workspace, Platform is the control plane, ordo-server is the execution engine. The three tiers sync rules over NATS JetStream; PostgreSQL persists all control-plane state.',
+    diagramTitle: 'System layer overview',
+    diagramSubtitle: 'Actual deployment topology from compose.yml',
+    componentsTitle: 'Component breakdown',
+    flowTitle: 'Request execution path',
+    flowSubtitle: 'The full request chain from Studio through Platform to ordo-server',
     releaseTitle: 'Release & approval path',
-    releaseBody: 'Publishing is no longer a single button. Teams create a release request, choose target environment, approvers, and rollout strategy, then execute after approval.',
-    releasePoints: [
-      'Release requests capture requester, approvers, version diff, and content diff.',
-      'Approved requests create execution tasks tied to target instances.',
-      'Instance state, versions, and errors are reported back to the platform console.',
+    releaseSubtitle: 'Publishing is not a single button — it is a governed workflow',
+    components: [
+      {
+        label: 'Studio',
+        port: ':3002',
+        accent: '#D4874D',
+        tech: 'Vue 3 · @xyflow/react · Vite',
+        desc: 'Visual rule workspace. Drag-and-drop flow editor, decision table editor, template instantiation, execution trace, and testing. All API requests are proxied through Vite to ordo-platform.',
+        details: ['Flow editor (xyflow)', 'Decision table editor', 'Execution trace debugger', 'Template marketplace', 'Version history'],
+      },
+      {
+        label: 'ordo-platform',
+        port: ':3001',
+        accent: '#7C6B5A',
+        tech: 'Rust · Axum · SQLx · NATS',
+        desc: 'The control plane. Manages organizations, projects, members, RBAC, templates, Fact Catalog, contracts, release requests, and the server registry. Subscribes to NATS to track server heartbeats in real time.',
+        details: ['Org / Project / RBAC', 'Fact Catalog & Contracts', 'Release Center', 'Server Registry', 'GitHub OAuth'],
+      },
+      {
+        label: 'platform-worker',
+        port: 'internal',
+        accent: '#5A8F7B',
+        tech: 'Rust · Tokio · NATS',
+        desc: 'Background async worker. Handles release execution tasks, rule sync scheduling, and notification dispatch. Shares the database with the main process but runs independently.',
+        details: ['Release task execution', 'Rule sync scheduling', 'Instance state polling', 'Notification dispatch'],
+      },
+      {
+        label: 'ordo-server',
+        port: ':8080',
+        accent: '#4A9E6B',
+        tech: 'Rust · Axum · Cranelift JIT · gRPC',
+        desc: 'The rule execution engine. Supports HTTP / gRPC / WASM / CLI. JIT compilation via Cranelift: 50–80 ns latency; interpreter: 1.63 µs; 54k QPS single-thread HTTP. Auto-registers with Platform on startup and sends continuous heartbeats over NATS.',
+        details: ['Cranelift JIT compiler', 'HTTP + gRPC + WASM', 'Multi-tenancy', 'WAL crash recovery', 'NATS hot-reload'],
+      },
+      {
+        label: 'NATS JetStream',
+        port: ':4222',
+        accent: '#7C6B5A',
+        tech: 'NATS 2.10 · JetStream',
+        desc: 'Control-plane message bus. Carries server registration (ordo.rules.*), heartbeats, and rule sync events. Both Platform and ordo-server subscribe, enabling decoupled node discovery and rule push.',
+        details: ['Node registration & heartbeat', 'Rule content sync', 'Control event broadcast', 'JetStream persistence'],
+      },
+      {
+        label: 'PostgreSQL',
+        port: ':5432',
+        accent: '#D4874D',
+        tech: 'PostgreSQL 16 · SQLx migrations',
+        desc: 'The sole persistent store for the control plane (ordo_platform database). Stores organizations, projects, roles, Facts, contracts, release requests, approvals, server metadata, and rule snapshots.',
+        details: ['Org / Project / Roles', 'Releases & approvals', 'Server metadata', 'Rule version snapshots', 'Auto-migrate (sqlx)'],
+      },
     ],
+    mermaidFlow: `flowchart LR
+    classDef studio fill:#fdf3ea,stroke:#D4874D,color:#2D2A26
+    classDef platform fill:#f5f0eb,stroke:#7C6B5A,color:#2D2A26
+    classDef engine fill:#ecf5f1,stroke:#4A9E6B,color:#2D2A26
+    classDef infra fill:#f0ebe3,stroke:#9C9590,color:#2D2A26
+
+    Studio["Studio :3002\\n(Vue 3 + xyflow)"]:::studio
+    Platform["ordo-platform :3001\\n(Rust · Axum)"]:::platform
+    Worker["platform-worker\\n(Rust · Tokio)"]:::platform
+    Server["ordo-server :8080\\n(Rust · Cranelift JIT)"]:::engine
+    NATS[("NATS JetStream\\n:4222")]:::infra
+    PG[("PostgreSQL\\nordo_platform")]:::infra
+    Client(["Client\\nHTTP / gRPC / WASM"]):::infra
+
+    Studio -->|"Vite /api proxy"| Platform
+    Platform -->|"/engine proxy"| Server
+    Server -->|"register + heartbeat"| Platform
+    Platform <-->|"ordo.rules.*\\nrule sync / events"| NATS
+    Server <-->|"subscribe rule updates"| NATS
+    Platform --> PG
+    Worker --> PG
+    Worker <-->|"consume tasks"| NATS
+    Client -->|"execute rules"| Server`,
+    mermaidRelease: `sequenceDiagram
+    actor U as User (Studio)
+    participant P as ordo-platform
+    participant W as platform-worker
+    participant N as NATS JetStream
+    participant S as ordo-server
+
+    U->>P: Create release request (POST /releases)
+    P->>P: Validate version + create approval flow
+    P-->>U: Status: pending approval
+    U->>P: Approve (PATCH /releases/:id/approve)
+    P->>W: Enqueue execution task
+    W->>N: Publish rule sync event (ordo.rules.sync)
+    N->>S: Push rule update
+    S->>S: Hot-reload new rule version
+    S->>P: Report instance state + heartbeat
+    P-->>U: Release complete`,
   },
   'zh-TW': {
     eyebrow: 'Architecture',
     title: 'Ordo 整體架構',
-    subtitle: 'Studio 負責建模與治理，Platform 負責組織、發布與審批，ordo-server 叢集負責執行，NATS 負責控制面同步與節點發現。',
-    layers: [
-      { label: 'Studio',          accent: '#D4874D', text: '可視化規則編輯、模板建立、測試、環境綁定與發布控制台。' },
-      { label: 'Platform',        accent: '#7C6B5A', text: '組織、專案、權限、模板市場、發布單、審批流與 Server 註冊表。' },
-      { label: 'ordo-server',     accent: '#5A8F7B', text: '多節點多副本執行叢集，由 Nomad 調度，按節點上報註冊與心跳。' },
-      { label: 'NATS Control',    accent: '#4A9E6B', text: '承載節點註冊、心跳、規則同步與控制事件的控制面匯流排。' },
-      { label: 'PostgreSQL',      accent: '#7C6B5A', text: '保存組織、專案、角色、發布單、審批記錄與 Server 中繼資料。' },
-      { label: 'Nomad + Traefik', accent: '#D4874D', text: 'Nomad 編排服務，Traefik 暴露網域入口並路由到 Studio / Engine。' },
-    ],
-    flowTitle: '核心資料流',
-    flowItems: [
-      { tag: '01', title: '建模與治理', bullets: [
-        '團隊在 Studio 中建立專案、規則集、環境與測試。',
-        'Platform 提供組織、角色、模板、審計與發布策略。',
-        '所有治理與中繼資料寫入 PostgreSQL。',
-      ]},
-      { tag: '02', title: '發布與發現', bullets: [
-        '發布由 Platform 發起，走審批流，再進入發布控制台。',
-        'ordo-server 啟動後透過 NATS 註冊並持續發送心跳。',
-        'Platform 訂閱 NATS 控制事件，即時維護 Server 註冊表。',
-      ]},
-      { tag: '03', title: '執行與觀測', bullets: [
-        '規則內容透過 NATS 同步到執行節點。',
-        'Traefik / Platform 將流量路由到健康的 ordo-server。',
-        '平台側展示節點狀態、健康結果、指標與發布執行進度。',
-      ]},
-    ],
-    topologyTitle: '部署拓撲',
-    topologyBody: '目前建議拓撲是 1 個 Platform 控制面、1 個 Studio 入口、多個 ordo-server 執行節點，以及 1 個 NATS 控制面匯流排。治理與執行分離，同時保留水平擴展能力。',
-    topologyPoints: [
-      'Studio 透過獨立網域接入，作為可視化工作台。',
-      'Platform 依賴 PostgreSQL 保存控制面狀態。',
-      'ordo-server 可在多個 Nomad 節點上橫向擴容。',
-      'NATS 負責發現、同步與控制事件，不作為終端使用者入口。',
-    ],
+    subtitle: 'Studio 是可視化工作台，Platform 是控制面，ordo-server 是執行引擎。三層透過 NATS JetStream 做規則同步，PostgreSQL 保存全部控制面狀態。',
+    diagramTitle: '系統層級概覽',
+    diagramSubtitle: '基於 compose.yml 的真實部署拓撲',
+    componentsTitle: '元件詳解',
+    flowTitle: '請求執行路徑',
+    flowSubtitle: 'Studio → Platform → ordo-server 的完整請求鏈路',
     releaseTitle: '發布與審批路徑',
-    releaseBody: '規則發布不再是單次按鈕動作。團隊先建立發布單，指定目標環境、審批人與放量策略，審批通過後再進入執行與回退流程。',
-    releasePoints: [
-      '發布單記錄提單人、審批人、版本差異與內容差異。',
-      '審批通過後生成執行任務，並關聯目標實例。',
-      '實例狀態、版本與錯誤資訊回流到平台控制台。',
+    releaseSubtitle: '規則發布不是單次按鈕，而是一個完整的治理流程',
+    components: [
+      {
+        label: 'Studio',
+        port: ':3002',
+        accent: '#D4874D',
+        tech: 'Vue 3 · @xyflow/react · Vite',
+        desc: '可視化規則編輯器。拖拽式流程圖、決策表編輯、模板實例化、執行追蹤與測試。所有 API 請求透過 Vite proxy 轉發到 ordo-platform。',
+        details: ['Flow 編輯器（xyflow）', '決策表編輯器', '執行 Trace 除錯', '模板市場', '版本歷史'],
+      },
+      {
+        label: 'ordo-platform',
+        port: ':3001',
+        accent: '#7C6B5A',
+        tech: 'Rust · Axum · SQLx · NATS',
+        desc: '控制面。管理組織、專案、成員、RBAC、模板、Fact Catalog、契約、發布單與 Server 註冊表。透過 NATS 訂閱 Server 心跳，維護即時註冊表。',
+        details: ['Org / Project / RBAC', 'Fact Catalog & Contracts', 'Release Center', 'Server Registry', 'GitHub OAuth'],
+      },
+      {
+        label: 'platform-worker',
+        port: 'internal',
+        accent: '#5A8F7B',
+        tech: 'Rust · Tokio · NATS',
+        desc: '後台非同步工作程序。處理發布執行任務、規則同步排程、通知推送等耗時操作，與主程序共享資料庫但獨立運行。',
+        details: ['發布任務執行', '規則同步排程', '實例狀態輪詢', '通知推送'],
+      },
+      {
+        label: 'ordo-server',
+        port: ':8080',
+        accent: '#4A9E6B',
+        tech: 'Rust · Axum · Cranelift JIT · gRPC',
+        desc: '規則執行引擎。支援 HTTP / gRPC / WASM / CLI 四種接入方式。JIT 編譯（Cranelift）執行延遲 50-80 ns，解譯器 1.63 µs，HTTP 單線程 54k QPS。啟動後自動向 Platform 註冊並透過 NATS 持續發送心跳。',
+        details: ['Cranelift JIT 編譯器', 'HTTP + gRPC + WASM', '多租戶隔離', 'WAL 崩潰恢復', 'NATS 熱重載'],
+      },
+      {
+        label: 'NATS JetStream',
+        port: ':4222',
+        accent: '#7C6B5A',
+        tech: 'NATS 2.10 · JetStream',
+        desc: '控制面訊息匯流排。承載 Server 註冊（ordo.rules.*）、心跳、規則內容同步事件。Platform 和 ordo-server 均訂閱此匯流排，實現解耦的節點發現與規則推送。',
+        details: ['節點註冊與心跳', '規則內容同步', '控制事件廣播', 'JetStream 持久化'],
+      },
+      {
+        label: 'PostgreSQL',
+        port: ':5432',
+        accent: '#D4874D',
+        tech: 'PostgreSQL 16 · SQLx migrations',
+        desc: '控制面唯一持久化儲存（ordo_platform 資料庫）。保存組織、專案、角色、Fact、契約、發布單、審批記錄、Server 元資料與規則快照。',
+        details: ['組織 / 專案 / 角色', '發布單與審批記錄', 'Server 元資料', '規則版本快照', '自動遷移 (sqlx)'],
+      },
     ],
+    mermaidFlow: `flowchart LR
+    classDef studio fill:#fdf3ea,stroke:#D4874D,color:#2D2A26
+    classDef platform fill:#f5f0eb,stroke:#7C6B5A,color:#2D2A26
+    classDef engine fill:#ecf5f1,stroke:#4A9E6B,color:#2D2A26
+    classDef infra fill:#f0ebe3,stroke:#9C9590,color:#2D2A26
+
+    Studio["Studio :3002\\n(Vue 3 + xyflow)"]:::studio
+    Platform["ordo-platform :3001\\n(Rust · Axum)"]:::platform
+    Worker["platform-worker\\n(Rust · Tokio)"]:::platform
+    Server["ordo-server :8080\\n(Rust · Cranelift JIT)"]:::engine
+    NATS[("NATS JetStream\\n:4222")]:::infra
+    PG[("PostgreSQL\\nordo_platform")]:::infra
+    Client(["Client\\nHTTP / gRPC / WASM"]):::infra
+
+    Studio -->|"Vite /api proxy"| Platform
+    Platform -->|"/engine proxy"| Server
+    Server -->|"register + heartbeat"| Platform
+    Platform <-->|"ordo.rules.*\\nrule sync / events"| NATS
+    Server <-->|"subscribe rule updates"| NATS
+    Platform --> PG
+    Worker --> PG
+    Worker <-->|"consume tasks"| NATS
+    Client -->|"execute rules"| Server`,
+    mermaidRelease: `sequenceDiagram
+    actor U as 使用者 (Studio)
+    participant P as ordo-platform
+    participant W as platform-worker
+    participant N as NATS JetStream
+    participant S as ordo-server
+
+    U->>P: 建立發布單 (POST /releases)
+    P->>P: 校驗規則版本 + 建立審批流
+    P-->>U: 待審批狀態
+    U->>P: 審批通過 (PATCH /releases/:id/approve)
+    P->>W: 入隊執行任務
+    W->>N: 發布規則同步事件 (ordo.rules.sync)
+    N->>S: 推送規則更新
+    S->>S: 熱載入新規則版本
+    S->>P: 回報實例狀態 + 心跳
+    P-->>U: 發布完成`,
   },
 }[lang];
 ---
 
-<section class="py-24 relative overflow-hidden reveal">
+<!-- Mermaid CDN init -->
+<script is:inline>
+  (function () {
+    function initMermaid() {
+      import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs').then(({ default: m }) => {
+        m.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          themeVariables: {
+            background: '#ffffff',
+            primaryColor: '#fdf3ea',
+            primaryTextColor: '#2D2A26',
+            primaryBorderColor: '#e8ddd0',
+            lineColor: '#D4874D',
+            secondaryColor: '#f5f0eb',
+            tertiaryColor: '#ecf5f1',
+            tertiaryBorderColor: '#4A9E6B',
+            fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+            fontSize: '13px',
+            edgeLabelBackground: '#fff',
+            clusterBkg: '#fdf7f0',
+            clusterBorder: '#e8ddd0',
+            actorBkg: '#fdf3ea',
+            actorBorder: '#D4874D',
+            actorTextColor: '#2D2A26',
+            activationBkgColor: '#fdf3ea',
+            activationBorderColor: '#D4874D',
+            sequenceNumberColor: '#D4874D',
+            noteBkgColor: '#fdf7f0',
+            noteBorderColor: '#e8ddd0',
+            noteTextColor: '#6B6560',
+            labelBoxBkgColor: '#f5f0eb',
+            labelBoxBorderColor: '#e0d8ce',
+            labelTextColor: '#2D2A26',
+            loopTextColor: '#6B6560',
+            signalColor: '#D4874D',
+            signalTextColor: '#2D2A26',
+          },
+        });
+        m.run({ querySelector: '.ordo-mermaid' });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMermaid);
+    } else {
+      initMermaid();
+    }
+  })();
+</script>
+
+<div class="py-24 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Section header -->
-    <div class="mb-14 max-w-3xl">
+    <!-- ── Header ── -->
+    <div class="mb-16 max-w-3xl">
       <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-3">
         <div class="h-px w-6 bg-black/15"></div>
         {copy.eyebrow}
@@ -162,96 +380,200 @@ const copy = {
       </p>
     </div>
 
-    <!-- Layer cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-20">
-      {copy.layers.map((item) => (
-        <div
-          class="group flex items-start gap-4 p-5 rounded-xl bg-white border border-black/[0.06] hover:border-black/[0.12] hover:-translate-y-0.5 transition-all duration-200 shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
-        >
-          <div
-            class="h-9 w-9 shrink-0 rounded-lg flex items-center justify-center mt-0.5"
-            style={`background: ${item.accent}10; border: 1px solid ${item.accent}20; color: ${item.accent};`}
-          >
-            <span class="text-[10px] font-mono font-bold tracking-tight">
-              {item.label.slice(0, 2).toUpperCase()}
-            </span>
-          </div>
-          <div class="min-w-0">
-            <div class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-1" style={`color: ${item.accent};`}>{item.label}</div>
-            <p class="text-[#6B6560] text-[12px] leading-relaxed">{item.text}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Core data flow -->
+    <!-- ── System Layer Diagram ── -->
     <div class="mb-20">
-      <div class="mb-8">
-        <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-3">
-          <div class="h-px w-6 bg-black/15"></div>
-          {copy.flowTitle}
-        </div>
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-[#2D2A26] tracking-tight mb-1">{copy.diagramTitle}</h2>
+        <p class="text-[#9C9590] text-[13px] font-mono">{copy.diagramSubtitle}</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {copy.flowItems.map((item) => (
-          <article class="relative rounded-2xl bg-white border border-black/[0.08] p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-            <div class="flex items-center gap-3 mb-5">
-              <span class="text-[11px] font-mono font-bold text-[#D4874D] tracking-widest">{item.tag}</span>
-              <div class="h-px flex-1 bg-black/[0.08]"></div>
+      <div class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-8">
+        <!-- 3-layer visual diagram -->
+        <div class="flex flex-col gap-3">
+
+          <!-- Layer label strip -->
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr_100px] gap-3 items-center">
+            <div class="hidden lg:flex items-center justify-end">
+              <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Client</span>
             </div>
-            <h3 class="text-[17px] font-bold text-[#2D2A26] tracking-tight mb-4">{item.title}</h3>
-            <ul class="space-y-2.5">
-              {item.bullets.map((bullet) => (
-                <li class="flex gap-2.5 text-[13px] leading-relaxed text-[#6B6560]">
-                  <span class="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#D4874D]/60"></span>
-                  <span>{bullet}</span>
-                </li>
+            <!-- Studio -->
+            <div class="relative rounded-xl border-2 p-5" style="border-color: #D4874D20; background: linear-gradient(135deg, #fdf3ea, #fdf7f2);">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                    style="background: #D4874D15; border: 1px solid #D4874D30; color: #D4874D;">UI</div>
+                  <div>
+                    <div class="text-[13px] font-bold text-[#2D2A26] tracking-tight">Studio</div>
+                    <div class="text-[11px] font-mono text-[#9C9590]">:3002 · Vue 3 · @xyflow</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  {['Flow Editor', 'Decision Table', 'Trace', 'Templates'].map(t => (
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold" style="background: #D4874D12; color: #B86E35;">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div class="hidden lg:block"></div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="flex justify-center">
+            <div class="flex flex-col items-center gap-0.5">
+              <div class="h-6 w-px bg-black/15"></div>
+              <span class="text-[10px] font-mono text-[#9C9590]">Vite /api proxy</span>
+              <div class="h-6 w-px bg-black/15"></div>
+              <svg class="h-3 w-3 text-[#9C9590]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-6-6h12z"/></svg>
+            </div>
+          </div>
+
+          <!-- Control Plane row -->
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr_100px] gap-3 items-start">
+            <div class="hidden lg:flex items-center justify-end pt-5">
+              <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Control Plane</span>
+            </div>
+            <div class="rounded-xl border-2 p-5" style="border-color: #7C6B5A20; background: linear-gradient(135deg, #f5f0eb, #f8f4ef);">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- ordo-platform -->
+                <div class="flex items-start gap-3">
+                  <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                    style="background: #7C6B5A15; border: 1px solid #7C6B5A30; color: #7C6B5A;">CP</div>
+                  <div>
+                    <div class="text-[13px] font-bold text-[#2D2A26] tracking-tight">ordo-platform</div>
+                    <div class="text-[11px] font-mono text-[#9C9590] mb-2">:3001 · Rust · Axum · SQLx</div>
+                    <div class="flex flex-wrap gap-1">
+                      {['Org/RBAC', 'Releases', 'Server Registry', 'Templates'].map(t => (
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold" style="background: #7C6B5A12; color: #7C6B5A;">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <!-- platform-worker -->
+                <div class="flex items-start gap-3">
+                  <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                    style="background: #5A8F7B15; border: 1px solid #5A8F7B30; color: #5A8F7B;">BG</div>
+                  <div>
+                    <div class="text-[13px] font-bold text-[#2D2A26] tracking-tight">platform-worker</div>
+                    <div class="text-[11px] font-mono text-[#9C9590] mb-2">internal · Rust · Tokio</div>
+                    <div class="flex flex-wrap gap-1">
+                      {['Release Tasks', 'Rule Sync', 'Notifications'].map(t => (
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold" style="background: #5A8F7B12; color: #5A8F7B;">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Right: infra column -->
+            <div class="flex flex-col gap-2">
+              <div class="rounded-xl border p-3" style="border-color: #9C959040; background: #f8f5f0;">
+                <div class="text-[10px] font-mono font-bold text-[#9C9590] mb-1">PostgreSQL :5432</div>
+                <div class="text-[11px] text-[#6B6560]">ordo_platform DB</div>
+              </div>
+              <div class="rounded-xl border p-3" style="border-color: #9C959040; background: #f8f5f0;">
+                <div class="text-[10px] font-mono font-bold text-[#9C9590] mb-1">NATS JetStream :4222</div>
+                <div class="text-[11px] text-[#6B6560]">ordo.rules.*</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="flex justify-center">
+            <div class="flex flex-col items-center gap-0.5">
+              <div class="h-6 w-px bg-black/15"></div>
+              <span class="text-[10px] font-mono text-[#9C9590]">/engine proxy + NATS rule sync</span>
+              <div class="h-6 w-px bg-black/15"></div>
+              <svg class="h-3 w-3 text-[#9C9590]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-6-6h12z"/></svg>
+            </div>
+          </div>
+
+          <!-- Execution layer -->
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr_100px] gap-3 items-center">
+            <div class="hidden lg:flex items-center justify-end">
+              <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Engine</span>
+            </div>
+            <div class="rounded-xl border-2 p-5" style="border-color: #4A9E6B20; background: linear-gradient(135deg, #ecf5f1, #f0f8f4);">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                    style="background: #4A9E6B15; border: 1px solid #4A9E6B30; color: #4A9E6B;">JIT</div>
+                  <div>
+                    <div class="text-[13px] font-bold text-[#2D2A26] tracking-tight">ordo-server</div>
+                    <div class="text-[11px] font-mono text-[#9C9590]">:8080 · Rust · Cranelift JIT · Axum + tonic</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  {['HTTP', 'gRPC', 'WASM', 'CLI', '50-80ns JIT', '54k QPS'].map(t => (
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold" style="background: #4A9E6B12; color: #3A8A5B;">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div class="hidden lg:block"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Component Cards ── -->
+    <div class="mb-20">
+      <h2 class="text-xl font-bold text-[#2D2A26] tracking-tight mb-6">{copy.componentsTitle}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {copy.components.map((c) => (
+          <article class="rounded-2xl bg-white border border-black/[0.08] p-6 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                style={`background: ${c.accent}14; border: 1px solid ${c.accent}28; color: ${c.accent};`}>
+                {c.label.slice(0, 2).toUpperCase()}
+              </div>
+              <div>
+                <div class="text-[14px] font-bold text-[#2D2A26] tracking-tight leading-tight">{c.label}</div>
+                <div class="text-[10px] font-mono" style={`color: ${c.accent};`}>{c.port}</div>
+              </div>
+            </div>
+            <div class="text-[11px] font-mono text-[#9C9590] mb-3 pb-3 border-b border-black/[0.06]">{c.tech}</div>
+            <p class="text-[12px] leading-relaxed text-[#6B6560] mb-4">{c.desc}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {c.details.map((d) => (
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold"
+                  style={`background: ${c.accent}0f; color: ${c.accent}; border: 1px solid ${c.accent}1a;`}>{d}</span>
               ))}
-            </ul>
+            </div>
           </article>
         ))}
       </div>
     </div>
 
-    <!-- Topology + Release -->
-    <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4">
-
-      <article class="rounded-2xl bg-white border border-black/[0.08] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="h-1.5 w-1.5 rounded-full bg-[#5A8F7B]"></span>
-          <div class="text-[10px] font-mono font-semibold text-[#5A8F7B] uppercase tracking-widest">{copy.topologyTitle}</div>
+    <!-- ── Mermaid: Request flow ── -->
+    <div class="mb-16">
+      <div class="mb-6">
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-2">
+          <div class="h-px w-6 bg-black/15"></div>
+          Flow
         </div>
-        <p class="text-[#6B6560] text-[14px] leading-relaxed mb-6">{copy.topologyBody}</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          {copy.topologyPoints.map((item) => (
-            <div class="flex items-start gap-2.5 px-4 py-3 rounded-lg bg-[#5A8F7B]/[0.04] border border-[#5A8F7B]/12 text-[12px] leading-relaxed text-[#2D2A26]">
-              <svg class="h-3 w-3 mt-[3px] shrink-0 text-[#5A8F7B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-      </article>
+        <h2 class="text-xl font-bold text-[#2D2A26] tracking-tight mb-1">{copy.flowTitle}</h2>
+        <p class="text-[13px] text-[#9C9590]">{copy.flowSubtitle}</p>
+      </div>
+      <div class="rounded-2xl bg-white border border-black/[0.08] p-6 md:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] overflow-x-auto">
+        <div class="ordo-mermaid text-sm">{copy.mermaidFlow}</div>
+      </div>
+    </div>
 
-      <article class="rounded-2xl bg-white border border-black/[0.08] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="h-1.5 w-1.5 rounded-full bg-[#D4874D]"></span>
-          <div class="text-[10px] font-mono font-semibold text-[#D4874D] uppercase tracking-widest">{copy.releaseTitle}</div>
+    <!-- ── Mermaid: Release flow ── -->
+    <div>
+      <div class="mb-6">
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-2">
+          <div class="h-px w-6 bg-black/15"></div>
+          Release
         </div>
-        <p class="text-[#6B6560] text-[14px] leading-relaxed mb-6">{copy.releaseBody}</p>
-        <ul class="space-y-2.5">
-          {copy.releasePoints.map((item, idx) => (
-            <li class="flex gap-3 px-4 py-3 rounded-lg bg-[#D4874D]/[0.04] border border-[#D4874D]/12">
-              <span class="text-[10px] font-mono font-bold text-[#D4874D] mt-[2px]">0{idx + 1}</span>
-              <span class="text-[12px] leading-relaxed text-[#2D2A26]">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </article>
-
+        <h2 class="text-xl font-bold text-[#2D2A26] tracking-tight mb-1">{copy.releaseTitle}</h2>
+        <p class="text-[13px] text-[#9C9590]">{copy.releaseSubtitle}</p>
+      </div>
+      <div class="rounded-2xl bg-white border border-black/[0.08] p-6 md:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] overflow-x-auto">
+        <div class="ordo-mermaid text-sm">{copy.mermaidRelease}</div>
+      </div>
     </div>
 
   </div>
-</section>
+</div>
