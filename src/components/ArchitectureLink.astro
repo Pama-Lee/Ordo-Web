@@ -1,0 +1,84 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const base = lang === 'zh-CN' ? '' : `/${lang}`;
+
+const copy = {
+  'zh-CN': {
+    eyebrow: 'Architecture',
+    title: '想了解 Ordo 内部如何运转？',
+    desc: 'Studio、Platform、ordo-server 集群与 NATS 控制面如何协作，部署拓扑与发布审批路径长什么样。',
+    cta: '查看完整架构',
+    layers: ['Studio', 'Platform', 'ordo-server', 'NATS', 'PostgreSQL', 'Nomad + Traefik'],
+  },
+  en: {
+    eyebrow: 'Architecture',
+    title: 'Curious how Ordo fits together?',
+    desc: 'How Studio, Platform, the ordo-server cluster, and the NATS control plane work as one — plus deployment topology and the release approval path.',
+    cta: 'View the full architecture',
+    layers: ['Studio', 'Platform', 'ordo-server', 'NATS', 'PostgreSQL', 'Nomad + Traefik'],
+  },
+  'zh-TW': {
+    eyebrow: 'Architecture',
+    title: '想了解 Ordo 內部如何運轉？',
+    desc: 'Studio、Platform、ordo-server 叢集與 NATS 控制面如何協作，部署拓撲與發布審批路徑長什麼樣。',
+    cta: '查看完整架構',
+    layers: ['Studio', 'Platform', 'ordo-server', 'NATS', 'PostgreSQL', 'Nomad + Traefik'],
+  },
+}[lang];
+---
+
+<section class="py-20 relative overflow-hidden reveal">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-0">
+
+        <!-- Left: copy -->
+        <div class="p-8 md:p-10 lg:p-12">
+          <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-3">
+            <div class="h-px w-6 bg-black/15"></div>
+            {copy.eyebrow}
+          </div>
+          <h2 class="text-2xl md:text-[2rem] font-black text-[#2D2A26] tracking-[-0.03em] leading-tight mb-4">
+            {copy.title}
+          </h2>
+          <p class="text-[#6B6560] text-[14px] md:text-[15px] leading-relaxed mb-7 max-w-xl">
+            {copy.desc}
+          </p>
+          <a
+            href={`${base}/architecture`}
+            class="inline-flex items-center gap-2 px-6 py-3 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[14px] transition-all"
+          >
+            {copy.cta}
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Right: layered visual -->
+        <div class="relative bg-[#fbf7f1] border-t lg:border-t-0 lg:border-l border-black/[0.06] p-8 md:p-10">
+          <div class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest mb-4">Layers</div>
+          <div class="space-y-2">
+            {copy.layers.map((label, idx) => {
+              const accents = ['#D4874D', '#7C6B5A', '#5A8F7B', '#4A9E6B', '#7C6B5A', '#D4874D'];
+              const accent = accents[idx % accents.length];
+              return (
+                <div
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg bg-white border border-black/[0.06] transition-all"
+                  style={`margin-left: ${idx * 8}px;`}
+                >
+                  <span class="h-1.5 w-1.5 rounded-full shrink-0" style={`background: ${accent};`}></span>
+                  <span class="text-[12px] font-mono font-semibold tracking-tight" style={`color: ${accent};`}>{label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

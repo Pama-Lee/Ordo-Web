@@ -6,7 +6,7 @@ import FlowDiagram from '../components/FlowDiagram.astro';
 import Features from '../components/Features.astro';
 import QuickStart from '../components/QuickStart.astro';
 import EditorPreview from '../components/EditorPreview.astro';
-import ArchitectureShowcase from '../components/ArchitectureShowcase.astro';
+import ArchitectureLink from '../components/ArchitectureLink.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
@@ -23,7 +23,7 @@ const t = useTranslations(lang);
 		<Features />
 		<EditorPreview />
 		<QuickStart />
-		<ArchitectureShowcase />
+		<ArchitectureLink />
 		<CTA />
 	</main>
 	<Footer />

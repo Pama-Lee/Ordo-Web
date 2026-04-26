@@ -6,108 +6,90 @@ const lang = getLangFromUrl(Astro.url);
 const copy = {
   'zh-CN': {
     eyebrow: 'Architecture',
-    title: 'Ordo 当前整体架构',
+    title: 'Ordo 整体架构',
     subtitle: 'Studio 负责建模与治理，Platform 负责组织、发布与审批，ordo-server 集群负责执行，NATS 负责控制面同步与节点发现。',
-    summary: [
-      { label: 'Studio', text: '可视化规则编辑、模板创建、测试、环境绑定与发布控制台。' },
-      { label: 'Platform', text: '组织、项目、权限、模板市场、发布单、审批流与 Server 注册表。' },
-      { label: 'ordo-server Cluster', text: '多节点多副本执行集群，通过 Nomad 调度，按节点上报注册和心跳。' },
-      { label: 'NATS Control Plane', text: '承载节点注册、心跳、规则同步和控制事件。' },
-      { label: 'PostgreSQL', text: '保存组织、项目、角色、发布单、审批记录和 Server 元数据。' },
-      { label: 'Nomad + Traefik', text: 'Nomad 编排服务，Traefik 暴露域名入口并路由到 Studio / Engine。' },
+    layers: [
+      { label: 'Studio',          accent: '#D4874D', text: '可视化规则编辑、模板创建、测试、环境绑定与发布控制台。' },
+      { label: 'Platform',        accent: '#7C6B5A', text: '组织、项目、权限、模板市场、发布单、审批流与 Server 注册表。' },
+      { label: 'ordo-server',     accent: '#5A8F7B', text: '多节点多副本执行集群，由 Nomad 调度，按节点上报注册和心跳。' },
+      { label: 'NATS Control',    accent: '#4A9E6B', text: '承载节点注册、心跳、规则同步与控制事件的控制面总线。' },
+      { label: 'PostgreSQL',      accent: '#7C6B5A', text: '保存组织、项目、角色、发布单、审批记录与 Server 元数据。' },
+      { label: 'Nomad + Traefik', accent: '#D4874D', text: 'Nomad 编排服务，Traefik 暴露域名入口并路由到 Studio / Engine。' },
     ],
     flowTitle: '核心数据流',
     flowItems: [
-      {
-        title: '1. 建模与治理',
-        bullets: [
-          '团队在 Studio 中创建项目、规则集、环境和测试。',
-          'Platform 提供组织、角色、模板、审计和发布策略。',
-          '所有治理与元数据进入 PostgreSQL。',
-        ],
-      },
-      {
-        title: '2. 发布与发现',
-        bullets: [
-          '发布由 Platform 发起，走审批流，再进入发布控制台。',
-          'ordo-server 启动后通过 NATS 注册并持续发送心跳。',
-          'Platform 订阅 NATS 控制事件，实时维护 Server 注册表。',
-        ],
-      },
-      {
-        title: '3. 执行与观测',
-        bullets: [
-          '规则内容通过 NATS 同步到执行节点。',
-          'Traefik / Platform 将流量路由到健康的 ordo-server。',
-          '平台侧展示节点状态、健康结果、指标与发布执行进度。',
-        ],
-      },
+      { tag: '01', title: '建模与治理', bullets: [
+        '团队在 Studio 中创建项目、规则集、环境与测试。',
+        'Platform 提供组织、角色、模板、审计与发布策略。',
+        '所有治理与元数据写入 PostgreSQL。',
+      ]},
+      { tag: '02', title: '发布与发现', bullets: [
+        '发布由 Platform 发起，走审批流，再进入发布控制台。',
+        'ordo-server 启动后通过 NATS 注册并持续发送心跳。',
+        'Platform 订阅 NATS 控制事件，实时维护 Server 注册表。',
+      ]},
+      { tag: '03', title: '执行与观测', bullets: [
+        '规则内容通过 NATS 同步到执行节点。',
+        'Traefik / Platform 将流量路由到健康的 ordo-server。',
+        '平台侧展示节点状态、健康结果、指标与发布执行进度。',
+      ]},
     ],
     topologyTitle: '部署拓扑',
-    topologyBody: '当前推荐拓扑是 1 个 Platform 控制面、1 个 Studio 前端入口、多个 ordo-server 执行节点，以及一个 NATS 控制面总线。这样可以把治理和执行分离，同时保留水平扩展能力。',
+    topologyBody: '当前推荐拓扑是 1 个 Platform 控制面、1 个 Studio 入口、多个 ordo-server 执行节点，以及一个 NATS 控制面总线。治理与执行分离，同时保留水平扩展能力。',
     topologyPoints: [
-      'Studio 通过域名接入，负责可视化工作台。',
+      'Studio 通过域名接入，作为可视化工作台。',
       'Platform 依赖 PostgreSQL 保存控制面状态。',
       'ordo-server 可在多个 Nomad 节点上横向扩容。',
-      'NATS 负责节点发现、规则同步与控制事件，不承担最终用户入口。',
+      'NATS 负责发现、同步与控制事件，不承担最终用户入口。',
     ],
     releaseTitle: '发布与审批路径',
-    releaseBody: '规则发布不再是单次按钮动作。团队先创建发布单，指定目标环境、审批人和放量策略，审批通过后再进入执行和回退流程。',
+    releaseBody: '规则发布不再是单次按钮动作。团队先创建发布单，指定目标环境、审批人和放量策略，审批通过后再进入执行与回退流程。',
     releasePoints: [
-      '发布单记录提单人、审批人、版本差异和内容差异。',
+      '发布单记录提单人、审批人、版本差异与内容差异。',
       '审批通过后生成执行任务，并关联目标实例。',
-      '实例状态、版本和错误信息回流到平台控制台。',
+      '实例状态、版本与错误信息回流到平台控制台。',
     ],
   },
   en: {
     eyebrow: 'Architecture',
-    title: 'The Current Ordo Architecture',
-    subtitle: 'Studio handles modeling and governance, Platform owns organizations and release workflows, the ordo-server cluster executes rules, and NATS carries control-plane discovery and sync.',
-    summary: [
-      { label: 'Studio', text: 'Visual rule authoring, templates, tests, environment binding, and release controls.' },
-      { label: 'Platform', text: 'Organizations, projects, RBAC, marketplace, release requests, approvals, and the server registry.' },
-      { label: 'ordo-server Cluster', text: 'Multi-node execution replicas scheduled by Nomad, each reporting registration and heartbeat.' },
-      { label: 'NATS Control Plane', text: 'Carries server registration, heartbeats, rule sync, and control events.' },
-      { label: 'PostgreSQL', text: 'Stores organizations, projects, roles, releases, approvals, and server metadata.' },
-      { label: 'Nomad + Traefik', text: 'Nomad schedules services while Traefik exposes domain entrypoints for Studio and Engine traffic.' },
+    title: 'How Ordo fits together',
+    subtitle: 'Studio handles modeling and governance, Platform owns orgs and release flow, the ordo-server cluster executes, and NATS carries control-plane discovery and sync.',
+    layers: [
+      { label: 'Studio',          accent: '#D4874D', text: 'Visual rule authoring, templates, tests, environment binding, and release controls.' },
+      { label: 'Platform',        accent: '#7C6B5A', text: 'Organizations, projects, RBAC, marketplace, release requests, approvals, and the server registry.' },
+      { label: 'ordo-server',     accent: '#5A8F7B', text: 'Multi-node execution cluster scheduled by Nomad, each replica reporting registration and heartbeat.' },
+      { label: 'NATS Control',    accent: '#4A9E6B', text: 'Control-plane bus carrying server registration, heartbeats, rule sync, and control events.' },
+      { label: 'PostgreSQL',      accent: '#7C6B5A', text: 'Stores organizations, projects, roles, releases, approvals, and server metadata.' },
+      { label: 'Nomad + Traefik', accent: '#D4874D', text: 'Nomad schedules services while Traefik exposes domain entrypoints for Studio and Engine traffic.' },
     ],
-    flowTitle: 'Core Flow',
+    flowTitle: 'Core data flow',
     flowItems: [
-      {
-        title: '1. Modeling and Governance',
-        bullets: [
-          'Teams create projects, rulesets, environments, and tests in Studio.',
-          'Platform provides org management, roles, templates, audit, and release policy.',
-          'Control-plane state is persisted in PostgreSQL.',
-        ],
-      },
-      {
-        title: '2. Release and Discovery',
-        bullets: [
-          'Releases start in Platform, go through approval, then enter the release console.',
-          'Each ordo-server instance registers itself and keeps sending heartbeats over NATS.',
-          'Platform subscribes to NATS control events and maintains the live server registry.',
-        ],
-      },
-      {
-        title: '3. Execution and Observability',
-        bullets: [
-          'Rules are synchronized to execution nodes over NATS.',
-          'Traefik / Platform routes traffic to healthy ordo-server instances.',
-          'The control plane surfaces node state, health, metrics, and release execution progress.',
-        ],
-      },
+      { tag: '01', title: 'Modeling & governance', bullets: [
+        'Teams create projects, rulesets, environments, and tests in Studio.',
+        'Platform provides org management, roles, templates, audit, and release policy.',
+        'Control-plane state is persisted in PostgreSQL.',
+      ]},
+      { tag: '02', title: 'Release & discovery', bullets: [
+        'Releases start in Platform, go through approval, then enter the release console.',
+        'Each ordo-server registers itself and keeps sending heartbeats over NATS.',
+        'Platform subscribes to NATS control events and maintains the live server registry.',
+      ]},
+      { tag: '03', title: 'Execution & observability', bullets: [
+        'Rules are synchronized to execution nodes over NATS.',
+        'Traefik / Platform routes traffic to healthy ordo-server instances.',
+        'The control plane surfaces node state, health, metrics, and release progress.',
+      ]},
     ],
-    topologyTitle: 'Deployment Topology',
-    topologyBody: 'The current recommended topology is one Platform control plane, one Studio entrypoint, multiple ordo-server execution nodes, and one NATS control bus. That keeps governance and execution separate while preserving horizontal scale.',
+    topologyTitle: 'Deployment topology',
+    topologyBody: 'The current recommended topology is one Platform control plane, one Studio entrypoint, multiple ordo-server execution nodes, and one NATS control bus. Governance and execution stay separate while preserving horizontal scale.',
     topologyPoints: [
       'Studio is exposed on its own domain as the visual workspace.',
       'Platform uses PostgreSQL as the persistent control-plane store.',
-      'ordo-server can scale out across multiple Nomad nodes.',
-      'NATS is used for discovery, sync, and control events, not as the end-user ingress layer.',
+      'ordo-server scales out across multiple Nomad nodes.',
+      'NATS handles discovery, sync, and control events — not the end-user ingress.',
     ],
-    releaseTitle: 'Release and Approval Path',
-    releaseBody: 'Publishing is no longer a single button. Teams create a release request, choose the target environment, approvers, and rollout strategy, then execute after approval.',
+    releaseTitle: 'Release & approval path',
+    releaseBody: 'Publishing is no longer a single button. Teams create a release request, choose target environment, approvers, and rollout strategy, then execute after approval.',
     releasePoints: [
       'Release requests capture requester, approvers, version diff, and content diff.',
       'Approved requests create execution tasks tied to target instances.',
@@ -116,50 +98,41 @@ const copy = {
   },
   'zh-TW': {
     eyebrow: 'Architecture',
-    title: 'Ordo 目前整體架構',
+    title: 'Ordo 整體架構',
     subtitle: 'Studio 負責建模與治理，Platform 負責組織、發布與審批，ordo-server 叢集負責執行，NATS 負責控制面同步與節點發現。',
-    summary: [
-      { label: 'Studio', text: '可視化規則編輯、模板建立、測試、環境綁定與發布控制台。' },
-      { label: 'Platform', text: '組織、專案、權限、模板市場、發布單、審批流與 Server 註冊表。' },
-      { label: 'ordo-server Cluster', text: '多節點多副本執行叢集，透過 Nomad 調度，按節點上報註冊與心跳。' },
-      { label: 'NATS Control Plane', text: '承載節點註冊、心跳、規則同步與控制事件。' },
-      { label: 'PostgreSQL', text: '保存組織、專案、角色、發布單、審批記錄與 Server 中繼資料。' },
-      { label: 'Nomad + Traefik', text: 'Nomad 編排服務，Traefik 暴露網域入口並路由到 Studio / Engine。' },
+    layers: [
+      { label: 'Studio',          accent: '#D4874D', text: '可視化規則編輯、模板建立、測試、環境綁定與發布控制台。' },
+      { label: 'Platform',        accent: '#7C6B5A', text: '組織、專案、權限、模板市場、發布單、審批流與 Server 註冊表。' },
+      { label: 'ordo-server',     accent: '#5A8F7B', text: '多節點多副本執行叢集，由 Nomad 調度，按節點上報註冊與心跳。' },
+      { label: 'NATS Control',    accent: '#4A9E6B', text: '承載節點註冊、心跳、規則同步與控制事件的控制面匯流排。' },
+      { label: 'PostgreSQL',      accent: '#7C6B5A', text: '保存組織、專案、角色、發布單、審批記錄與 Server 中繼資料。' },
+      { label: 'Nomad + Traefik', accent: '#D4874D', text: 'Nomad 編排服務，Traefik 暴露網域入口並路由到 Studio / Engine。' },
     ],
     flowTitle: '核心資料流',
     flowItems: [
-      {
-        title: '1. 建模與治理',
-        bullets: [
-          '團隊在 Studio 中建立專案、規則集、環境與測試。',
-          'Platform 提供組織、角色、模板、審計與發布策略。',
-          '所有治理與中繼資料寫入 PostgreSQL。',
-        ],
-      },
-      {
-        title: '2. 發布與發現',
-        bullets: [
-          '發布由 Platform 發起，走審批流，再進入發布控制台。',
-          'ordo-server 啟動後透過 NATS 註冊並持續發送心跳。',
-          'Platform 訂閱 NATS 控制事件，即時維護 Server 註冊表。',
-        ],
-      },
-      {
-        title: '3. 執行與觀測',
-        bullets: [
-          '規則內容透過 NATS 同步到執行節點。',
-          'Traefik / Platform 將流量路由到健康的 ordo-server。',
-          '平台側展示節點狀態、健康結果、指標與發布執行進度。',
-        ],
-      },
+      { tag: '01', title: '建模與治理', bullets: [
+        '團隊在 Studio 中建立專案、規則集、環境與測試。',
+        'Platform 提供組織、角色、模板、審計與發布策略。',
+        '所有治理與中繼資料寫入 PostgreSQL。',
+      ]},
+      { tag: '02', title: '發布與發現', bullets: [
+        '發布由 Platform 發起，走審批流，再進入發布控制台。',
+        'ordo-server 啟動後透過 NATS 註冊並持續發送心跳。',
+        'Platform 訂閱 NATS 控制事件，即時維護 Server 註冊表。',
+      ]},
+      { tag: '03', title: '執行與觀測', bullets: [
+        '規則內容透過 NATS 同步到執行節點。',
+        'Traefik / Platform 將流量路由到健康的 ordo-server。',
+        '平台側展示節點狀態、健康結果、指標與發布執行進度。',
+      ]},
     ],
     topologyTitle: '部署拓撲',
-    topologyBody: '目前建議拓撲是 1 個 Platform 控制面、1 個 Studio 前端入口、多個 ordo-server 執行節點，以及 1 個 NATS 控制面匯流排。這樣可以把治理與執行分離，同時保留水平擴展能力。',
+    topologyBody: '目前建議拓撲是 1 個 Platform 控制面、1 個 Studio 入口、多個 ordo-server 執行節點，以及 1 個 NATS 控制面匯流排。治理與執行分離，同時保留水平擴展能力。',
     topologyPoints: [
       'Studio 透過獨立網域接入，作為可視化工作台。',
       'Platform 依賴 PostgreSQL 保存控制面狀態。',
       'ordo-server 可在多個 Nomad 節點上橫向擴容。',
-      'NATS 負責節點發現、規則同步與控制事件，不作為終端使用者入口。',
+      'NATS 負責發現、同步與控制事件，不作為終端使用者入口。',
     ],
     releaseTitle: '發布與審批路徑',
     releaseBody: '規則發布不再是單次按鈕動作。團隊先建立發布單，指定目標環境、審批人與放量策略，審批通過後再進入執行與回退流程。',
@@ -172,48 +145,66 @@ const copy = {
 }[lang];
 ---
 
-<section class="pt-28 pb-24 relative overflow-hidden">
-  <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
-    <div class="absolute inset-0" style="background: radial-gradient(circle at top, rgba(59,130,246,0.12), transparent 38%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(18,25,38,0));"></div>
-    <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 44px 44px; mask-image: radial-gradient(ellipse 80% 70% at 50% 10%, black 45%, transparent 100%);"></div>
-  </div>
-
+<section class="py-24 relative overflow-hidden reveal">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl">
-      <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#7f91a8] uppercase tracking-[0.12em] mb-4">
-        <div class="h-px w-6 bg-white/20"></div>
+
+    <!-- Section header -->
+    <div class="mb-14 max-w-3xl">
+      <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-3">
+        <div class="h-px w-6 bg-black/15"></div>
         {copy.eyebrow}
       </div>
-      <h1 class="text-4xl md:text-[3.5rem] font-black text-white tracking-[-0.04em] leading-[0.96] mb-5">
+      <h1 class="text-3xl md:text-[2.75rem] font-black text-[#2D2A26] tracking-[-0.03em] leading-tight mb-5">
         {copy.title}
       </h1>
-      <p class="text-[#a7b4c8] text-lg leading-relaxed max-w-3xl">
+      <p class="text-[#6B6560] text-base md:text-lg leading-relaxed">
         {copy.subtitle}
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-12">
-      {copy.summary.map((item) => (
-        <article class="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_60px_rgba(8,12,20,0.22)]">
-          <div class="text-[11px] font-mono font-semibold text-[#f9b36d] uppercase tracking-[0.14em] mb-3">{item.label}</div>
-          <p class="text-sm leading-7 text-[#d5dfeb]">{item.text}</p>
-        </article>
+    <!-- Layer cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-20">
+      {copy.layers.map((item) => (
+        <div
+          class="group flex items-start gap-4 p-5 rounded-xl bg-white border border-black/[0.06] hover:border-black/[0.12] hover:-translate-y-0.5 transition-all duration-200 shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
+        >
+          <div
+            class="h-9 w-9 shrink-0 rounded-lg flex items-center justify-center mt-0.5"
+            style={`background: ${item.accent}10; border: 1px solid ${item.accent}20; color: ${item.accent};`}
+          >
+            <span class="text-[10px] font-mono font-bold tracking-tight">
+              {item.label.slice(0, 2).toUpperCase()}
+            </span>
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-1" style={`color: ${item.accent};`}>{item.label}</div>
+            <p class="text-[#6B6560] text-[12px] leading-relaxed">{item.text}</p>
+          </div>
+        </div>
       ))}
     </div>
 
-    <section class="mt-16">
-      <div class="flex items-center gap-3 mb-6">
-        <div class="h-px w-8 bg-white/14"></div>
-        <h2 class="text-2xl md:text-3xl font-black text-white tracking-[-0.03em]">{copy.flowTitle}</h2>
+    <!-- Core data flow -->
+    <div class="mb-20">
+      <div class="mb-8">
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#9C9590] uppercase tracking-[0.12em] mb-3">
+          <div class="h-px w-6 bg-black/15"></div>
+          {copy.flowTitle}
+        </div>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {copy.flowItems.map((item) => (
-          <article class="rounded-2xl border border-[#2a3950] bg-[#162132] p-6">
-            <h3 class="text-lg font-semibold text-white mb-4">{item.title}</h3>
-            <ul class="space-y-3 text-sm leading-7 text-[#aebacd]">
+          <article class="relative rounded-2xl bg-white border border-black/[0.08] p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="text-[11px] font-mono font-bold text-[#D4874D] tracking-widest">{item.tag}</span>
+              <div class="h-px flex-1 bg-black/[0.08]"></div>
+            </div>
+            <h3 class="text-[17px] font-bold text-[#2D2A26] tracking-tight mb-4">{item.title}</h3>
+            <ul class="space-y-2.5">
               {item.bullets.map((bullet) => (
-                <li class="flex gap-3">
-                  <span class="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#fb923c]"></span>
+                <li class="flex gap-2.5 text-[13px] leading-relaxed text-[#6B6560]">
+                  <span class="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#D4874D]/60"></span>
                   <span>{bullet}</span>
                 </li>
               ))}
@@ -221,33 +212,46 @@ const copy = {
           </article>
         ))}
       </div>
-    </section>
+    </div>
 
-    <div class="grid grid-cols-1 xl:grid-cols-[1.2fr_0.9fr] gap-6 mt-16">
-      <section class="rounded-[28px] border border-[#35507a] bg-[#182335] p-8 shadow-[0_24px_80px_rgba(8,12,20,0.24)]">
-        <div class="text-[11px] font-mono font-semibold text-[#7dd3fc] uppercase tracking-[0.14em] mb-3">{copy.topologyTitle}</div>
-        <p class="text-[#d5dfeb] text-base leading-8 mb-6">{copy.topologyBody}</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Topology + Release -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4">
+
+      <article class="rounded-2xl bg-white border border-black/[0.08] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#5A8F7B]"></span>
+          <div class="text-[10px] font-mono font-semibold text-[#5A8F7B] uppercase tracking-widest">{copy.topologyTitle}</div>
+        </div>
+        <p class="text-[#6B6560] text-[14px] leading-relaxed mb-6">{copy.topologyBody}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           {copy.topologyPoints.map((item) => (
-            <div class="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm leading-7 text-[#aebacd]">
-              {item}
+            <div class="flex items-start gap-2.5 px-4 py-3 rounded-lg bg-[#5A8F7B]/[0.04] border border-[#5A8F7B]/12 text-[12px] leading-relaxed text-[#2D2A26]">
+              <svg class="h-3 w-3 mt-[3px] shrink-0 text-[#5A8F7B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{item}</span>
             </div>
           ))}
         </div>
-      </section>
+      </article>
 
-      <section class="rounded-[28px] border border-[#5d3e24] bg-[#1e2737] p-8">
-        <div class="text-[11px] font-mono font-semibold text-[#fdba74] uppercase tracking-[0.14em] mb-3">{copy.releaseTitle}</div>
-        <p class="text-[#d5dfeb] text-base leading-8 mb-6">{copy.releaseBody}</p>
-        <ul class="space-y-3 text-sm leading-7 text-[#aebacd]">
-          {copy.releasePoints.map((item) => (
-            <li class="flex gap-3">
-              <span class="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#f59e0b]"></span>
-              <span>{item}</span>
+      <article class="rounded-2xl bg-white border border-black/[0.08] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#D4874D]"></span>
+          <div class="text-[10px] font-mono font-semibold text-[#D4874D] uppercase tracking-widest">{copy.releaseTitle}</div>
+        </div>
+        <p class="text-[#6B6560] text-[14px] leading-relaxed mb-6">{copy.releaseBody}</p>
+        <ul class="space-y-2.5">
+          {copy.releasePoints.map((item, idx) => (
+            <li class="flex gap-3 px-4 py-3 rounded-lg bg-[#D4874D]/[0.04] border border-[#D4874D]/12">
+              <span class="text-[10px] font-mono font-bold text-[#D4874D] mt-[2px]">0{idx + 1}</span>
+              <span class="text-[12px] leading-relaxed text-[#2D2A26]">{item}</span>
             </li>
           ))}
         </ul>
-      </section>
+      </article>
+
     </div>
+
   </div>
 </section>
