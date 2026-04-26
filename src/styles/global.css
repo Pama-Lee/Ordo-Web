@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  /* Background layers */
-  --color-bg:       #121926;
-  --color-surface:  #1a2433;
-  --color-elevated: #243246;
+  /* Background layers — warm cream palette matching Ordo Studio */
+  --color-bg:       #FAF8F5;
+  --color-surface:  #FFFFFF;
+  --color-elevated: #F5F1EA;
 
-  /* Brand palette */
-  --color-brand:       #3b82f6;
-  --color-brand-muted: #2563eb;
-  --color-engine:      #f97316;
-  --color-engine-dark: #ea580c;
-  --color-studio:      #8b5cf6;
-  --color-accent:      #22d3ee;
+  /* Brand palette — warm, professional */
+  --color-brand:       #D4874D;
+  --color-brand-muted: #C17A3E;
+  --color-engine:      #D4874D;
+  --color-engine-dark: #B86E35;
+  --color-studio:      #7C6B5A;
+  --color-accent:      #5A8F7B;
 
-  /* Text */
-  --color-text-primary:   #e6edf3;
-  --color-text-secondary: #9aa8bc;
-  --color-text-tertiary:  #72829a;
+  /* Text — warm dark tones */
+  --color-text-primary:   #2D2A26;
+  --color-text-secondary: #6B6560;
+  --color-text-tertiary:  #9C9590;
 
-  /* Borders */
-  --color-border-subtle:  rgba(255,255,255,0.10);
-  --color-border-default: rgba(255,255,255,0.18);
+  /* Borders — soft warm */
+  --color-border-subtle:  rgba(0,0,0,0.06);
+  --color-border-default: rgba(0,0,0,0.12);
 
   /* Semantic */
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-error:   #ef4444;
+  --color-success: #4A9E6B;
+  --color-warning: #D4874D;
+  --color-error:   #C75450;
 
   /* Fonts */
   --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -48,8 +48,8 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 24px rgba(251,146,60,0.24); }
-  50%       { box-shadow: 0 0 44px rgba(251,146,60,0.40); }
+  0%, 100% { box-shadow: 0 4px 16px rgba(212,135,77,0.18); }
+  50%       { box-shadow: 0 4px 24px rgba(212,135,77,0.28); }
 }
 
 @keyframes dot-ping {
@@ -62,11 +62,7 @@
 @layer base {
   body {
     background-color: var(--color-bg);
-    background-image:
-      radial-gradient(circle at 12% 10%, rgba(96, 165, 250, 0.06), transparent 20%),
-      radial-gradient(circle at 86% 14%, rgba(251, 146, 60, 0.06), transparent 22%),
-      radial-gradient(circle at 50% -8%, rgba(255, 255, 255, 0.04), transparent 18%),
-      linear-gradient(180deg, #242933 0%, #1f242d 22%, #191f28 48%, #141922 72%, #10151d 100%);
+    background-image: none;
     color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -92,8 +88,8 @@
 
   /* Selection */
   ::selection {
-    background: rgba(251, 146, 60, 0.28);
-    color: #e6edf3;
+    background: rgba(212, 135, 77, 0.20);
+    color: #2D2A26;
   }
 
   /* Hero entrance animations */

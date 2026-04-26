@@ -6,7 +6,9 @@
     "playground": "Playground",
     "integration": "Integration",
     "roadmap": "Roadmap",
-    "github": "GitHub"
+    "github": "GitHub",
+    "blog": "Blog",
+    "changelog": "Changelog"
   },
   "hero": {
     "badge": "v0.4.0 Released",
@@ -29,7 +31,15 @@
     "stat_latency": "Rule Execution",
     "stat_throughput": "Throughput",
     "stat_api": "HTTP API",
-    "stat_p99": "P99 Latency"
+    "stat_p99": "P99 Latency",
+    "workspace_label": "Workspace",
+    "workspace_title": "Projects, Rules, and Tests. In One Workspace.",
+    "layer_projects": "Projects",
+    "layer_rules": "Rules",
+    "layer_tests": "Tests",
+    "layer_projects_desc": "Keep org, team, and project context visible while you edit a ruleset.",
+    "layer_rules_desc": "Switch between rule files and author branching logic visually in the canvas.",
+    "layer_tests_desc": "Validate expected outputs without leaving the workspace or opening another tool."
   },
   "benchmarks": {
     "title": "Benchmark Results",

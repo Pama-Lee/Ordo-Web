@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const dateLocale = lang === 'en' ? 'en-US' : lang === 'zh-TW' ? 'zh-TW' : 'zh-CN';
+
+const allLogs = await getCollection('changelog', ({ data }) => !data.draft && data.lang === lang);
+const logs = allLogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const renderedLogs = await Promise.all(
+  logs.map(async (log) => {
+    const { Content } = await render(log);
+    return { ...log, Content };
+  })
+);
+---
+
+<Layout title={t('nav.changelog')}>
+  <Navbar />
+  <main class="grow pt-24">
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24">
+
+      <h1 class="text-4xl md:text-5xl font-black text-[#2D2A26] tracking-[-0.03em] mb-16">{t('nav.changelog')}</h1>
+
+      <div class="space-y-16">
+        {renderedLogs.map(({ data, Content }) => (
+          <div class="relative">
+            <!-- Version badge -->
+            <div class="flex items-center gap-4 mb-6">
+              <span class="px-3 py-1.5 rounded-lg bg-[#2D2A26] text-white text-sm font-mono font-bold">
+                v{data.version}
+              </span>
+              <time class="text-sm text-[#9C9590] font-mono" datetime={data.date.toISOString()}>
+                {data.date.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </div>
+
+            <h2 class="text-xl font-bold text-[#2D2A26] mb-4 tracking-tight">{data.title}</h2>
+
+            <div class="prose-warm changelog-content pl-4 border-l-2 border-[#D4874D]/20">
+              <Content />
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style is:global>
+  .changelog-content h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2D2A26;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+  }
+  .changelog-content ul {
+    padding-left: 1.2em;
+    margin-bottom: 0.8em;
+  }
+  .changelog-content li {
+    font-size: 0.9rem;
+    color: #4a4540;
+    margin-bottom: 0.3em;
+    line-height: 1.6;
+  }
+  .changelog-content li::marker {
+    color: #D4874D;
+  }
+  .changelog-content strong {
+    color: #2D2A26;
+    font-weight: 600;
+  }
+  .changelog-content code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(0,0,0,0.05);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    font-size: 0.85em;
+    color: #B86E35;
+  }
+</style>

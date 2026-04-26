@@ -28,35 +28,28 @@ const steps = [
 <section id="quickstart" class="py-24 relative overflow-hidden reveal">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">{t('quickstart.title')}</h2>
-      <p class="text-slate-400 max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-[#2D2A26] mb-4 tracking-tight">{t('quickstart.title')}</h2>
+      <p class="text-[#6B6560] max-w-2xl mx-auto">
         {t('quickstart.desc')}
       </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-12">
+    <div class="max-w-3xl mx-auto grid grid-cols-1 gap-6">
       {steps.map((step, index) => (
-        <div class="flex flex-col gap-6 items-start">
+        <div class="flex flex-col gap-3 items-start">
           <div class="w-full">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand text-sm font-bold font-mono shrink-0">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[#F5F1EA] border border-black/[0.08] text-[#D4874D] text-xs font-bold font-mono shrink-0">
                 {index + 1}
               </span>
-              <h3 class="text-xl font-bold text-white tracking-tight">{step.title}</h3>
+              <h3 class="text-base font-bold text-[#2D2A26] tracking-tight">{step.title}</h3>
             </div>
-            <p class="text-slate-400 text-sm mb-6 md:ml-12">{step.desc}</p>
-            <div class="md:ml-12 rounded-xl bg-surface border border-white/5 overflow-hidden group">
-              <div class="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.02]">
-                <div class="flex gap-1.5">
-                  <div class="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-green-500/40"></div>
-                </div>
-                <button class="text-[10px] text-slate-500 hover:text-white transition-colors uppercase font-mono tracking-wider copy-btn" data-code={step.code}>
-                  Copy
-                </button>
-              </div>
-              <pre class="p-4 text-sm overflow-x-auto"><code class="text-brand font-mono">{step.code}</code></pre>
+            <p class="text-[#6B6560] text-sm mb-3 ml-10">{step.desc}</p>
+            <div class="ml-10 rounded-xl bg-[#F5F1EA] border border-black/[0.06] overflow-hidden group relative">
+              <button class="absolute top-2.5 right-3 text-[10px] text-[#9C9590] hover:text-[#2D2A26] transition-colors uppercase font-mono tracking-wider copy-btn z-10" data-code={step.code}>
+                Copy
+              </button>
+              <div class="text-[13px] overflow-x-auto px-4 py-3.5 font-mono text-[#6B6560] leading-relaxed whitespace-pre">{step.code}</div>
             </div>
           </div>
         </div>

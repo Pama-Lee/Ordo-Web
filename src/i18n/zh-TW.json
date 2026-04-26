@@ -6,7 +6,9 @@
     "playground": "試用",
     "integration": "集成",
     "roadmap": "路線圖",
-    "github": "GitHub"
+    "github": "GitHub",
+    "blog": "部落格",
+    "changelog": "更新日誌"
   },
   "hero": {
     "badge": "v0.4.0 已發布",
@@ -29,7 +31,15 @@
     "stat_latency": "規則執行",
     "stat_throughput": "吞吐量",
     "stat_api": "HTTP API",
-    "stat_p99": "P99 延遲"
+    "stat_p99": "P99 延遲",
+    "workspace_label": "工作區",
+    "workspace_title": "專案、規則、測試，一站搞定。",
+    "layer_projects": "專案",
+    "layer_rules": "規則",
+    "layer_tests": "測試",
+    "layer_projects_desc": "編輯規則集時，組織、團隊和專案上下文始終可見。",
+    "layer_rules_desc": "在畫布中切換規則檔案，視覺化編寫分支邏輯。",
+    "layer_tests_desc": "無需離開工作區，直接驗證預期輸出。"
   },
   "benchmarks": {
     "title": "基準測試結果",
