@@ -391,12 +391,11 @@ const copy = {
         <!-- 3-layer visual diagram -->
         <div class="flex flex-col gap-3">
 
-          <!-- Layer label strip -->
-          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr_100px] gap-3 items-center">
+          <!-- Client layer: Studio -->
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr] gap-3 items-center">
             <div class="hidden lg:flex items-center justify-end">
               <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Client</span>
             </div>
-            <!-- Studio -->
             <div class="relative rounded-xl border-2 p-5" style="border-color: #D4874D20; background: linear-gradient(135deg, #fdf3ea, #fdf7f2);">
               <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div class="flex items-center gap-3">
@@ -414,7 +413,6 @@ const copy = {
                 </div>
               </div>
             </div>
-            <div class="hidden lg:block"></div>
           </div>
 
           <!-- Arrow down -->
@@ -428,7 +426,7 @@ const copy = {
           </div>
 
           <!-- Control Plane row -->
-          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr_100px] gap-3 items-start">
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr] gap-3 items-start">
             <div class="hidden lg:flex items-center justify-end pt-5">
               <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Control Plane</span>
             </div>
@@ -464,15 +462,51 @@ const copy = {
                 </div>
               </div>
             </div>
-            <!-- Right: infra column -->
-            <div class="flex flex-col gap-2">
-              <div class="rounded-xl border p-3" style="border-color: #9C959040; background: #f8f5f0;">
-                <div class="text-[10px] font-mono font-bold text-[#9C9590] mb-1">PostgreSQL :5432</div>
-                <div class="text-[11px] text-[#6B6560]">ordo_platform DB</div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="flex justify-center">
+            <div class="flex flex-col items-center gap-0.5">
+              <div class="h-5 w-px bg-black/15"></div>
+              <svg class="h-3 w-3 text-[#9C9590]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-6-6h12z"/></svg>
+            </div>
+          </div>
+
+          <!-- Infrastructure row -->
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr] gap-3 items-center">
+            <div class="hidden lg:flex items-center justify-end">
+              <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Infra</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <!-- PostgreSQL -->
+              <div class="flex items-center gap-4 rounded-xl border px-5 py-4"
+                style="border-color: #D4874D22; background: linear-gradient(135deg, #fdf3ea, #fdf7f2);">
+                <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                  style="background: #D4874D15; border: 1px solid #D4874D30; color: #D4874D;">PG</div>
+                <div class="min-w-0">
+                  <div class="text-[13px] font-bold text-[#2D2A26] tracking-tight">PostgreSQL</div>
+                  <div class="text-[11px] font-mono text-[#9C9590]">:5432 · ordo_platform DB</div>
+                  <div class="flex flex-wrap gap-1 mt-1.5">
+                    {['Orgs', 'Releases', 'Approvals', 'Snapshots'].map(t => (
+                      <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold" style="background: #D4874D10; color: #B86E35;">{t}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div class="rounded-xl border p-3" style="border-color: #9C959040; background: #f8f5f0;">
-                <div class="text-[10px] font-mono font-bold text-[#9C9590] mb-1">NATS JetStream :4222</div>
-                <div class="text-[11px] text-[#6B6560]">ordo.rules.*</div>
+              <!-- NATS -->
+              <div class="flex items-center gap-4 rounded-xl border px-5 py-4"
+                style="border-color: #4A9E6B22; background: linear-gradient(135deg, #ecf5f1, #f0f8f4);">
+                <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-[11px]"
+                  style="background: #4A9E6B15; border: 1px solid #4A9E6B30; color: #4A9E6B;">MQ</div>
+                <div class="min-w-0">
+                  <div class="text-[13px] font-bold text-[#2D2A26] tracking-tight">NATS JetStream</div>
+                  <div class="text-[11px] font-mono text-[#9C9590]">:4222 · ordo.rules.*</div>
+                  <div class="flex flex-wrap gap-1 mt-1.5">
+                    {['Registration', 'Heartbeat', 'Rule Sync', 'Events'].map(t => (
+                      <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold" style="background: #4A9E6B10; color: #3A8A5B;">{t}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -480,15 +514,15 @@ const copy = {
           <!-- Arrow down -->
           <div class="flex justify-center">
             <div class="flex flex-col items-center gap-0.5">
-              <div class="h-6 w-px bg-black/15"></div>
-              <span class="text-[10px] font-mono text-[#9C9590]">/engine proxy + NATS rule sync</span>
-              <div class="h-6 w-px bg-black/15"></div>
+              <div class="h-5 w-px bg-black/15"></div>
+              <span class="text-[10px] font-mono text-[#9C9590]">/engine proxy · NATS rule sync</span>
+              <div class="h-5 w-px bg-black/15"></div>
               <svg class="h-3 w-3 text-[#9C9590]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-6-6h12z"/></svg>
             </div>
           </div>
 
           <!-- Execution layer -->
-          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr_100px] gap-3 items-center">
+          <div class="grid grid-cols-1 lg:grid-cols-[100px_1fr] gap-3 items-center">
             <div class="hidden lg:flex items-center justify-end">
               <span class="text-[10px] font-mono font-semibold text-[#9C9590] uppercase tracking-widest">Engine</span>
             </div>
@@ -509,7 +543,6 @@ const copy = {
                 </div>
               </div>
             </div>
-            <div class="hidden lg:block"></div>
           </div>
 
         </div>
