@@ -17,6 +17,7 @@
     "subtitle": "Author, test, and govern business rules at scale — with a visual Studio, platform governance, and a fast engine under the hood.",
     "cta_playground": "Try Playground Now",
     "cta_github": "View on GitHub",
+    "playground_tooltip": "Studio is not yet publicly deployed. You'll be redirected to the legacy playground.",
     "stat_engine": "Rule Engine",
     "stat_platform": "Governance",
     "stat_studio": "Visual Editor",

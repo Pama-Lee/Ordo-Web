@@ -17,6 +17,7 @@
     "subtitle": "編寫、測試、治理業務規則——可視化 Studio、平台級治理，底層引擎快到感覺不到。",
     "cta_playground": "立即試用",
     "cta_github": "查看源碼",
+    "playground_tooltip": "Studio 暫未對外部署，即將前往上一版本試用頁面",
     "stat_engine": "規則引擎",
     "stat_platform": "治理平台",
     "stat_studio": "可視化編輯器",

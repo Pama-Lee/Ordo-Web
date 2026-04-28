@@ -17,6 +17,7 @@
     "subtitle": "编写、测试、治理业务规则——可视化 Studio、平台级治理，底层引擎快到感觉不到。",
     "cta_playground": "立即试用",
     "cta_github": "查看源码",
+    "playground_tooltip": "Studio 暂未对外部署，即将前往上一版本试用页面",
     "stat_engine": "规则引擎",
     "stat_platform": "治理平台",
     "stat_studio": "可视化编辑器",
