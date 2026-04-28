@@ -149,4 +149,90 @@ const backText = postLang === 'en' ? 'Back to blog' : postLang === 'zh-TW' ? 'è¿
     border-color: rgba(0,0,0,0.08);
     margin: 2em 0;
   }
+  .prose-warm img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    margin: 1.5em 0;
+    cursor: zoom-in;
+    transition: opacity 0.15s;
+  }
+  .prose-warm img:hover { opacity: 0.88; }
+
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    cursor: zoom-out;
+    animation: lb-fade-in 0.18s ease;
+  }
+  #lightbox.open { display: flex; }
+  #lightbox img {
+    max-width: min(92vw, 1100px);
+    max-height: 88vh;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    cursor: default;
+    margin: 0;
+    border: none;
+  }
+  #lightbox-close {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  #lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  @keyframes lb-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
 </style>
+
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Close">âœ•</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<script is:inline>
+  const lb     = document.getElementById('lightbox');
+  const lbImg  = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.prose-warm img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+</script>

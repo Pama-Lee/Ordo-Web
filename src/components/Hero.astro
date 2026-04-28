@@ -3,6 +3,7 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
 ---
 
 <div class="relative overflow-hidden">
@@ -14,7 +15,7 @@ const t = useTranslations(lang);
       style="
         background-image: url('/images/background.png');
         background-size: cover;
-        background-position: center;
+        background-position: top right;
         background-repeat: no-repeat;
         opacity: 0.18;
       ">
@@ -54,19 +55,23 @@ const t = useTranslations(lang);
     <!-- CTAs -->
     <div class="hero-anim-4 flex flex-col sm:flex-row items-center justify-center gap-3 mb-14">
       <a
-        href="https://pama-lee.github.io/Ordo/"
+        href="https://ordo-engine.github.io/Ordo/"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-full sm:w-auto px-8 py-3.5 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[15px] transition-all flex items-center justify-center gap-2"
+        class="relative group/playground w-full sm:w-auto px-8 py-3.5 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[15px] transition-all flex items-center justify-center gap-2"
         style="animation: glow-pulse 3s ease-in-out infinite;"
       >
         {t('hero.cta_playground')}
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
+        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 px-3.5 py-2.5 rounded-xl bg-[#2D2A26]/95 backdrop-blur-sm text-white text-[11px] leading-relaxed font-normal text-center opacity-0 group-hover/playground:opacity-100 transition-opacity duration-200 z-50 shadow-xl whitespace-normal border border-white/10">
+          {t('hero.playground_tooltip')}
+          <span class="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#2D2A26]/95"></span>
+        </span>
       </a>
       <a
-        href="https://github.com/Pama-Lee/Ordo"
+        href="https://github.com/Ordo-Engine/Ordo"
         target="_blank"
         rel="noopener noreferrer"
         class="w-full sm:w-auto px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] border border-black/[0.10] text-[#2D2A26] font-semibold rounded-xl text-[15px] transition-all flex items-center justify-center gap-2"
@@ -98,11 +103,11 @@ const t = useTranslations(lang);
         </svg>
         <span class="text-[12px] font-semibold text-[#6B6560]">{t('hero.stat_studio')}</span>
       </div>
-      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-black/[0.03] border border-black/[0.06]">
-        <svg class="h-3.5 w-3.5 text-[#9C9590]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#4A9E6B]/[0.06] border border-[#4A9E6B]/[0.15]">
+        <svg class="h-3.5 w-3.5 text-[#4A9E6B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>
-        <span class="text-[12px] font-semibold text-[#9C9590]">{t('hero.stat_license')}</span>
+        <span class="text-[12px] font-semibold text-[#4A9E6B]">{t('hero.stat_license')}</span>
       </div>
     </div>
   </div>

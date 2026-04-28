@@ -22,7 +22,7 @@ const t = useTranslations(lang);
 
         <div class="relative z-10 flex flex-col sm:flex-row justify-center gap-3">
           <a
-            href="https://github.com/Pama-Lee/Ordo#quick-start"
+            href="https://github.com/Ordo-Engine/Ordo#quick-start"
             target="_blank"
             rel="noopener noreferrer"
             class="px-8 py-3.5 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[15px] transition-all"
@@ -31,12 +31,16 @@ const t = useTranslations(lang);
             {t('cta.btn_start')}
           </a>
           <a
-            href="https://pama-lee.github.io/Ordo/"
+            href="https://ordo-engine.github.io/Ordo/"
             target="_blank"
             rel="noopener noreferrer"
-            class="px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#2D2A26] font-semibold rounded-xl border border-black/[0.08] text-[15px] transition-all"
+            class="relative group/playground px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#2D2A26] font-semibold rounded-xl border border-black/[0.08] text-[15px] transition-all"
           >
             {t('cta.btn_playground')}
+            <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 px-3.5 py-2.5 rounded-xl bg-[#2D2A26]/95 backdrop-blur-sm text-white text-[11px] leading-relaxed font-normal text-center opacity-0 group-hover/playground:opacity-100 transition-opacity duration-200 z-50 shadow-xl whitespace-normal border border-white/10">
+              {t('hero.playground_tooltip')}
+              <span class="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#2D2A26]/95"></span>
+            </span>
           </a>
         </div>
       </div>
