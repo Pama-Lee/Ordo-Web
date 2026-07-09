@@ -11,10 +11,10 @@
     "changelog": "更新日誌"
   },
   "hero": {
-    "badge": "v0.4.0 已發布",
-    "title_part1": "Ordo：",
-    "title_part2": "開源決策平台",
-    "subtitle": "編寫、測試、治理業務規則——可視化 Studio、平台級治理，底層引擎快到感覺不到。",
+    "badge": "AI Agent 的確定性護欄",
+    "title_part1": "面向 AI Agent 的",
+    "title_part2": "確定性決策層",
+    "subtitle": "LLM 負責提議，你的規則負責裁決。Ordo 給 Agent 的每一次工具呼叫裝上可測試的護欄——放行、攔截、或詢問——亞微秒級完成。底層是 Rust 寫的 JIT 規則引擎，還配可視化 Studio。",
     "cta_playground": "立即試用",
     "cta_github": "查看源碼",
     "playground_tooltip": "Studio 暫未對外部署，即將前往上一版本試用頁面",
@@ -81,7 +81,7 @@
     "wasm_desc": "為每個規則集建立、執行、匯出測試套件。相容 ordo-cli 的 YAML 格式，直接接入 CI/CD。",
     "audit_title": "治理",
     "audit_desc": "帶類型的決策契約、完整版本歷史、審計日誌。一鍵回滾規則集，追蹤每一次變更。",
-    "tenant_title": "決策平台",
+    "tenant_title": "治理平台",
     "tenant_desc": "組織與項目管理、事實目錄、規則模板。讓團隊在同一個地方擁有、發現和管理所有決策邏輯。",
     "filter_title": "資料過濾 API",
     "filter_desc": "將規則邏輯下推到資料庫層。生成 SQL WHERE 子句、JSON 謂詞或 MongoDB $match 階段——告別全表掃描，告別逐行求值。",
@@ -123,12 +123,12 @@
   },
   "cta": {
     "title": "掌控你的決策邏輯。",
-    "desc": "不要讓業務規則散落在程式碼庫和試算表裡。Ordo 讓團隊在同一個地方編寫、測試、治理它們。已在 GitHub 開源。",
+    "desc": "給 AI Agent 上可測試的護欄——每次工具呼叫都確定性地放行、攔截或詢問。同一套引擎也承載你的業務決策。已在 GitHub 開源。",
     "btn_start": "開始使用",
     "btn_playground": "演示 Playground"
   },
   "footer": {
-    "desc": "開源決策平台——在規模上編寫、測試、治理業務規則。",
+    "desc": "為 AI Agent 而生的確定性護欄——LLM 提議,規則裁決。一套引擎,從 Agent hook 到可視化 Studio。",
     "product": "產品",
     "resources": "資源",
     "feedback": "反饋",
@@ -180,7 +180,7 @@
   },
   "roadmap": {
     "title": "開發路線圖",
-    "desc": "Ordo 快速演進——從高性能規則引擎到完整的決策平台。",
+    "desc": "Ordo 快速演進——從高性能規則引擎,到面向 AI Agent 的確定性決策層。",
     "status_done": "已完成",
     "status_doing": "進行中",
     "status_todo": "計劃中"
