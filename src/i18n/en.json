@@ -11,10 +11,10 @@
     "changelog": "Changelog"
   },
   "hero": {
-    "badge": "v0.4.0 Released",
-    "title_part1": "Ordo:",
-    "title_part2": "Open-Source Decision Platform",
-    "subtitle": "Author, test, and govern business rules at scale — with a visual Studio, platform governance, and a fast engine under the hood.",
+    "badge": "Guardrails for AI agents",
+    "title_part1": "The deterministic",
+    "title_part2": "decision layer for AI agents",
+    "subtitle": "The LLM proposes, your rules dispose. Ordo puts guardrails you can test on every agent tool call — allow, deny, or ask — in sub-microsecond. A JIT-compiled rule engine in Rust, with a visual Studio.",
     "cta_playground": "Try Playground Now",
     "cta_github": "View on GitHub",
     "playground_tooltip": "Studio is not yet publicly deployed. You'll be redirected to the legacy playground.",
@@ -81,7 +81,7 @@
     "wasm_desc": "Create, run, and export test suites per ruleset. CI-compatible YAML format. Know your rules work before they ship.",
     "audit_title": "Governance",
     "audit_desc": "Typed decision contracts, full version history, and audit logging. Roll back a ruleset in one click. Track every change.",
-    "tenant_title": "Decision Platform",
+    "tenant_title": "Governance Platform",
     "tenant_desc": "Org & project management, fact catalog, and rule templates. One place for your team to own, discover, and manage all decision logic.",
     "filter_title": "Data Filter API",
     "filter_desc": "Push rule logic into your database. Generates SQL WHERE clauses, JSON predicates, or MongoDB $match stages — no full-table scans, no row-by-row evaluation.",
@@ -123,12 +123,12 @@
   },
   "cta": {
     "title": "Own your decision logic.",
-    "desc": "Stop scattering business rules across codebases and spreadsheets. Ordo gives your team one place to author, test, and govern them. Open source on GitHub.",
+    "desc": "Give your AI agent guardrails you can test — allow, deny, or ask on every tool call, deterministically. The same engine also runs your business decisions. Open source on GitHub.",
     "btn_start": "Get Started",
     "btn_playground": "Playground Demo"
   },
   "footer": {
-    "desc": "Open-source decision platform — author, test, and govern business rules at scale.",
+    "desc": "Deterministic guardrails for AI agents — the LLM proposes, your rules dispose. One rule engine, from an agent hook to a visual Studio.",
     "product": "Product",
     "resources": "Resources",
     "feedback": "Feedback",
@@ -180,7 +180,7 @@
   },
   "roadmap": {
     "title": "Development Roadmap",
-    "desc": "Ordo is evolving rapidly — from fast rule engine to complete decision platform.",
+    "desc": "Ordo is evolving rapidly — from a fast rule engine to the deterministic decision layer for AI agents.",
     "status_done": "Completed",
     "status_doing": "In Progress",
     "status_todo": "Planned"
