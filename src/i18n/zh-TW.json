@@ -164,7 +164,13 @@
     "step2_title": "2. 驗證狀態",
     "step2_desc": "檢查健康檢查接口",
     "step3_title": "3. 執行規則",
-    "step3_desc": "通過 REST API 發送執行請求"
+    "step3_desc": "通過 REST API 發送執行請求",
+    "latest": "最新版本"
+  },
+  "guard": {
+    "title": "給你的 coding agent 上護欄",
+    "subtitle": "最能一下感受到 Ordo 的地方:給 Claude Code 裝上確定性護欄。每一次工具呼叫都先過一遍本地規則——放行、攔截、還是詢問——可測試、可版本化,亞微秒級完成。",
+    "cmd_caption": "自動生成策略並接好 Claude Code 的 hook。"
   },
   "syntax": {
     "title": "表達式語法",

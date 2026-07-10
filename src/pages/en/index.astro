@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Hero from '../../components/Hero.astro';
+import GuardShowcase from '../../components/GuardShowcase.astro';
 import FlowDiagram from '../../components/FlowDiagram.astro';
 import Features from '../../components/Features.astro';
 import QuickStart from '../../components/QuickStart.astro';
@@ -19,6 +20,7 @@ const t = useTranslations(lang);
 	<Navbar />
 	<main class="grow">
 		<Hero />
+			<GuardShowcase />
 		{/* <FlowDiagram /> */}
 		<Features />
 		<EditorPreview />
