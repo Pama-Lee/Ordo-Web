@@ -1,14 +1,19 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLatestVersion } from '../lib/github';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Pull the version from GitHub at build time so the pinned image tag tracks the
+// latest release instead of drifting.
+const version = await getLatestVersion();
 
 const steps = [
   {
     title: t('quickstart.step1_title'),
     desc: t('quickstart.step1_desc'),
-    code: `docker run -d -p 8080:8080 ghcr.io/pama-lee/ordo:latest`
+    code: `docker run -d -p 8080:8080 ghcr.io/ordo-engine/ordo:${version}`
   },
   {
     title: t('quickstart.step2_title'),
@@ -32,6 +37,18 @@ const steps = [
       <p class="text-[#6B6560] max-w-2xl mx-auto">
         {t('quickstart.desc')}
       </p>
+      <a
+        href="https://github.com/Ordo-Engine/Ordo/releases/latest"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 mt-4 px-3 py-1 rounded-full bg-[#4A9E6B]/[0.08] border border-[#4A9E6B]/[0.18] text-[12px] font-semibold text-[#3d8159] font-mono hover:bg-[#4A9E6B]/[0.14] transition-colors"
+      >
+        <span class="relative flex h-1.5 w-1.5">
+          <span class="absolute inset-0 rounded-full bg-[#4A9E6B]" style="animation: dot-ping 1.6s ease-out infinite;"></span>
+          <span class="relative h-1.5 w-1.5 rounded-full bg-[#4A9E6B]"></span>
+        </span>
+        {t('quickstart.latest')} v{version}
+      </a>
     </div>
 
     <div class="max-w-3xl mx-auto grid grid-cols-1 gap-6">
