@@ -10,7 +10,9 @@ interface Props {
 
 const lang = getLangFromUrl(Astro.url);
 const { title, description = useHome(lang).meta.description } = Astro.props;
-const ogImage = '/images/og.png';
+const SITE = 'https://ordoengine.com';
+const pageUrl = new URL(Astro.url.pathname, SITE).href;
+const ogImage = new URL('/images/og.png', SITE).href;
 ---
 
 <!doctype html>
@@ -33,14 +35,14 @@ const ogImage = '/images/og.png';
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ordo.tech/" />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ordo.tech/" />
+    <meta property="twitter:url" content={pageUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
