@@ -1,0 +1,39 @@
+---
+// A dark terminal frame for real CLI output. Each line carries a tone so the
+// output reads at a glance without pretending to be a full ANSI renderer.
+export type Tone = 'cmd' | 'ok' | 'dim' | 'add' | 'del' | 'warn' | 'hl' | 'plain';
+export interface Line { t: string; c?: Tone }
+
+interface Props {
+  title: string;
+  lines: Line[];
+  class?: string;
+}
+
+const { title, lines, class: className = '' } = Astro.props;
+
+const tone: Record<Tone, string> = {
+  cmd: 'text-[#f3ede4]',
+  ok: 'text-[#8fcf9f]',
+  dim: 'text-[#8b8178]',
+  add: 'text-[#8fcf9f]',
+  del: 'text-[#e58f86]',
+  warn: 'text-[#e8b06a]',
+  hl: 'text-[#f3ede4] font-semibold',
+  plain: 'text-[#d9d1c5]',
+};
+---
+
+<div class={`rounded-2xl overflow-hidden bg-[#2D2A26] border border-black/20 shadow-[0_24px_60px_rgba(0,0,0,0.12)] ${className}`}>
+  <div class="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.06]">
+    <div class="flex gap-1.5 shrink-0">
+      <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/70"></div>
+      <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/70"></div>
+      <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]/70"></div>
+    </div>
+    <span class="text-[11px] text-[#8b8178] font-mono truncate">{title}</span>
+  </div>
+  <pre class="m-0 px-4 py-4 overflow-x-auto text-[12px] sm:text-[12.5px] leading-[1.7] font-mono"><code>{lines.map((l) => (
+    <span class={`block whitespace-pre ${tone[l.c ?? 'plain']}`}>{l.c === 'cmd' ? <span class="text-[#8b8178] select-none">$ </span> : null}{l.t || ' '}</span>
+  ))}</code></pre>
+</div>

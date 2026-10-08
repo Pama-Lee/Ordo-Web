@@ -1,8 +1,9 @@
 ---
-import { getLangFromUrl, useTranslations, languages } from '../i18n/utils';
+import { getLangFromUrl, languages } from '../i18n/utils';
+import { useHome, docsUrl } from '../i18n/home';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const nav = useHome(lang).nav;
 
 const base = lang === 'zh-CN' ? '' : `/${lang}`;
 
@@ -17,16 +18,18 @@ const starsLabel = stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : String(star
 const starTooltip = lang === 'en'
   ? 'If Ordo has been useful to you, a star would mean a lot to us'
   : lang === 'zh-TW'
-  ? '若 Ordo 对您有帮助，欢迎为我们点亮一颗 Star，感謝支持'
+  ? '若 Ordo 對您有幫助，歡迎為我們點亮一顆 Star，感謝支持'
   : '若 Ordo 对你有帮助，欢迎为我们点亮一颗 Star，感谢支持';
 
 const navItems = [
-  { name: t('nav.features'),    href: `${base}/#features` },
-  { name: t('nav.roadmap'),     href: `${base}/roadmap` },
-  { name: t('nav.blog'),         href: `${base}/blog` },
-  { name: t('nav.changelog'),    href: `${base}/changelog` },
-  { name: t('nav.docs'),        href: 'https://docs.ordoengine.com' },
+  { name: nav.how,    href: `${base}/#how` },
+  { name: nav.packs,  href: `${base}/#packs` },
+  { name: nav.studio, href: `${base}/#studio` },
+  { name: nav.guard,  href: `${base}/#guard` },
+  { name: nav.blog,   href: `${base}/blog` },
+  { name: nav.docs,   href: docsUrl(lang) },
 ];
+const startHref = docsUrl(lang, '/guide/quick-start');
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-black/[0.08] bg-[#FAF8F5]/85 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
@@ -111,15 +114,10 @@ const navItems = [
 
         <!-- Primary CTA -->
         <a
-          href="https://ordo-engine.github.io/Ordo/"
-          target="_blank"
-          class="relative group/playground ml-2 px-4 py-2 text-sm font-semibold text-white bg-[#2D2A26] hover:bg-[#1a1816] rounded-lg transition-all"
+          href={startHref}
+          class="ml-2 px-4 py-2 text-sm font-semibold text-white bg-[#2D2A26] hover:bg-[#1a1816] rounded-lg transition-all"
         >
-          Try Studio
-          <span class="pointer-events-none absolute top-full right-0 mt-2 w-64 px-3.5 py-2.5 rounded-xl bg-[#2D2A26]/95 backdrop-blur-sm text-white text-[11px] leading-relaxed font-normal text-center opacity-0 group-hover/playground:opacity-100 transition-opacity duration-200 z-50 shadow-xl whitespace-normal border border-white/10">
-            {t('hero.playground_tooltip')}
-            <span class="absolute bottom-full right-6 border-[5px] border-transparent border-b-[#2D2A26]/95"></span>
-          </span>
+          {nav.start}
         </a>
       </nav>
 
@@ -166,12 +164,8 @@ const navItems = [
         GitHub
       </a>
       <div class="pt-2">
-        <a href="https://ordo-engine.github.io/Ordo/" target="_blank" class="relative group/playground block px-4 py-2.5 text-sm font-semibold text-white bg-[#2D2A26] hover:bg-[#1a1816] rounded-lg text-center transition-colors">
-          Try Studio
-          <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 px-3.5 py-2.5 rounded-xl bg-[#2D2A26]/95 backdrop-blur-sm text-white text-[11px] leading-relaxed font-normal text-center opacity-0 group-hover/playground:opacity-100 transition-opacity duration-200 z-50 shadow-xl whitespace-normal border border-white/10">
-            {t('hero.playground_tooltip')}
-            <span class="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#2D2A26]/95"></span>
-          </span>
+        <a href={startHref} class="block px-4 py-2.5 text-sm font-semibold text-white bg-[#2D2A26] hover:bg-[#1a1816] rounded-lg text-center transition-colors">
+          {nav.start}
         </a>
       </div>
     </div>

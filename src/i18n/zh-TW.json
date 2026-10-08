@@ -10,38 +10,6 @@
     "blog": "部落格",
     "changelog": "更新日誌"
   },
-  "hero": {
-    "badge": "AI Agent 的確定性護欄",
-    "title_part1": "面向 AI Agent 的",
-    "title_part2": "確定性決策層",
-    "subtitle": "LLM 負責提議，你的規則負責裁決。Ordo 給 Agent 的每一次工具呼叫裝上可測試的護欄——放行、攔截、或詢問——亞微秒級完成。底層是 Rust 寫的 JIT 規則引擎，還配可視化 Studio。",
-    "cta_playground": "立即試用",
-    "cta_github": "查看源碼",
-    "playground_tooltip": "Studio 暫未對外部署，即將前往上一版本試用頁面",
-    "stat_engine": "規則引擎",
-    "stat_platform": "治理平台",
-    "stat_studio": "可視化編輯器",
-    "stat_license": "開源許可"
-  },
-  "flow": {
-    "title": "Ordo 如何工作",
-    "desc": "Ordo 以驚人的速度和精度處理請求。以下是執行流程的直觀展示。",
-    "input_title": "輸入 JSON",
-    "output_title": "決策結果",
-    "engine_title": "Ordo 引擎",
-    "stat_latency": "規則執行",
-    "stat_throughput": "吞吐量",
-    "stat_api": "HTTP API",
-    "stat_p99": "P99 延遲",
-    "workspace_label": "工作區",
-    "workspace_title": "專案、規則、測試，一站搞定。",
-    "layer_projects": "專案",
-    "layer_rules": "規則",
-    "layer_tests": "測試",
-    "layer_projects_desc": "編輯規則集時，組織、團隊和專案上下文始終可見。",
-    "layer_rules_desc": "在畫布中切換規則檔案，視覺化編寫分支邏輯。",
-    "layer_tests_desc": "無需離開工作區，直接驗證預期輸出。"
-  },
   "benchmarks": {
     "title": "基準測試結果",
     "description": "在 Apple Silicon (M系列) 上的單線程測試表明，Ordo 的性能遠超行業標準。",
@@ -70,70 +38,6 @@
     "jit_throughput": "峰值吞吐",
     "jit_speedup": "性能提升"
   },
-  "features": {
-    "title": "為什麼選擇 Ordo？",
-    "description": "大多數團隊從規則引擎開始。難點不在執行速度——而在於知道哪些規則存在、誰修改了它們、它們是否仍然正確。",
-    "editor_title": "Studio",
-    "editor_desc": "拖拽式流程編輯器、決策表、一鍵實例化模板。不用手寫 JSON 就能編寫規則。",
-    "performance_title": "高性能引擎",
-    "performance_desc": "亞微秒級執行，Cranelift JIT 編譯。支持 HTTP · gRPC · WASM · CLI 或嵌入 Rust 應用——快到感覺不到。",
-    "wasm_title": "測試管理",
-    "wasm_desc": "為每個規則集建立、執行、匯出測試套件。相容 ordo-cli 的 YAML 格式，直接接入 CI/CD。",
-    "audit_title": "治理",
-    "audit_desc": "帶類型的決策契約、完整版本歷史、審計日誌。一鍵回滾規則集，追蹤每一次變更。",
-    "tenant_title": "治理平台",
-    "tenant_desc": "組織與項目管理、事實目錄、規則模板。讓團隊在同一個地方擁有、發現和管理所有決策邏輯。",
-    "filter_title": "資料過濾 API",
-    "filter_desc": "將規則邏輯下推到資料庫層。生成 SQL WHERE 子句、JSON 謂詞或 MongoDB $match 階段——告別全表掃描，告別逐行求值。",
-    "integration_title": "隨處執行",
-    "integration_desc": "單一二進位伺服器、瀏覽器端 WebAssembly、嵌入式 Rust 整合。HTTP REST、gRPC 或 Unix socket——同一個引擎覆蓋所有部署場景。",
-    "usecase_title": "應用場景",
-    "usecase_finance": "決策表視圖",
-    "usecase_finance_desc": "把路由矩陣、審批策略和結果欄位放進表格裡，讓業務與營運無需閱讀原始 JSON 也能審查規則。",
-    "usecase_ecommerce": "模板市集",
-    "usecase_ecommerce_desc": "從內建模板或 GitHub 模板市集挑選合適示例，先看樣例，再一鍵建立專案開始調整。",
-    "usecase_routing": "服務可見性",
-    "usecase_routing_desc": "直接查看已註冊引擎、健康狀態與指標，讓團隊在發佈規則前先確認執行環境。"
-  },
-  "code": {
-    "title": "定義簡單，執行極速",
-    "desc": "Ordo 使用直觀的 JSON/YAML 格式。支持豐富的表達式語法，包括數學、邏輯運算和內置函數。只需簡單的 API 調用即可在微秒級獲得決策結果和詳細追蹤。",
-    "step1_title": "結構化規則定義",
-    "step1_desc": "定義步驟流轉和決策邏輯",
-    "step2_title": "高性能求值",
-    "step2_desc": "經過優化的求值引擎",
-    "step3_title": "可視化追蹤",
-    "step3_desc": "詳細的執行路徑追蹤"
-  },
-  "editor": {
-    "title": "模板優先的 Studio",
-    "desc": "先從模板市集挑一個貼近業務的示例，再基於它建立專案；測試、上下文和配置都能在同一處看到。",
-    "sidebar_steps": "決策步驟",
-    "sidebar_decision": "決策節點",
-    "sidebar_terminal": "終結節點",
-    "sidebar_jump": "跳轉節點",
-    "sidebar_config": "規則配置",
-    "cta_playground": "試用在線演示",
-    "view_multi": "內建模板與 GitHub 模板",
-    "view_multi_desc": "無縫切換流程圖和表單視圖，適應不同編輯習慣。",
-    "view_wasm": "從示例直接建立專案",
-    "view_wasm_desc": "使用 WASM 在瀏覽器中獲得與服務端完全一致的執行結果。",
-    "view_trace": "上下文、測試與配置同屏",
-    "view_trace_desc": "可視化追蹤規則執行的每一個節點，讓調試變得輕鬆自如。"
-  },
-  "cta": {
-    "title": "掌控你的決策邏輯。",
-    "desc": "給 AI Agent 上可測試的護欄——每次工具呼叫都確定性地放行、攔截或詢問。同一套引擎也承載你的業務決策。已在 GitHub 開源。",
-    "btn_start": "開始使用",
-    "btn_playground": "演示 Playground"
-  },
-  "footer": {
-    "desc": "為 AI Agent 而生的確定性護欄——LLM 提議,規則裁決。一套引擎,從 Agent hook 到可視化 Studio。",
-    "product": "產品",
-    "resources": "資源",
-    "feedback": "反饋",
-    "license": "許可"
-  },
   "integration": {
     "title": "全方位集成",
     "desc": "Ordo 提供多種集成方式，完美適配微服務、瀏覽器端或本地高性能場景。",
@@ -156,22 +60,6 @@
     "status_beta": "測試中",
     "status_soon": "即將推出"
   },
-  "quickstart": {
-    "title": "快速開始",
-    "desc": "使用 Docker 在 2 分鐘內啟動 Ordo Server 並執行您的第一條規則。",
-    "step1_title": "1. 啟動 Ordo Server",
-    "step1_desc": "拉取並運行官方 Docker 鏡像",
-    "step2_title": "2. 驗證狀態",
-    "step2_desc": "檢查健康檢查接口",
-    "step3_title": "3. 執行規則",
-    "step3_desc": "通過 REST API 發送執行請求",
-    "latest": "最新版本"
-  },
-  "guard": {
-    "title": "給你的 coding agent 上護欄",
-    "subtitle": "最能一下感受到 Ordo 的地方:給 Claude Code 裝上確定性護欄。每一次工具呼叫都先過一遍本地規則——放行、攔截、還是詢問——可測試、可版本化,亞微秒級完成。",
-    "cmd_caption": "自動生成策略並接好 Claude Code 的 hook。"
-  },
   "syntax": {
     "title": "表達式語法",
     "desc": "Ordo 使用類 C 語法，支持豐富的運算符和內置函數，確保極低的開銷。",
@@ -186,7 +74,7 @@
   },
   "roadmap": {
     "title": "開發路線圖",
-    "desc": "Ordo 快速演進——從高性能規則引擎,到面向 AI Agent 的確定性決策層。",
+    "desc": "從一個快的規則引擎開始，到 AI 時代的業務規則層：AI 來寫，Ordo 來保證。",
     "status_done": "已完成",
     "status_doing": "進行中",
     "status_todo": "計劃中"

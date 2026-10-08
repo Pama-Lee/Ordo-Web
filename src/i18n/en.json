@@ -10,38 +10,6 @@
     "blog": "Blog",
     "changelog": "Changelog"
   },
-  "hero": {
-    "badge": "Guardrails for AI agents",
-    "title_part1": "The deterministic",
-    "title_part2": "decision layer for AI agents",
-    "subtitle": "The LLM proposes, your rules dispose. Ordo puts guardrails you can test on every agent tool call — allow, deny, or ask — in sub-microsecond. A JIT-compiled rule engine in Rust, with a visual Studio.",
-    "cta_playground": "Try Playground Now",
-    "cta_github": "View on GitHub",
-    "playground_tooltip": "Studio is not yet publicly deployed. You'll be redirected to the legacy playground.",
-    "stat_engine": "Rule Engine",
-    "stat_platform": "Governance",
-    "stat_studio": "Visual Editor",
-    "stat_license": "Open Source"
-  },
-  "flow": {
-    "title": "How Ordo Works",
-    "desc": "Ordo processes requests with incredible speed and precision. Here's a glimpse into the execution flow.",
-    "input_title": "Input JSON",
-    "output_title": "Decision Result",
-    "engine_title": "Ordo Engine",
-    "stat_latency": "Rule Execution",
-    "stat_throughput": "Throughput",
-    "stat_api": "HTTP API",
-    "stat_p99": "P99 Latency",
-    "workspace_label": "Workspace",
-    "workspace_title": "Projects, Rules, and Tests. In One Workspace.",
-    "layer_projects": "Projects",
-    "layer_rules": "Rules",
-    "layer_tests": "Tests",
-    "layer_projects_desc": "Keep org, team, and project context visible while you edit a ruleset.",
-    "layer_rules_desc": "Switch between rule files and author branching logic visually in the canvas.",
-    "layer_tests_desc": "Validate expected outputs without leaving the workspace or opening another tool."
-  },
   "benchmarks": {
     "title": "Benchmark Results",
     "description": "Single-thread tests on Apple Silicon (M-series) show Ordo's exceptional performance far exceeding industry standards.",
@@ -70,70 +38,6 @@
     "jit_throughput": "Peak Throughput",
     "jit_speedup": "Performance Boost"
   },
-  "features": {
-    "title": "Why Ordo?",
-    "description": "Most teams start with a rule engine. The hard part isn't execution — it's knowing what rules exist, who changed them, and whether they still work.",
-    "editor_title": "Studio",
-    "editor_desc": "Drag-and-drop flow editor, decision tables, and one-click template instantiation. Author rules without writing JSON by hand.",
-    "performance_title": "Fast Engine",
-    "performance_desc": "Sub-microsecond execution, Cranelift JIT compilation. Runs as HTTP · gRPC · WASM · CLI or embedded in Rust — fast enough that you never think about it.",
-    "wasm_title": "Test Management",
-    "wasm_desc": "Create, run, and export test suites per ruleset. CI-compatible YAML format. Know your rules work before they ship.",
-    "audit_title": "Governance",
-    "audit_desc": "Typed decision contracts, full version history, and audit logging. Roll back a ruleset in one click. Track every change.",
-    "tenant_title": "Governance Platform",
-    "tenant_desc": "Org & project management, fact catalog, and rule templates. One place for your team to own, discover, and manage all decision logic.",
-    "filter_title": "Data Filter API",
-    "filter_desc": "Push rule logic into your database. Generates SQL WHERE clauses, JSON predicates, or MongoDB $match stages — no full-table scans, no row-by-row evaluation.",
-    "integration_title": "Runs Everywhere",
-    "integration_desc": "Single binary server, browser via WebAssembly, embedded in Rust apps. HTTP REST, gRPC, or Unix socket — one engine for every deployment target.",
-    "usecase_title": "Use Cases",
-    "usecase_finance": "Decision Tables",
-    "usecase_finance_desc": "Handle routing matrices, approval policies, and result fields in a table view that operators can review without reading raw JSON.",
-    "usecase_ecommerce": "Template Marketplace",
-    "usecase_ecommerce_desc": "Start from built-in or GitHub templates, inspect the sample, and create a project from a proven ruleset in a few clicks.",
-    "usecase_routing": "Server Visibility",
-    "usecase_routing_desc": "Inspect registered engines, health, and metrics inline so the team can see where rules are running before shipping changes."
-  },
-  "code": {
-    "title": "Easy to Define, Seconds to Execute",
-    "desc": "Ordo uses intuitive JSON/YAML formats. Supports rich expression syntax including math, logic, and built-in functions. Get decision results and detailed trace in microseconds via simple API calls.",
-    "step1_title": "Structured Rule Definition",
-    "step1_desc": "Define step flow and decision logic",
-    "step2_title": "High-Performance Evaluation",
-    "step2_desc": "Optimized evaluation engine",
-    "step3_title": "Visual Tracing",
-    "step3_desc": "Detailed execution path tracing"
-  },
-  "editor": {
-    "title": "Template-First Studio",
-    "desc": "Browse ready-made examples from the marketplace, create a project from the right template, and keep tests close while you adapt it.",
-    "sidebar_steps": "Decision Steps",
-    "sidebar_decision": "Decision Node",
-    "sidebar_terminal": "Terminal Node",
-    "sidebar_jump": "Jump Node",
-    "sidebar_config": "Rule Config",
-    "cta_playground": "Try in Live Playground",
-    "view_multi": "Built-in and GitHub templates",
-    "view_multi_desc": "Seamlessly switch between Flow and Form views to fit different editing habits.",
-    "view_wasm": "Project creation from a sample",
-    "view_wasm_desc": "Get identical results to server-side execution instantly in browser using WASM.",
-    "view_trace": "Context, tests, and setup together",
-    "view_trace_desc": "Visually trace every node in rule execution to make debugging effortless."
-  },
-  "cta": {
-    "title": "Own your decision logic.",
-    "desc": "Give your AI agent guardrails you can test — allow, deny, or ask on every tool call, deterministically. The same engine also runs your business decisions. Open source on GitHub.",
-    "btn_start": "Get Started",
-    "btn_playground": "Playground Demo"
-  },
-  "footer": {
-    "desc": "Deterministic guardrails for AI agents — the LLM proposes, your rules dispose. One rule engine, from an agent hook to a visual Studio.",
-    "product": "Product",
-    "resources": "Resources",
-    "feedback": "Feedback",
-    "license": "License"
-  },
   "integration": {
     "title": "Comprehensive Integration",
     "desc": "Ordo offers multiple integration methods, perfectly adapting to microservices, browser-side, or local high-performance scenarios.",
@@ -156,22 +60,6 @@
     "status_beta": "Beta",
     "status_soon": "Coming Soon"
   },
-  "quickstart": {
-    "title": "Quick Start",
-    "desc": "Launch Ordo Server and execute your first rule in under 2 minutes with Docker.",
-    "step1_title": "1. Start Ordo Server",
-    "step1_desc": "Pull and run the official Docker image",
-    "step2_title": "2. Verify Status",
-    "step2_desc": "Check the health check endpoint",
-    "step3_title": "3. Execute Rule",
-    "step3_desc": "Send execution request via REST API",
-    "latest": "Latest release"
-  },
-  "guard": {
-    "title": "Guard your coding agent",
-    "subtitle": "The sharpest place to feel Ordo: put deterministic guardrails on Claude Code. Every tool call runs through a local rule that decides allow, deny, or ask — testable, versioned, in sub-microsecond.",
-    "cmd_caption": "Scaffolds the policy and wires the Claude Code hook."
-  },
   "syntax": {
     "title": "Expression Syntax",
     "desc": "Ordo uses a C-like syntax with rich operators and built-in functions, ensuring minimal overhead.",
@@ -186,7 +74,7 @@
   },
   "roadmap": {
     "title": "Development Roadmap",
-    "desc": "Ordo is evolving rapidly — from a fast rule engine to the deterministic decision layer for AI agents.",
+    "desc": "From a fast rule engine to the business rule layer for the AI era: AI writes the rules, Ordo checks them.",
     "status_done": "Completed",
     "status_doing": "In Progress",
     "status_todo": "Planned"
