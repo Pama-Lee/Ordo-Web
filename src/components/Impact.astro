@@ -1,0 +1,51 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+import { useHome } from '../i18n/home';
+
+const lang = getLangFromUrl(Astro.url);
+const c = useHome(lang).impact;
+// '|' marks where a CJK title may break, so phrases are not split mid-word.
+const titleParts = c.title.split('|');
+const p = c.panel;
+---
+
+<section id="impact" class="py-24 bg-[#F5F1EA] reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center">
+    <div>
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.eyebrow}</p>
+      <h2 class="font-black text-[#2D2A26] tracking-[-0.03em] leading-[1.15] mb-6"
+        style="font-size: clamp(1.75rem, 3.5vw, 2.4rem);">{titleParts.length > 1 ? titleParts.map((t) => <span class="inline-block">{t}</span>) : c.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed mb-4">{c.p1}</p>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed mb-6">{c.p2}</p>
+      <p class="text-[16px] text-[#2D2A26] font-medium leading-relaxed">{c.ai}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-black/[0.06] shadow-[0_12px_40px_rgba(45,42,38,0.06)] p-7 sm:p-8">
+      <div class="flex items-baseline justify-between gap-4 pb-6 border-b border-black/[0.06]">
+        <span class="text-[14px] text-[#6B6560]">{p.label}</span>
+        <span class="text-[28px] font-black tracking-[-0.02em] tabular-nums">
+          <span class="text-[#B8B0A8] line-through decoration-2">{p.from}</span>
+          <span class="text-[#B8B0A8] mx-2 font-normal">→</span>
+          <span class="text-[#2D2A26]">{p.to}</span>
+        </span>
+      </div>
+
+      <p class="text-[15px] font-semibold text-[#2D2A26] pt-6 pb-4">{p.summary}</p>
+
+      <ul class="space-y-3">
+        {p.rows.map((r) => (
+          <li class="rounded-xl bg-[#FAF8F5] px-4 py-3.5">
+            <p class="text-[14px] text-[#2D2A26] leading-snug mb-2">{r.who}</p>
+            <p class="flex items-center gap-2 text-[13px] font-semibold">
+              <span class="px-2 py-0.5 rounded-md bg-[#D4874D]/10 text-[#B86E35]">{r.from}</span>
+              <span class="text-[#B8B0A8]">→</span>
+              <span class="px-2 py-0.5 rounded-md bg-[#C75450]/10 text-[#B0433F]">{r.to}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="text-[13px] text-[#9C9590] pt-5">{p.rest}</p>
+    </div>
+  </div>
+</section>

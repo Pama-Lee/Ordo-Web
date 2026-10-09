@@ -2,13 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
-import Problem from '../components/Problem.astro';
-import Workflow from '../components/Workflow.astro';
-import ImpactShowcase from '../components/ImpactShowcase.astro';
-import RulePacks from '../components/RulePacks.astro';
-import StudioShowcase from '../components/StudioShowcase.astro';
-import GuardShowcase from '../components/GuardShowcase.astro';
-import Ecosystem from '../components/Ecosystem.astro';
+import Points from '../components/Points.astro';
+import Impact from '../components/Impact.astro';
+import Studio from '../components/Studio.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl } from '../i18n/utils';
@@ -22,13 +18,9 @@ const home = useHome(lang);
 	<Navbar />
 	<main class="grow">
 		<Hero />
-		<Problem />
-		<Workflow />
-		<ImpactShowcase />
-		<RulePacks />
-		<StudioShowcase />
-		<GuardShowcase />
-		<Ecosystem />
+		<Points />
+		<Impact />
+		<Studio />
 		<CTA />
 	</main>
 	<Footer />

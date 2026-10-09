@@ -34,10 +34,10 @@ const year = new Date().getFullYear();
       <div>
         <h3 class="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-4">{f.product}</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href={`${base}/#how`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.how}</a></li>
-          <li><a href={PACKS_URL} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.packs}</a></li>
+          <li><a href={`${base}/#how`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.product}</a></li>
+          <li><a href={PACKS_URL} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.packs}</a></li>
           <li><a href={`${base}/#studio`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">Studio</a></li>
-          <li><a href={`${base}/#guard`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">Guard</a></li>
+          <li><a href={docsUrl(lang, '/platform/guard')} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">Guard</a></li>
           <li><a href={`${base}/architecture`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.architecture}</a></li>
           <li><a href={`${base}/benchmarks`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.benchmarks}</a></li>
         </ul>
