@@ -33,14 +33,30 @@ const roadmap = [
     ]
   },
   {
-    status: 'todo',
-    title: 'Phase 3: Ecosystem',
+    status: 'done',
+    title: 'Phase 3: Rules people and AI can write',
+    version: 'Shipped',
+    items: [
+      'Ordo Guard: deterministic guardrails for coding agents',
+      'Exact decimal type for money',
+      'Declared input schema (invalid input is rejected)',
+      'Expression strings in assignments and outputs',
+      'Engine-native decision tables (first / collect hit policies)',
+      'ordo impact: see which decisions an edit changes',
+      'MCP server so agents can test and check their own edits'
+    ]
+  },
+  {
+    status: 'doing',
+    title: 'Phase 4: Ecosystem',
     version: 'Next',
     items: [
-      'Collaborative Editing',
-      'Rule Marketplace',
-      'Advanced Observability (full OTLP tracing)',
-      'Kubernetes Native Operator'
+      'Reusable rule packs (credit approval, promo stacking, fraud scoring)',
+      'Decision table steps in the Studio visual editor',
+      'Sharing rule packs between teams',
+      'Published Go / Python / Java SDKs',
+      'Collaborative editing',
+      'Kubernetes native operator'
     ]
   }
 ];

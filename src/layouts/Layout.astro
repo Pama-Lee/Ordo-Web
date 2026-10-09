@@ -1,14 +1,18 @@
 ---
 import "../styles/global.css";
 import { getLangFromUrl } from '../i18n/utils';
+import { useHome } from '../i18n/home';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Deterministic guardrails for AI agents — the LLM proposes, your rules dispose. A sub-microsecond, JIT-compiled rule engine in Rust, with a visual Studio." } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const { title, description = useHome(lang).meta.description } = Astro.props;
+const SITE = 'https://ordoengine.com';
+const pageUrl = new URL(Astro.url.pathname, SITE).href;
+const ogImage = new URL('/images/og.png', SITE).href;
 ---
 
 <!doctype html>
@@ -31,17 +35,17 @@ const lang = getLangFromUrl(Astro.url);
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ordo.tech/" />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/screenshots/image1.png" />
+    <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ordo.tech/" />
+    <meta property="twitter:url" content={pageUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/images/screenshots/image1.png" />
+    <meta property="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|jetbrains-mono:400,700&display=swap" rel="stylesheet">
@@ -75,6 +79,23 @@ const lang = getLangFromUrl(Astro.url);
 
       document.querySelectorAll('.reveal').forEach(el => {
         observer.observe(el);
+      });
+
+      // Copy buttons: any element with .copy-btn and data-code.
+      document.querySelectorAll<HTMLElement>('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const code = btn.dataset.code;
+          if (!code) return;
+          navigator.clipboard?.writeText(code).catch(() => {});
+          if (btn.children.length === 0) {
+            const original = btn.textContent;
+            btn.textContent = 'Copied';
+            setTimeout(() => { btn.textContent = original; }, 1600);
+          } else {
+            btn.classList.add('is-copied');
+            setTimeout(() => btn.classList.remove('is-copied'), 1600);
+          }
+        });
       });
     </script>
   </body>

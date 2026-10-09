@@ -10,38 +10,6 @@
     "blog": "博客",
     "changelog": "更新日志"
   },
-  "hero": {
-    "badge": "AI Agent 的确定性护栏",
-    "title_part1": "面向 AI Agent 的",
-    "title_part2": "确定性决策层",
-    "subtitle": "LLM 负责提议，你的规则负责裁决。Ordo 给 Agent 的每一次工具调用装上可测试的护栏——放行、拦截、或询问——亚微秒级完成。底层是 Rust 写的 JIT 规则引擎，还配可视化 Studio。",
-    "cta_playground": "立即试用",
-    "cta_github": "查看源码",
-    "playground_tooltip": "Studio 暂未对外部署，即将前往上一版本试用页面",
-    "stat_engine": "规则引擎",
-    "stat_platform": "治理平台",
-    "stat_studio": "可视化编辑器",
-    "stat_license": "开源许可"
-  },
-  "flow": {
-    "title": "Ordo 如何工作",
-    "desc": "Ordo 以惊人的速度和精度处理请求。以下是执行流程的直观展示。",
-    "input_title": "输入 JSON",
-    "output_title": "决策结果",
-    "engine_title": "Ordo 引擎",
-    "stat_latency": "规则执行",
-    "stat_throughput": "吞吐量",
-    "stat_api": "HTTP API",
-    "stat_p99": "P99 延迟",
-    "workspace_label": "工作区",
-    "workspace_title": "项目、规则、测试，一站搞定。",
-    "layer_projects": "项目",
-    "layer_rules": "规则",
-    "layer_tests": "测试",
-    "layer_projects_desc": "编辑规则集时，组织、团队和项目上下文始终可见。",
-    "layer_rules_desc": "在画布中切换规则文件，可视化编写分支逻辑。",
-    "layer_tests_desc": "无需离开工作区，直接验证预期输出。"
-  },
   "benchmarks": {
     "title": "基准测试结果",
     "description": "在 Apple Silicon (M系列) 上的单线程测试表明，Ordo 的性能远超行业标准。",
@@ -70,70 +38,6 @@
     "jit_throughput": "峰值吞吐",
     "jit_speedup": "性能提升"
   },
-  "features": {
-    "title": "为什么选择 Ordo？",
-    "description": "大多数团队从规则引擎开始。难点不在执行速度——而在于知道哪些规则存在、谁修改了它们、它们是否仍然正确。",
-    "editor_title": "Studio",
-    "editor_desc": "拖拽式流程编辑器、决策表、一键实例化模板。不用手写 JSON 就能编写规则。",
-    "performance_title": "高性能引擎",
-    "performance_desc": "亚微秒级执行，Cranelift JIT 编译。支持 HTTP · gRPC · WASM · CLI 或嵌入 Rust 应用——快到感觉不到。",
-    "wasm_title": "测试管理",
-    "wasm_desc": "为每个规则集创建、运行、导出测试套件。兼容 ordo-cli 的 YAML 格式，直接接入 CI/CD。",
-    "audit_title": "治理",
-    "audit_desc": "带类型的决策契约、完整版本历史、审计日志。一键回滚规则集，追踪每一次变更。",
-    "tenant_title": "治理平台",
-    "tenant_desc": "组织与项目管理、事实目录、规则模板。让团队在同一个地方拥有、发现和管理所有决策逻辑。",
-    "filter_title": "数据过滤 API",
-    "filter_desc": "将规则逻辑下推到数据库层。生成 SQL WHERE 子句、JSON 谓词或 MongoDB $match 阶段——告别全表扫描，告别逐行求值。",
-    "integration_title": "随处运行",
-    "integration_desc": "单二进制服务器、浏览器端 WebAssembly、嵌入式 Rust 集成。HTTP REST、gRPC 或 Unix socket——同一个引擎覆盖所有部署场景。",
-    "usecase_title": "应用场景",
-    "usecase_finance": "决策表视图",
-    "usecase_finance_desc": "把路由矩阵、审批策略和结果字段放进表格里，让业务和运营无需阅读原始 JSON 也能审查规则。",
-    "usecase_ecommerce": "模板市场",
-    "usecase_ecommerce_desc": "从内置模板或 GitHub 模板市场选择合适示例，先看样例，再一键创建项目开始改。",
-    "usecase_routing": "服务可见性",
-    "usecase_routing_desc": "直接查看已注册引擎、健康状态和指标，让团队在发布规则前先确认运行环境。"
-  },
-  "code": {
-    "title": "定义简单，执行极速",
-    "desc": "Ordo 使用直观的 JSON/YAML 格式。支持丰富的表达式语法，包括数学、逻辑运算和内置函数。只需简单的 API 调用即可在微秒级获得决策结果和详细追踪。",
-    "step1_title": "结构化规则定义",
-    "step1_desc": "定义步骤流转和决策逻辑",
-    "step2_title": "高性能求值",
-    "step2_desc": "经过优化的求值引擎",
-    "step3_title": "可视化追踪",
-    "step3_desc": "详细的执行路径追踪"
-  },
-  "editor": {
-    "title": "模板优先的 Studio",
-    "desc": "先从模板市场挑一个贴近业务的示例，再基于它创建项目；测试、上下文和配置都能在同一处看到。",
-    "sidebar_steps": "决策步骤",
-    "sidebar_decision": "决策节点",
-    "sidebar_terminal": "终结节点",
-    "sidebar_jump": "跳转节点",
-    "sidebar_config": "规则配置",
-    "cta_playground": "试用在线演示",
-    "view_multi": "内置模板与 GitHub 模板",
-    "view_multi_desc": "无缝切换流程图和表单视图，适应不同编辑习惯。",
-    "view_wasm": "从示例直接创建项目",
-    "view_wasm_desc": "使用 WASM 在浏览器中获得与服务端完全一致的执行结果。",
-    "view_trace": "上下文、测试与配置同屏",
-    "view_trace_desc": "可视化追踪规则执行的每一个节点，让调试变得轻松自如。"
-  },
-  "cta": {
-    "title": "掌控你的决策逻辑。",
-    "desc": "给 AI Agent 上可测试的护栏——每次工具调用都确定性地放行、拦截或询问。同一套引擎也承载你的业务决策。已在 GitHub 开源。",
-    "btn_start": "开始使用",
-    "btn_playground": "演示 Playground"
-  },
-  "footer": {
-    "desc": "为 AI Agent 而生的确定性护栏——LLM 提议,规则裁决。一套引擎,从 Agent hook 到可视化 Studio。",
-    "product": "产品",
-    "resources": "资源",
-    "feedback": "反馈",
-    "license": "许可"
-  },
   "integration": {
     "title": "全方位集成",
     "desc": "Ordo 提供多种集成方式，完美适配微服务、浏览器端或本地高性能场景。",
@@ -156,22 +60,6 @@
     "status_beta": "测试中",
     "status_soon": "即将推出"
   },
-  "quickstart": {
-    "title": "快速开始",
-    "desc": "使用 Docker 在 2 分钟内启动 Ordo Server 并执行您的第一条规则。",
-    "step1_title": "1. 启动 Ordo Server",
-    "step1_desc": "拉取并运行官方 Docker 镜像",
-    "step2_title": "2. 验证状态",
-    "step2_desc": "检查健康检查接口",
-    "step3_title": "3. 执行规则",
-    "step3_desc": "通过 REST API 发送执行请求",
-    "latest": "最新版本"
-  },
-  "guard": {
-    "title": "给你的 coding agent 上护栏",
-    "subtitle": "最能一下感受到 Ordo 的地方:给 Claude Code 装上确定性护栏。每一次工具调用都先过一遍本地规则——放行、拦截、还是询问——可测试、可版本化,亚微秒级完成。",
-    "cmd_caption": "自动生成策略并接好 Claude Code 的 hook。"
-  },
   "syntax": {
     "title": "表达式语法",
     "desc": "Ordo 使用类 C 语法，支持丰富的运算符和内置函数，确保极低的开销。",
@@ -186,7 +74,7 @@
   },
   "roadmap": {
     "title": "开发路线图",
-    "desc": "Ordo 快速演进——从高性能规则引擎,到面向 AI Agent 的确定性决策层。",
+    "desc": "从一个快的规则引擎开始，到 AI 时代的业务规则层：AI 来写，Ordo 来保证。",
     "status_done": "已完成",
     "status_doing": "进行中",
     "status_todo": "计划中"

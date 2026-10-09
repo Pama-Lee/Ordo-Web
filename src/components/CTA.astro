@@ -1,47 +1,37 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl } from '../i18n/utils';
+import { useHome, docsUrl, REPO_URL } from '../i18n/home';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const c = useHome(lang).cta;
+const code = [
+  'npm i -g @ordo-engine/cli',
+  'git clone https://github.com/Ordo-Engine/Ordo',
+  'cd Ordo/examples/rule-packs/fraud-scoring',
+  'ordo test',
+];
 ---
 
-<section class="py-28 relative overflow-hidden reveal">
+<section class="py-24 relative overflow-hidden reveal">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Card -->
     <div class="relative rounded-[24px] p-[1px]"
       style="background: linear-gradient(135deg, rgba(212,135,77,0.3) 0%, rgba(124,107,90,0.15) 50%, rgba(90,143,123,0.2) 100%);">
-      <div class="relative bg-white rounded-[23px] px-8 py-16 md:px-16 text-center overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
+      <div class="relative bg-white rounded-[23px] px-6 py-14 md:px-14 text-center overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
+        <h2 class="font-black text-[#2D2A26] tracking-[-0.035em] leading-[1.05] mb-4"
+          style="font-size: clamp(2rem, 5vw, 3rem);">{c.title}</h2>
+        <p class="text-[#6B6560] text-[16px] mb-8 max-w-lg mx-auto leading-relaxed">{c.desc}</p>
 
-        <h2 class="relative z-10 font-black text-[#2D2A26] tracking-[-0.035em] leading-[1.05] mb-5"
-          style="font-size: clamp(2rem, 5vw, 3.25rem);">
-          {t('cta.title')}
-        </h2>
-        <p class="relative z-10 text-[#6B6560] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
-          {t('cta.desc')}
-        </p>
+        <div class="max-w-xl mx-auto mb-9 rounded-xl bg-[#2D2A26] text-left overflow-hidden relative">
+          <button class="absolute top-2.5 right-3 text-[10px] text-[#9C9590] hover:text-white transition-colors uppercase font-mono tracking-wider copy-btn z-10" data-code={code.join('\n')}>Copy</button>
+          <pre class="m-0 px-4 py-3.5 overflow-x-auto text-[12.5px] leading-[1.75] font-mono text-[#e8e2d8]"><code>{code.map((l) => <span class="block whitespace-pre"><span class="text-[#8b8178] select-none">$ </span>{l}</span>)}</code></pre>
+        </div>
 
-        <div class="relative z-10 flex flex-col sm:flex-row justify-center gap-3">
-          <a
-            href="https://github.com/Ordo-Engine/Ordo#quick-start"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div class="flex flex-col sm:flex-row justify-center gap-3">
+          <a href={docsUrl(lang, '/guide/quick-start')}
             class="px-8 py-3.5 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-xl text-[15px] transition-all"
-            style="animation: glow-pulse 3s ease-in-out infinite;"
-          >
-            {t('cta.btn_start')}
-          </a>
-          <a
-            href="https://ordo-engine.github.io/Ordo/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="relative group/playground px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#2D2A26] font-semibold rounded-xl border border-black/[0.08] text-[15px] transition-all"
-          >
-            {t('cta.btn_playground')}
-            <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 px-3.5 py-2.5 rounded-xl bg-[#2D2A26]/95 backdrop-blur-sm text-white text-[11px] leading-relaxed font-normal text-center opacity-0 group-hover/playground:opacity-100 transition-opacity duration-200 z-50 shadow-xl whitespace-normal border border-white/10">
-              {t('hero.playground_tooltip')}
-              <span class="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#2D2A26]/95"></span>
-            </span>
-          </a>
+            style="animation: glow-pulse 3s ease-in-out infinite;">{c.btn_docs}</a>
+          <a href={REPO_URL} target="_blank" rel="noopener noreferrer"
+            class="px-8 py-3.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#2D2A26] font-semibold rounded-xl border border-black/[0.08] text-[15px] transition-all">{c.btn_github}</a>
         </div>
       </div>
     </div>

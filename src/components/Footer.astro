@@ -1,8 +1,11 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl } from '../i18n/utils';
+import { useHome, sitePrefix, docsUrl, REPO_URL, PACKS_URL } from '../i18n/home';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const home = useHome(lang);
+const f = home.footer;
+const base = sitePrefix(lang);
 
 const year = new Date().getFullYear();
 ---
@@ -16,7 +19,7 @@ const year = new Date().getFullYear();
           <span class="text-lg font-bold tracking-tight text-[#2D2A26] font-mono uppercase">ORDO</span>
         </div>
         <p class="text-[#6B6560] text-sm max-w-sm mb-6">
-          {t('footer.desc')}
+          {f.desc}
         </p>
         <div class="flex gap-4">
           <a href="https://github.com/Ordo-Engine/Ordo" target="_blank" rel="noopener noreferrer" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors" aria-label="GitHub">
@@ -29,26 +32,32 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-4">{t('footer.product')}</h3>
+        <h3 class="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-4">{f.product}</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="#features" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{t('nav.features')}</a></li>
-          <li><a href="#benchmarks" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{t('nav.benchmarks')}</a></li>
-          <li><a href="https://ordo-engine.github.io/Ordo/" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{t('nav.playground')}</a></li>
+          <li><a href={`${base}/#how`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.how}</a></li>
+          <li><a href={PACKS_URL} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.packs}</a></li>
+          <li><a href={`${base}/#studio`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">Studio</a></li>
+          <li><a href={`${base}/#guard`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">Guard</a></li>
+          <li><a href={`${base}/architecture`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.architecture}</a></li>
+          <li><a href={`${base}/benchmarks`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.benchmarks}</a></li>
         </ul>
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-4">{t('footer.resources')}</h3>
+        <h3 class="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-4">{f.resources}</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="https://docs.ordoengine.com" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{t('nav.docs')}</a></li>
-          <li><a href="https://github.com/Ordo-Engine/Ordo/issues" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{t('footer.feedback')}</a></li>
-          <li><a href="https://github.com/Ordo-Engine/Ordo/blob/main/LICENSE" class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{t('footer.license')}</a></li>
+          <li><a href={docsUrl(lang)} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.docs}</a></li>
+          <li><a href={`${base}/blog`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{home.nav.blog}</a></li>
+          <li><a href={`${base}/changelog`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.changelog}</a></li>
+          <li><a href={`${base}/roadmap`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.roadmap}</a></li>
+          <li><a href={`${REPO_URL}/issues`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.feedback}</a></li>
+          <li><a href={`${REPO_URL}/blob/main/LICENSE`} class="text-[#6B6560] hover:text-[#2D2A26] transition-colors">{f.license}</a></li>
         </ul>
       </div>
     </div>
     <div class="mt-12 pt-8 border-t border-black/[0.06] flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="text-[#9C9590] text-xs">
-        &copy; {year} Ordo Project. Built with Rust.
+        &copy; {year} Ordo Project
       </p>
       <p class="text-[#9C9590] text-xs">
         MIT License

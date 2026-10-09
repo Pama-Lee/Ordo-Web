@@ -2,30 +2,33 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Hero from '../../components/Hero.astro';
+import Problem from '../../components/Problem.astro';
+import Workflow from '../../components/Workflow.astro';
+import ImpactShowcase from '../../components/ImpactShowcase.astro';
+import RulePacks from '../../components/RulePacks.astro';
+import StudioShowcase from '../../components/StudioShowcase.astro';
 import GuardShowcase from '../../components/GuardShowcase.astro';
-import FlowDiagram from '../../components/FlowDiagram.astro';
-import Features from '../../components/Features.astro';
-import QuickStart from '../../components/QuickStart.astro';
-import EditorPreview from '../../components/EditorPreview.astro';
-import ArchitectureLink from '../../components/ArchitectureLink.astro';
+import Ecosystem from '../../components/Ecosystem.astro';
 import CTA from '../../components/CTA.astro';
 import Footer from '../../components/Footer.astro';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getLangFromUrl } from '../../i18n/utils';
+import { useHome } from '../../i18n/home';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const home = useHome(lang);
 ---
 
-<Layout title={`Ordo - ${t('hero.title_part2')}`}>
+<Layout title={home.meta.title}>
 	<Navbar />
 	<main class="grow">
 		<Hero />
-			<GuardShowcase />
-		{/* <FlowDiagram /> */}
-		<Features />
-		<EditorPreview />
-		<QuickStart />
-		<ArchitectureLink />
+		<Problem />
+		<Workflow />
+		<ImpactShowcase />
+		<RulePacks />
+		<StudioShowcase />
+		<GuardShowcase />
+		<Ecosystem />
 		<CTA />
 	</main>
 	<Footer />

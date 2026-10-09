@@ -100,3 +100,7 @@
   .hero-anim-5 { animation: hero-fade-up 0.70s 0.45s ease-out both; }
   .hero-anim-6 { animation: hero-fade-up 0.80s 0.55s ease-out both; }
 }
+
+/* Copy buttons with icon content show a check briefly after copying */
+.copy-btn.is-copied { color: #4A9E6B; }
+.copy-btn.is-copied::after { content: ' ✓'; }
