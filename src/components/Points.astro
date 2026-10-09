@@ -1,0 +1,24 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+import { useHome } from '../i18n/home';
+
+const lang = getLangFromUrl(Astro.url);
+const c = useHome(lang).points;
+---
+
+<section id="how" class="py-24 reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="[text-wrap:balance] text-center font-black text-[#2D2A26] tracking-[-0.03em] mb-16"
+      style="font-size: clamp(1.75rem, 3.5vw, 2.4rem);">{c.title}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
+      {c.items.map((item, i) => (
+        <div class="border-t border-black/[0.10] pt-6">
+          <div class="text-[13px] font-semibold text-[#C8743A] mb-3 tabular-nums">0{i + 1}</div>
+          <h3 class="text-[19px] font-bold text-[#2D2A26] tracking-[-0.01em] mb-2.5">{item.title}</h3>
+          <p class="text-[15px] text-[#6B6560] leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

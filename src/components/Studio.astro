@@ -1,0 +1,38 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+import { useHome, docsUrl } from '../i18n/home';
+
+const lang = getLangFromUrl(Astro.url);
+const c = useHome(lang).studio;
+// '|' marks where a CJK title may break, so phrases are not split mid-word.
+const titleParts = c.title.split('|');
+const shot = `/images/screens/${lang === 'en' ? 'en' : 'zh'}/table.webp`;
+---
+
+<section id="studio" class="py-24 reveal scroll-mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+    <div class="lg:col-span-5">
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.eyebrow}</p>
+      <h2 class="font-black text-[#2D2A26] tracking-[-0.03em] leading-[1.15] mb-6"
+        style="font-size: clamp(1.75rem, 3.5vw, 2.4rem);">{titleParts.length > 1 ? titleParts.map((t) => <span class="inline-block">{t}</span>) : c.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed mb-8">{c.desc}</p>
+      <a href={docsUrl(lang, '/platform/studio')}
+        class="inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2D2A26] hover:text-[#B86E35] transition-colors">
+        {c.link}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="lg:col-span-7">
+      <img
+        src={shot}
+        alt={c.shot_alt}
+        width="2400"
+        height="1500"
+        class="block w-full h-auto rounded-xl border border-black/[0.08] shadow-[0_16px_48px_rgba(45,42,38,0.08)] select-none"
+        loading="lazy"
+        draggable="false"
+      />
+    </div>
+  </div>
+</section>

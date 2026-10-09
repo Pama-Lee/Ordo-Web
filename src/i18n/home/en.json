@@ -1,211 +1,77 @@
 {
   "meta": {
     "title": "Take business rules out of your code",
-    "description": "Ordo is an open-source business rule engine. Pricing, risk and approval logic lives in rule files with tests and versions. See what a change affects before you ship it, and ship it without a redeploy."
+    "description": "Ordo is an open-source business rule engine. Let it handle pricing, risk and approval decisions that change often. See what a change affects before you make it, and ship it without a redeploy."
   },
   "nav": {
-    "how": "How it works",
-    "packs": "Rule packs",
+    "product": "Product",
     "studio": "Studio",
-    "guard": "Guard",
     "blog": "Blog",
     "docs": "Docs",
     "start": "Get started"
   },
   "hero": {
-    "badge": "Open-source business rule engine",
+    "eyebrow": "Open-source business rule engine",
     "title1": "Take business rules",
     "title2": "out of your code",
-    "subtitle": "Pricing, risk and approval logic changes all the time. Write it as rule files with tests and versions, see which decisions a change moves before you ship it, and ship it without a redeploy. People can write the rules, and so can AI.",
-    "cta_primary": "Get started in 5 minutes",
+    "subtitle": "Let Ordo handle the pricing, risk and approval decisions that keep changing. See what a change affects before you make it, and ship it without a redeploy.",
+    "cta_primary": "Get started",
     "cta_github": "GitHub",
-    "shots": [
-      {
-        "label": "Flow",
-        "alt": "Ordo Studio flow view of a loan approval ruleset"
-      },
-      {
-        "label": "Decision table",
-        "alt": "Ordo Studio decision table view of the same ruleset"
-      },
-      {
-        "label": "Tests",
-        "alt": "Ordo Studio test panel with expected and actual results per case"
-      }
-    ]
+    "shot_alt": "Ordo Studio showing a loan approval ruleset as a flow"
   },
-  "problem": {
-    "eyebrow": "Why",
-    "title": "Rules buried in code turn into a mess",
+  "points": {
+    "title": "What Ordo does for you",
     "items": [
       {
-        "title": "Hard to find",
-        "desc": "Discounts, limits and risk thresholds are spread across if/else branches in dozens of files. Nobody can say for sure what the policy is today."
+        "title": "Rules in one place",
+        "desc": "Discounts, limits and risk thresholds stop hiding in code. Business teams can read them, and every change is recorded."
       },
       {
-        "title": "Hard to change",
-        "desc": "Moving one number means a full release. Product and risk teams wait in the engineering queue."
+        "title": "See the impact first",
+        "desc": "Before you move a number, see which decisions change and what they change to."
       },
       {
-        "title": "Hard to explain",
-        "desc": "When something goes wrong, it is hard to say why an order was declined, or what the rule looked like last month."
-      }
-    ],
-    "ai_note": "AI now writes code fast, and these branches grow faster with it. The generated code runs, but nobody can promise it matches the policy."
-  },
-  "workflow": {
-    "eyebrow": "How Ordo works",
-    "title": "Write it down, test it, see it, ship it",
-    "steps": [
-      {
-        "title": "Write rule files",
-        "desc": "Branches, decision tables and expressions live in JSON or YAML, in git next to your code. Inputs are declared with types, and money is exact decimal."
-      },
-      {
-        "title": "Run the tests",
-        "desc": "Every ruleset carries its own test cases. ordo test runs them locally and in CI, with no server to start."
-      },
-      {
-        "title": "See every step",
-        "desc": "ordo trace prints each step a run took and every value along the way. When someone asks why a payment was blocked, you have the answer."
-      },
-      {
-        "title": "Ship it",
-        "desc": "Embed the same rules in a Rust program, call them over HTTP or gRPC, or run them in the browser as WASM. A run takes microseconds."
+        "title": "Live without a release",
+        "desc": "Updated rules take effect right away. Your application code stays the same, with no redeploy."
       }
     ]
   },
   "impact": {
-    "eyebrow": "AI writes, Ordo checks",
-    "title": "Green tests do not mean nothing broke",
-    "p1": "The risk team wants to block payments from a score of 65 instead of 70. After the edit, all 9 tests still pass.",
-    "p2": "ordo impact runs the edit next to the last commit: the 9 test cases plus 121 probe inputs generated on both sides of every threshold. Five of those inputs move from \"challenge\" to \"block\", such as a long-standing customer paying 5000 from abroad on a new phone.",
-    "p3": "Whether a person or an AI made the edit, the effect is right there. Coding agents call the same check through ordo mcp and look before they commit.",
-    "points": [
-      "Compares against the last version in git",
-      "Runs test cases, real inputs you provide, and boundary probes",
-      "Add --fail-on-change to stop surprise changes in CI"
-    ],
-    "link": "impact docs"
-  },
-  "packs": {
-    "eyebrow": "Rule packs",
-    "title": "Start from a rule pack",
-    "desc": "Common business decisions, already written and tested. Copy one and change the numbers to your own policy.",
-    "items": [
-      {
-        "key": "credit-approval",
-        "name": "Credit approval",
-        "desc": "A personal loan application: approve, send to manual review, or decline.",
-        "tags": [
-          "Hard rules",
-          "Debt-to-income",
-          "First-hit table",
-          "Decimal money"
-        ]
-      },
-      {
-        "key": "promo-stacking",
-        "name": "Promo stacking",
-        "desc": "Which promotions apply at checkout, how far they stack, and what the customer pays.",
-        "tags": [
-          "Collect table",
-          "Stacking and caps"
-        ]
-      },
-      {
-        "key": "fraud-scoring",
-        "name": "Fraud scoring",
-        "desc": "A card payment: allow, add a challenge, or block.",
-        "tags": [
-          "Scorecard",
-          "Collect table"
-        ]
-      }
-    ],
-    "note": "A rule pack is a plain Ordo project. Rules your team writes can be shared the same way.",
-    "link": "Browse the packs"
+    "eyebrow": "An example",
+    "title": "Change one number, see who it affects",
+    "p1": "The risk team wants to block payments from a score of 65 instead of 70. After the edit, every test still passes.",
+    "p2": "Ordo runs the old and new rules side by side and finds 5 cases that move from \"add a check\" to \"block\". You decide before the change goes in.",
+    "ai": "Whether a person or an AI made the change, it goes through the same check.",
+    "panel": {
+      "label": "Block score",
+      "from": "70",
+      "to": "65",
+      "summary": "5 of 130 cases change",
+      "rows": [
+        { "who": "Long-time customer, abroad, new phone, paying 5,000", "from": "Check", "to": "Block" },
+        { "who": "Long-time customer, abroad, new phone, 5 payments in an hour", "from": "Check", "to": "Block" }
+      ],
+      "rest": "The other 125 cases stay the same"
+    }
   },
   "studio": {
     "eyebrow": "Studio",
-    "title": "Rules your non-engineers can read and review",
-    "desc": "Studio draws the same rules as a flow and as a decision table. Business teams read the logic, run tests and request releases there. Engineers keep working with files and git.",
-    "bullets": [
-      "One ruleset, shown as a flow or as a decision table",
-      "Run tests in Studio and see expected against actual",
-      "Field catalog, decision contracts, version history and release approvals"
-    ],
-    "cta": "About Studio",
-    "tabs": [
-      "Flow",
-      "Decision table",
-      "Tests",
-      "Field catalog"
-    ]
-  },
-  "guard": {
-    "eyebrow": "Ordo Guard",
-    "title": "The same engine keeps coding agents in bounds",
-    "desc": "Before an agent runs a command, it goes through your local rules: allow, deny, or ask you first. The policy is an Ordo project with tests and a log. Works with Claude Code, Codex CLI and Cursor.",
-    "cmd_caption": "One command writes a policy and wires up the hook",
-    "link": "Guard docs"
-  },
-  "ecosystem": {
-    "eyebrow": "Ecosystem",
-    "title": "One engine, and everything around it",
-    "desc": "The engine gets the rules right, and fast. The CLI, Studio, SDKs and rule packs are built on top of it, and you can build your own tools there too.",
-    "stats": [
-      {
-        "value": "1.63 µs",
-        "label": "per rule run on the bytecode VM"
-      },
-      {
-        "value": "50–80 ns",
-        "label": "numeric expressions after JIT"
-      },
-      {
-        "value": "54k QPS",
-        "label": "HTTP, single thread"
-      }
-    ],
-    "items": [
-      {
-        "name": "Engine",
-        "desc": "A rule engine in Rust: bytecode VM plus Cranelift JIT. Embed it, or call it over HTTP, gRPC or WASM."
-      },
-      {
-        "name": "CLI and MCP",
-        "desc": "init, test, trace, impact. Coding agents call the same commands over MCP."
-      },
-      {
-        "name": "Studio",
-        "desc": "Visual editing, tests, version history and release approvals."
-      },
-      {
-        "name": "SDKs",
-        "desc": "Go, Python and Java clients, plus Vue and React editor components."
-      },
-      {
-        "name": "Rule packs",
-        "desc": "Business rule projects you can run as is, tests included."
-      },
-      {
-        "name": "Guard",
-        "desc": "Deterministic guardrails for coding agents."
-      }
-    ],
-    "bench_link": "See the benchmarks"
+    "title": "Rules your whole team can read",
+    "desc": "See the same rules as a flow or as a table. Business teams read the logic, run tests and request releases there. Engineers keep working in the code repository.",
+    "link": "About Studio",
+    "shot_alt": "Ordo Studio showing the same loan approval ruleset as a decision table"
   },
   "cta": {
-    "title": "Run a rule pack",
-    "desc": "Install the CLI, step into a rule pack, change a threshold, and see what impact tells you.",
-    "btn_docs": "Read the docs",
-    "btn_github": "Source on GitHub"
+    "title": "Start from a ready-made example",
+    "desc": "Credit approval, promo stacking and fraud scoring, already written. Copy one and change it to your own policy.",
+    "btn_primary": "Get started",
+    "btn_packs": "Browse rule packs"
   },
   "footer": {
-    "desc": "An open-source business rule engine. Keep the decisions that change often in rules with tests and versions, so people and AI can change them safely.",
+    "desc": "An open-source business rule engine. Take the decisions that change often out of your code, and see what a change affects first.",
     "product": "Product",
     "resources": "Resources",
+    "packs": "Rule packs",
     "roadmap": "Roadmap",
     "changelog": "Changelog",
     "benchmarks": "Benchmarks",
