@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Take business rules out of your code",
-    "description": "Ordo is an open-source business rule engine. Let it handle pricing, risk and approval decisions that change often. See what a change affects before you make it, and ship it without a redeploy."
+    "title": "Turn judgments into decisions",
+    "description": "Ordo is an open-source decision engine. Models like Jev tell you what is going on, and Ordo decides what to do about it. Rules have tests and versions, and you see which decisions a change moves before you make it."
   },
   "nav": {
     "product": "Product",
@@ -11,10 +11,10 @@
     "start": "Get started"
   },
   "hero": {
-    "eyebrow": "Open-source business rule engine",
-    "title1": "Take business rules",
-    "title2": "out of your code",
-    "subtitle": "Let Ordo handle the pricing, risk and approval decisions that keep changing. See what a change affects before you make it, and ship it without a redeploy.",
+    "eyebrow": "Open-source decision engine",
+    "title1": "Turn judgments",
+    "title2": "into decisions",
+    "subtitle": "Models tell you what is going on. Ordo decides what to do about it, and shows who a change affects first.",
     "cta_primary": "Get started",
     "cta_github": "GitHub",
     "shot_alt": "Ordo Studio showing a loan approval ruleset as a flow"
@@ -23,12 +23,12 @@
     "title": "What Ordo does for you",
     "items": [
       {
-        "title": "Rules in one place",
-        "desc": "Discounts, limits and risk thresholds stop hiding in code. Business teams can read them, and every change is recorded."
+        "title": "Models judge, rules decide",
+        "desc": "Models like Jev read what a customer wrote. Whether to refund, and whether a person looks first, is written in rules anyone on the team can read."
       },
       {
         "title": "See the impact first",
-        "desc": "Before you move a number, see which decisions change and what they change to."
+        "desc": "Before you move a threshold, see which decisions change and what they change to."
       },
       {
         "title": "Live without a release",
@@ -38,20 +38,20 @@
   },
   "impact": {
     "eyebrow": "An example",
-    "title": "Change one number, see who it affects",
-    "p1": "The risk team wants to block payments from a score of 65 instead of 70. After the edit, every test still passes.",
-    "p2": "Ordo runs the old and new rules side by side and finds 5 cases that move from \"add a check\" to \"block\". You decide before the change goes in.",
-    "ai": "Whether a person or an AI made the change, it goes through the same check.",
+    "title": "Every app that uses Jev has a 0.85 in it",
+    "p1": "A customer writes in, Jev decides it is a refund request, and anything above 0.85 is refunded automatically. That 0.85 usually sits in code nobody has looked at, and after a model update it means something else.",
+    "p2": "Once it lives in Ordo, someone proposes 0.80. Every test still passes. Ordo runs the old and new rules side by side and finds 18 cases that move from \"agent checks\" to \"refund now\". You decide before the change goes in.",
+    "ai": "Jev turns text into judgments. Ordo turns judgments into decisions.",
     "panel": {
-      "label": "Block score",
-      "from": "70",
-      "to": "65",
-      "summary": "5 of 130 cases change",
+      "label": "Auto refund threshold",
+      "from": "0.85",
+      "to": "0.80",
+      "summary": "21 of 309 cases change",
       "rows": [
-        { "who": "Long-time customer, abroad, new phone, paying 5,000", "from": "Check", "to": "Block" },
-        { "who": "Long-time customer, abroad, new phone, 5 payments in an hour", "from": "Check", "to": "Block" }
+        { "who": "Wants a refund, 0.84 sure, order of 129, delivered yesterday", "from": "Agent checks", "to": "Refund now" },
+        { "who": "Wants a refund, 0.80 sure, order of 39.90, delivered 2 days ago", "from": "Agent checks", "to": "Refund now" }
       ],
-      "rest": "The other 125 cases stay the same"
+      "rest": "The other 288 cases stay the same"
     }
   },
   "studio": {
@@ -63,12 +63,12 @@
   },
   "cta": {
     "title": "Start from a ready-made example",
-    "desc": "Credit approval, promo stacking and fraud scoring, already written. Copy one and change it to your own policy.",
+    "desc": "Jev refund routing, credit approval, promo stacking and fraud scoring, already written. Copy one and change it to your own policy.",
     "btn_primary": "Get started",
     "btn_packs": "Browse rule packs"
   },
   "footer": {
-    "desc": "An open-source business rule engine. Take the decisions that change often out of your code, and see what a change affects first.",
+    "desc": "An open-source decision engine. Models give the judgment, Ordo decides what happens next, and you see what a change affects first.",
     "product": "Product",
     "resources": "Resources",
     "packs": "Rule packs",
