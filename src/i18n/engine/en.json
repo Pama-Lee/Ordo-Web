@@ -12,18 +12,9 @@
   },
   "run": {
     "said": "Customer wrote",
-    "jev": "Jev's answers",
-    "facts": "Business data",
-    "input": "Input",
     "steps": "Path",
     "result": "Result",
-    "matched": "true",
-    "notMatched": "false",
-    "row": "row {n}",
-    "defaultRow": "no row matched, default",
-    "goto": "next",
-    "end": "end",
-    "caption": "The refund routing rules from the jev-routing rule pack, run on four real messages. The Jev answers came from typesafe/jev-1.13 on 2026-10-13; results match ordo trace.",
+    "caption": "The refund routing rules on four real messages. Jev answers from typesafe/jev-1.13; results match ordo trace.",
     "samples": {
       "blender": "Blender",
       "double": "Double charge",
@@ -31,178 +22,24 @@
       "dispute": "Bank dispute"
     }
   },
-  "steps": {
-    "eyebrow": "What a rule looks like",
-    "title": "A rule is a chain of steps",
-    "desc": "A ruleset has one entry step. Each step looks at the input and picks the next step, until it reaches an end step. Rules are JSON or YAML files you can review in your repository.",
-    "kinds": [
-      {
-        "name": "Decision",
-        "type": "decision",
-        "desc": "Checks conditions in order, takes the first one that holds, otherwise the default."
-      },
-      {
-        "name": "Decision table",
-        "type": "decision_table",
-        "desc": "One rule per row, matched column by column. Good when there are many thresholds and combinations."
-      },
-      {
-        "name": "Action",
-        "type": "action",
-        "desc": "Computes new values and stores them for later steps."
-      },
-      {
-        "name": "Terminal",
-        "type": "terminal",
-        "desc": "Returns a result code, a message and output fields."
-      }
-    ],
-    "fileLabel": "The first step in rulesets/refund-routing.json"
-  },
-  "pipeline": {
-    "eyebrow": "Expressions",
-    "title": "Conditions are compiled before they run",
-    "desc": "Each condition is parsed once, when the rules load. Every execution after that runs compiled bytecode and never touches the string again.",
-    "stages": [
-      {
-        "name": "Parse",
-        "desc": "Read into a syntax tree. Once at load time, 1 to 2 µs."
-      },
-      {
-        "name": "Optimize",
-        "desc": "Work out what can be computed ahead of time and drop branches that can't be reached."
-      },
-      {
-        "name": "Bytecode",
-        "desc": "Compiled to register bytecode and run by a VM. Two conditions joined with && take about 80 ns."
-      },
-      {
-        "name": "JIT",
-        "desc": "In a Rust program that declares its input types, purely numeric expressions can be compiled to machine code, about 8 ns. The server and the browser run bytecode."
-      }
-    ],
-    "optNote": "Nothing here can be computed ahead of time. Had it said amount > 100 * 2, it would become amount > 200.",
-    "jitNote": "This one compares a string, so it stays as bytecode. Purely numeric expressions such as score * 0.6 + bonus * 0.4 are the ones that go to the JIT.",
-    "exprLabel": "One condition from the rules"
-  },
-  "speed": {
-    "eyebrow": "Speed",
-    "title": "Under a microsecond per rule",
-    "desc": "A rule with four branches runs in about 573 ns. Inside a business request, most of the time goes to the network, not the rules.",
-    "chartTitle": "Same four-branch rule, time per execution",
-    "lower": "lower is better",
-    "rows": [
-      {
-        "name": "Ordo (bytecode)",
-        "ns": 573,
-        "ours": true
-      },
-      {
-        "name": "Rhai",
-        "ns": 728
-      },
-      {
-        "name": "Zen Engine / GoRules",
-        "ns": 4200
-      }
-    ],
-    "baseline": "For reference, a plain Rust if/else takes 3.5 ns",
-    "stats": [
-      {
-        "value": "~60k",
-        "label": "HTTP requests per second, one instance, 200 concurrent"
-      },
-      {
-        "value": "~2.7M",
-        "label": "rule executions per second in batch"
-      },
-      {
-        "value": "24.6 MB",
-        "label": "server memory at idle"
-      }
-    ],
-    "note": "Measured on an Apple M1 Pro on 2026-03-11. Other hardware and rules will give other numbers.",
-    "link": "Method and full results"
-  },
-  "correct": {
-    "eyebrow": "Correctness",
-    "title": "Exact numbers, clear errors",
-    "desc": "Rules decide money and limits. A rounding error or a missing field can quietly send a request down the wrong branch. Below is real output from the CLI.",
-    "items": [
-      {
-        "title": "Exact decimals for money",
-        "desc": "Declare a field as decimal, or wrap a value in decimal(), and arithmetic is exact base 10.",
-        "lines": [
-          {
-            "cmd": "ordo eval '0.1 + 0.2 == 0.3'",
-            "out": "false"
-          },
-          {
-            "cmd": "ordo eval 'decimal(0.1) + 0.2 == 0.3'",
-            "out": "true"
-          },
-          {
-            "cmd": "ordo eval 'decimal(\"19.99\") * 3'",
-            "out": "59.97"
-          }
-        ]
-      },
-      {
-        "title": "Input is checked first",
-        "desc": "A rule declares the fields it needs and their types. If one is missing or has the wrong type, you get an error instead of the default branch.",
-        "lines": [
-          {
-            "cmd": "order.amount missing",
-            "out": "Invalid input: order.amount: required field is missing"
-          },
-          {
-            "cmd": "confidence sent as \"high\"",
-            "out": "Invalid input: jev.intent.confidence: expected number, got string"
-          }
-        ]
-      },
-      {
-        "title": "Rules come with tests",
-        "desc": "Test cases live next to the rules and run after every change. Released rule files can be signed and checked when they load.",
-        "lines": [
-          {
-            "cmd": "ordo test",
-            "out": "12 tests: 12 passed"
-          }
-        ]
-      }
-    ]
-  },
-  "anywhere": {
-    "eyebrow": "Where it runs",
-    "title": "One rule file, many places to run it",
-    "desc": "Use the CLI while you write rules, the server in production, or embed the engine in your program. The rule files are the same.",
-    "items": [
-      {
-        "name": "CLI",
-        "desc": "Write rules, run tests and see what a change affects, on your machine. No Rust needed.",
-        "code": "npx @ordo-engine/cli test",
-        "doc": "/guide/quick-start"
-      },
-      {
-        "name": "Server",
-        "desc": "HTTP on 8080, gRPC on 50051, or a Unix socket. Multi-tenant, with versions and rollback.",
-        "code": "docker run -p 8080:8080 ghcr.io/ordo-engine/ordo",
-        "doc": "/guide/server"
-      },
-      {
-        "name": "Embedded",
-        "desc": "Use ordo-core in a Rust program, or WebAssembly in the browser, with no server.",
-        "code": "npm install @ordo-engine/wasm",
-        "doc": "/guide/embed"
-      },
-      {
-        "name": "Decision model gateway",
-        "desc": "Sits between your app and Jev, runs rules on the model's answers and logs every call so you can replay them before changing a threshold.",
-        "code": "TYPESAFE_BASE_URL=http://ordo:8080/systemone",
-        "doc": "/platform/decision-gateway"
-      }
-    ],
-    "docLink": "Docs"
-  }
+  "points": [
+    {
+      "title": "Fast",
+      "desc": "A rule with four branches runs in about 573 ns. One server handles about 60,000 HTTP requests a second.",
+      "link": "/reference/benchmarks",
+      "linkText": "Benchmarks"
+    },
+    {
+      "title": "Exact",
+      "desc": "Money is computed as exact decimals, so 0.1 + 0.2 is 0.3. A missing field or a wrong type is an error, not a quiet trip down the wrong branch.",
+      "link": "/guide/rule-structure",
+      "linkText": "Rule structure"
+    },
+    {
+      "title": "Runs anywhere",
+      "desc": "Write and test rules with the CLI, serve them over HTTP or gRPC, or embed the engine in a Rust program or a browser. Same rule files.",
+      "link": "/guide/server",
+      "linkText": "Running the server"
+    }
+  ]
 }

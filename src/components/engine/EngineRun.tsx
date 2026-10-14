@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
-import { SAMPLES, ROUTE_COLUMNS, routeRules, ROUTE_DEFAULT, routeValues, runRefundRouting } from '../demo/refundRouting';
-import type { RefundInput, RefundResult, Sample, TraceStep } from '../demo/refundRouting';
+import { SAMPLES, routeRules, ROUTE_DEFAULT, runRefundRouting } from '../demo/refundRouting';
+import type { RefundResult, Sample } from '../demo/refundRouting';
 import { useLoopClock } from '../demo/useLoopClock';
 import type { EngineCopy } from '../../i18n/engine';
 
 type RunCopy = EngineCopy['run'];
 
-// Step names and conditions as written in refund-routing.json.
+// Step names as written in refund-routing.json.
 const STEP_NAMES: Record<string, string> = {
   escalation: 'Chargeback or legal threat',
   intent: 'Is it a refund request',
@@ -23,13 +23,22 @@ const STEP_NAMES: Record<string, string> = {
 interface Line {
   id: string;
   name: string;
-  /** What was checked, as written in the rule. */
-  check?: string;
-  /** The values it was checked against. */
-  actual?: string;
-  verdict?: { ok: boolean; text: string };
-  next?: string;
-  terminal?: boolean;
+  /** A value the step set, e.g. $decision = "AUTO_REFUND". */
+  set?: string;
+  terminal: boolean;
+}
+
+function linesFor(result: RefundResult): Line[] {
+  return result.path.map((s, i) => {
+    const terminal = i === result.path.length - 1;
+    let set: string | undefined;
+    if (s.id === 'priority') set = `$priority = "${(s.taken ?? -1) >= 0 ? 'high' : 'normal'}"`;
+    if (s.id === 'route') {
+      const row = s.taken ?? -1;
+      set = `$decision = "${(row >= 0 ? routeRules()[row].then : ROUTE_DEFAULT)[0]}"`;
+    }
+    return { id: s.id, name: STEP_NAMES[s.id], set, terminal };
+  });
 }
 
 /** Keys sorted, as `ordo trace` prints them. */
@@ -37,87 +46,27 @@ function sortedJson(o: Record<string, string | number>) {
   return JSON.stringify(Object.fromEntries(Object.entries(o).sort(([a], [b]) => a.localeCompare(b))));
 }
 
-function fmt(v: number | string) {
-  return typeof v === 'number' ? String(v) : JSON.stringify(v);
-}
+const INTRO = 600;
+const PER_STEP = 550;
+const HOLD = 3200;
 
-function describe(step: TraceStep, nextId: string | undefined, input: RefundInput, c: RunCopy): Line {
-  const base = { id: step.id, name: STEP_NAMES[step.id], next: nextId };
-  const hit = (step.taken ?? -1) >= 0;
-  const verdict = { ok: hit, text: hit ? c.matched : c.notMatched };
-  switch (step.id) {
-    case 'escalation':
-      return { ...base, check: 'jev.chargeback.noul >= 0.5', actual: `noul = ${input.jev.chargeback.noul}`, verdict };
-    case 'intent':
-      return {
-        ...base,
-        check: 'jev.intent.choice != "refund" && jev.intent.confidence >= 0.6',
-        actual: `choice = "${input.jev.intent.choice}", confidence = ${input.jev.intent.confidence}`,
-        verdict,
-      };
-    case 'priority':
-      return {
-        ...base,
-        check: 'jev.urgency.score >= 1.5 → "high", default "normal"',
-        actual: `score = ${input.jev.urgency.score}`,
-        verdict: { ok: hit, text: hit ? '$priority = "high"' : '$priority = "normal"' },
-      };
-    case 'route': {
-      const rules = routeRules();
-      const row = step.taken ?? -1;
-      const values = routeValues(input);
-      const then = row >= 0 ? rules[row].then : ROUTE_DEFAULT;
-      const check =
-        row >= 0
-          ? `${c.row.replace('{n}', String(row + 1))}: ${rules[row].when.join(' | ')}`
-          : c.defaultRow;
-      return {
-        ...base,
-        check,
-        actual: ROUTE_COLUMNS.map((col, i) => `${col.path.split('.').pop()} = ${fmt(values[i])}`).join(', '),
-        verdict: { ok: true, text: `$decision = "${then[0]}"` },
-      };
-    }
-    case 'dispatch': {
-      const t = step.taken ?? -1;
-      const check = t === 0 ? '$decision == "AUTO_REFUND"' : t === 1 ? '$decision == "LLM_DRAFT"' : 'default';
-      return { ...base, check, verdict: { ok: t >= 0, text: t >= 0 ? c.matched : c.notMatched } };
-    }
-    default:
-      return { ...base, terminal: true };
-  }
-}
-
-function linesFor(result: RefundResult, input: RefundInput, c: RunCopy): Line[] {
-  return result.path.map((s, i) => describe(s, result.path[i + 1]?.id, input, c));
-}
-
-const INTRO = 700;
-const PER_STEP = 650;
-const HOLD = 3400;
-
-function sampleMs(s: Sample, steps: number) {
-  return INTRO + steps * PER_STEP + PER_STEP + HOLD;
-}
+const sampleMs = (steps: number) => INTRO + (steps + 1) * PER_STEP + HOLD;
 
 export default function EngineRun({ copy }: { copy: RunCopy }) {
   const runs = useMemo(
     () =>
-      SAMPLES.map((s) => {
+      SAMPLES.map((s: Sample) => {
         const result = runRefundRouting(s.input);
-        return { sample: s, result, lines: linesFor(result, s.input, copy) };
+        return { sample: s, result, lines: linesFor(result) };
       }),
-    [copy],
+    [],
   );
-  const starts = useMemo(() => {
-    let acc = 0;
-    return runs.map((r) => {
-      const at = acc;
-      acc += sampleMs(r.sample, r.lines.length);
-      return at;
-    });
-  }, [runs]);
-  const total = starts[starts.length - 1] + sampleMs(runs[runs.length - 1].sample, runs[runs.length - 1].lines.length);
+  const starts: number[] = [];
+  let total = 0;
+  for (const r of runs) {
+    starts.push(total);
+    total += sampleMs(r.lines.length);
+  }
 
   // The server renders the first sample fully revealed; the loop restarts when it scrolls into view.
   const fullFirst = INTRO + (runs[0].lines.length + 1) * PER_STEP;
@@ -130,6 +79,14 @@ export default function EngineRun({ copy }: { copy: RunCopy }) {
   const shown = Math.max(0, Math.floor((local - INTRO) / PER_STEP) + 1);
   const showResult = shown > run.lines.length;
   const { input } = run.sample;
+
+  const facts: [string, string][] = [
+    ['jev.intent', `${input.jev.intent.choice} (${input.jev.intent.confidence})`],
+    ['jev.chargeback', String(input.jev.chargeback.noul)],
+    ['order.amount', input.order.amount],
+    ['order.days_since_delivery', String(input.order.days_since_delivery)],
+    ['customer.refunds_90d', String(input.customer.refunds_90d)],
+  ];
 
   return (
     <div ref={ref} className="erun">
@@ -151,18 +108,14 @@ export default function EngineRun({ copy }: { copy: RunCopy }) {
         <div className="erun-col">
           <div className="erun-label">{copy.said}</div>
           <p className="erun-quote">“{run.sample.message}”</p>
-
-          <div className="erun-label">{copy.input}</div>
-          <pre className="erun-json">
-            <span className="erun-c">{'// '}{copy.jev}</span>
-            {'\n"jev": {\n'}
-            {`  "intent": {\n    "choice": "${input.jev.intent.choice}",\n    "confidence": ${input.jev.intent.confidence}\n  },\n`}
-            {`  "urgency": { "score": ${input.jev.urgency.score} },\n`}
-            {`  "chargeback": { "noul": ${input.jev.chargeback.noul} }\n},\n`}
-            <span className="erun-c">{'// '}{copy.facts}</span>
-            {`\n"order": {\n  "amount": "${input.order.amount}",\n  "days_since_delivery": ${input.order.days_since_delivery}\n},\n`}
-            {`"customer": { "refunds_90d": ${input.customer.refunds_90d} }`}
-          </pre>
+          <dl className="erun-facts">
+            {facts.map(([k, v]) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         <div className="erun-col">
@@ -173,16 +126,8 @@ export default function EngineRun({ copy }: { copy: RunCopy }) {
                 <div className="erun-step-head">
                   <span className="erun-id">{l.id}</span>
                   <span className="erun-name">{l.name}</span>
-                  {l.next && <span className="erun-next">→ {l.next}</span>}
-                  {l.terminal && <span className="erun-next">{copy.end}</span>}
+                  {l.set && <span className="erun-verdict ok">{l.set}</span>}
                 </div>
-                {l.check && <code className="erun-check">{l.check}</code>}
-                {(l.actual || l.verdict) && (
-                  <div className="erun-actual">
-                    {l.actual && <span>{l.actual}</span>}
-                    {l.verdict && <span className={`erun-verdict${l.verdict.ok ? ' ok' : ''}`}>{l.verdict.text}</span>}
-                  </div>
-                )}
               </li>
             ))}
           </ol>
