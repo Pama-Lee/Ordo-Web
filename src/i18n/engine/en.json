@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "title": "Engine",
+    "description": "The Ordo engine is written in Rust. Give it JSON, it runs your rules step by step and returns the result with the full path it took. Run it as a server or embed it in a program or a browser."
+  },
+  "hero": {
+    "eyebrow": "Engine",
+    "title": "Where the rules run",
+    "subtitle": "At the core of Ordo is a rule engine written in Rust. Give it JSON and it walks through your rules step by step, then returns the result and why each step went the way it did.",
+    "cta_primary": "Quick start",
+    "cta_source": "Source"
+  },
+  "run": {
+    "said": "Customer wrote",
+    "steps": "Path",
+    "result": "Result",
+    "caption": "The refund routing rules on four real messages. Jev answers from typesafe/jev-1.13; results match ordo trace.",
+    "samples": {
+      "blender": "Blender",
+      "double": "Double charge",
+      "parcel": "Parcel",
+      "dispute": "Bank dispute"
+    }
+  },
+  "points": [
+    {
+      "title": "Fast",
+      "desc": "A rule with four branches runs in about 573 ns. One server handles about 60,000 HTTP requests a second.",
+      "link": "/reference/benchmarks",
+      "linkText": "Benchmarks"
+    },
+    {
+      "title": "Exact",
+      "desc": "Money is computed as exact decimals, so 0.1 + 0.2 is 0.3. A missing field or a wrong type is an error, not a quiet trip down the wrong branch.",
+      "link": "/guide/rule-structure",
+      "linkText": "Rule structure"
+    },
+    {
+      "title": "Runs anywhere",
+      "desc": "Write and test rules with the CLI, serve them over HTTP or gRPC, or embed the engine in a Rust program or a browser. Same rule files.",
+      "link": "/guide/server",
+      "linkText": "Running the server"
+    }
+  ]
+}

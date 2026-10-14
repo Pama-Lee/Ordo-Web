@@ -1,7 +1,6 @@
 {
   "nav": {
     "features": "特性",
-    "benchmarks": "基准测试",
     "docs": "文档",
     "playground": "试用",
     "integration": "集成",
@@ -9,34 +8,6 @@
     "github": "GitHub",
     "blog": "博客",
     "changelog": "更新日志"
-  },
-  "benchmarks": {
-    "title": "基准测试结果",
-    "description": "以下数据来自 Apple Silicon（M 系列）上的单线程测试。",
-    "chart_title": "执行延迟对比 (µs)",
-    "chart_low_better": "越低越好",
-    "chart_traditional": "传统引擎 (典型值)",
-    "chart_ordo": "Ordo 规则引擎",
-    "chart_note": "* 约快 600 倍，在请求链路里几乎感觉不到规则执行的耗时。",
-    "stat_eval": "表达式求值时间",
-    "stat_api_qps": "HTTP API 单线程 QPS",
-    "stat_p99": "HTTP API P99 延迟",
-    "stat_heap": "热路径堆分配",
-    "modes_title": "多级执行架构",
-    "modes_desc": "同一份规则可以用四种方式执行，按场景选择。",
-    "mode_treewalk": "AST 解释执行",
-    "mode_treewalk_desc": "直接解释执行，适合开发调试和一次性规则。",
-    "mode_vm": "字节码虚拟机",
-    "mode_vm_desc": "编译成字节码执行，生产环境默认用这一种。",
-    "mode_vectorized": "向量化执行",
-    "mode_vectorized_desc": "按列批量处理，适合一次校验大量数据。",
-    "mode_jit": "Schema-Aware JIT",
-    "mode_jit_desc": "编译成原生机器码，延迟在纳秒级。",
-    "jit_title": "Schema-Aware JIT 已上线",
-    "jit_desc": "通过 Cranelift 将数值规则编译为原生机器码，在计算密集场景下比字节码 VM 快 20–30 倍。",
-    "jit_latency": "求值延迟",
-    "jit_throughput": "峰值吞吐",
-    "jit_speedup": "性能提升"
   },
   "integration": {
     "title": "集成方式",

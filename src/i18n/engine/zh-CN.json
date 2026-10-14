@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "title": "引擎",
+    "description": "Ordo 引擎用 Rust 编写。输入一份 JSON，按规则一步步执行，返回结果和完整的执行路径。可以作为服务运行，也可以嵌进程序或浏览器。"
+  },
+  "hero": {
+    "eyebrow": "引擎",
+    "title": "规则在这里执行",
+    "subtitle": "Ordo 的核心是一个用 Rust 写的规则引擎。|给它一份 JSON，它按规则一步步走完，|返回结果，也记下每一步为什么这样走。",
+    "cta_primary": "快速上手",
+    "cta_source": "看源码"
+  },
+  "run": {
+    "said": "客户说",
+    "steps": "执行路径",
+    "result": "结果",
+    "caption": "退款分流规则处理四条真实消息。Jev 的回答来自 typesafe/jev-1.13，结果和 ordo trace 一致。",
+    "samples": {
+      "blender": "搅拌机",
+      "double": "重复扣款",
+      "parcel": "包裹",
+      "dispute": "银行争议"
+    }
+  },
+  "points": [
+    {
+      "title": "快",
+      "desc": "一条四个分支的规则执行一次约 573 ns，单个服务每秒能处理约 6 万个 HTTP 请求。",
+      "link": "/reference/benchmarks",
+      "linkText": "测试数据"
+    },
+    {
+      "title": "准",
+      "desc": "金额按精确小数计算，0.1 + 0.2 就是 0.3。输入缺字段或类型不对会直接报错，不会悄悄走错分支。",
+      "link": "/guide/rule-structure",
+      "linkText": "规则结构"
+    },
+    {
+      "title": "哪都能跑",
+      "desc": "命令行里写规则、跑测试；线上用 HTTP 或 gRPC 服务；也可以嵌进 Rust 程序或浏览器。规则文件是同一份。",
+      "link": "/guide/server",
+      "linkText": "运行服务"
+    }
+  ]
+}

@@ -11,6 +11,13 @@ export default defineConfig({
   },
 
   integrations: [react()],
+
+  // The old benchmarks page is folded into the engine page.
+  redirects: {
+    '/benchmarks': '/engine',
+    '/en/benchmarks': '/en/engine',
+    '/zh-TW/benchmarks': '/zh-TW/engine',
+  },
   i18n: {
     defaultLocale: 'zh-CN',
     locales: ['en', 'zh-CN', 'zh-TW'],
