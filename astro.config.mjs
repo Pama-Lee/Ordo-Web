@@ -12,11 +12,11 @@ export default defineConfig({
 
   integrations: [react()],
 
-  // The old benchmarks page is now the speed section of the engine page.
+  // The old benchmarks page is folded into the engine page.
   redirects: {
-    '/benchmarks': '/engine#speed',
-    '/en/benchmarks': '/en/engine#speed',
-    '/zh-TW/benchmarks': '/zh-TW/engine#speed',
+    '/benchmarks': '/engine',
+    '/en/benchmarks': '/en/engine',
+    '/zh-TW/benchmarks': '/zh-TW/engine',
   },
   i18n: {
     defaultLocale: 'zh-CN',
