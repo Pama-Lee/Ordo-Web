@@ -15,7 +15,7 @@ There is a new factor now: more and more of that code is written by AI. It write
 
 ## Take the rules out
 
-The idea behind Ordo is simple: take these decisions out of application code and keep them in their own rule files.
+Ordo takes these decisions out of application code and keeps them in their own rule files.
 
 - Rules are JSON or YAML, in git next to your code, where they can be reviewed and diffed.
 - The expression language is bounded: no loops, no side effects. Rules written by people and rules written by AI can both be checked.
@@ -28,19 +28,19 @@ The calling code only asks "what discount does this order get?" However the rule
 
 Once the rules are out, the next question is: when a number changes, who does it affect?
 
-Here is an example. A payment risk ruleset blocks anything scoring 70 or more. The risk team wants to block from 65. After the edit, all 9 tests still pass. Looks fine.
+Here is an example. A payment risk ruleset blocks anything scoring 70 or more. The risk team wants to block from 65. After the edit, all 9 tests still pass.
 
 `ordo impact` runs the edit next to the last commit, over the existing test cases, real inputs you provide, and probe inputs generated on both sides of every threshold. This time it ran 130 inputs and listed 5 whose result changed, all from "add a challenge" to "block". One of them is a long-standing customer paying 5000 from abroad on a new phone.
 
-The tests did not cover that case. Impact found it. If it is what you wanted, add it as a test. If not, you catch it before the merge.
+The tests did not cover that case, and impact found it. If it is what you wanted, add it as a test. If not, you catch it before the merge.
 
-The check works the same for people and for AI. Coding agents can call the same command through `ordo mcp`, look at the effect of their own rule edit, and only then hand it to a person for review. That is what we mean by: AI writes the rules, Ordo checks them.
+The check works the same for people and for AI. Coding agents can call the same command through `ordo mcp`, look at the effect of their own rule edit, and only then hand it to a person for review.
 
 ## Start from a rule pack
 
 To make the first step shorter, we wrote three rule packs: credit approval, promo stacking and fraud scoring. Each is a complete Ordo project with rules, tests and a README that walks through impact. Copy one and change the numbers to your own policy.
 
-A rule pack is a plain Ordo project. We hope more teams will share the rules they write the same way. The engine's job is to get the rules right. The tools, packs and integrations around it are something we can build together.
+A rule pack is a plain Ordo project. We hope more teams will share the rules they write the same way. We will keep working on the engine so that rules are evaluated correctly. We hope to build the tools, packs and integrations around it together with other teams.
 
 ## Try it
 

@@ -1,88 +1,88 @@
 ---
 title: "Service Visibility: See Your Runtime Before You Ship"
-description: "Ordo Platform's service visibility feature lets you check the health, version, latency metrics, and rule sync status of every registered engine — so you can confirm your runtime is ready before a rule goes live."
+description: "Ordo Platform shows the health, version, latency metrics and rule sync status of every registered engine, so you can check the runtime before a rule goes live."
 date: 2026-04-19
 author: "Pama Lee"
 tags: ["Platform", "Observability", "Feature"]
 lang: "en"
 ---
 
-## The Blind Spot in Rule Deployment
+## What you can't see when you ship a rule
 
-The riskiest part of shipping a rule change is usually not the rule itself — it's **not knowing which engine version it will land on, or whether that engine is healthy right now**.
+When a rule change goes wrong, the rule itself is often not the problem. The problem is that you don't know which engine version it will run on, or whether that engine is healthy right now.
 
-Tests pass in dev. Staging looks fine. But in production, one engine instance is still running the previous ruleset because its NATS connection dropped three minutes ago. You don't find out until the alert fires.
+Tests pass in dev and staging looks fine. In production, one instance lost its NATS connection three minutes ago and is still running the previous ruleset. Nobody notices until the alert fires.
 
-Ordo's service visibility feature closes that gap.
+Service visibility is meant for this case.
 
 ---
 
-## What You Can See
+## What you can see
 
-In the **Engines** section of the Platform dashboard, every registered `ordo-server` instance is listed with:
+The **Engines** section of the Platform dashboard lists every registered `ordo-server` instance with:
 
 **Identity**
 - Instance name and registered address (`ORDO_SERVER_URL`)
-- Registration time and last heartbeat timestamp
+- Registration time and last heartbeat
 
-**Health Status**
+**Health status**
 - `healthy` / `degraded` / `unreachable`
 - Heartbeat latency (milliseconds)
 - Full output of the most recent health check
 
-**Rule Sync Status**
-- Currently loaded ruleset hash
-- Version delta from Platform's latest (how many versions behind)
-- Timestamp of the last successful sync
+**Rule sync status**
+- Hash of the currently loaded ruleset
+- How many versions it is behind Platform's latest
+- Time of the last successful sync
 
-**Performance Metrics**
+**Performance metrics**
 - QPS over the last 5 minutes
 - P50 / P95 / P99 execution latency
-- Memory and goroutine usage overview
+- Memory usage overview
 
 ![Servers page: all registered ordo-server instances with their online status, version, and registration time](/images/blog/service-visibility-servers.png)
 
-Click the **Metrics** button on any instance to inspect its Prometheus metrics directly:
+Click **Metrics** on any instance to see its Prometheus metrics:
 
 ![Instance Metrics panel: ordo_rules_total, ordo_sync_events_applied_total, ordo_uptime_seconds, and more](/images/blog/service-visibility-metrics.png)
 
 ---
 
-## How It Works
+## How it works
 
-Engine registration and heartbeating are the foundation of how Platform tracks engine state.
+Platform tracks engine state through registration and heartbeats.
 
-When `ordo-server` starts, it sends a registration request to `ORDO_PLATFORM_URL` with its address, name, and version. From there, it sends a heartbeat every 10 seconds. Platform tracks the last-seen timestamp for each instance and derives health status from it.
+When `ordo-server` starts, it sends a registration request to `ORDO_PLATFORM_URL` with its address, name and version. After that it sends a heartbeat every 10 seconds. Platform records when it last heard from each instance and derives health status from that.
 
-Rule sync happens over NATS JetStream. When Platform publishes a rule change, it publishes to the `ordo.rules.*` subject. Subscribed engine instances receive the message, hot-reload the ruleset, and report the new rule hash on their next heartbeat.
+Rule sync runs over NATS JetStream. When a rule change is published, Platform sends a message on the `ordo.rules.*` subject. Subscribed engine instances receive it, hot-reload the ruleset, and report the new rule hash in their next heartbeat.
 
-This means Platform can precisely answer:
+So Platform knows:
 - Which instances have the latest rules loaded
-- Which are still on an older version (NATS interruption, delayed restart)
-- Which have gone silent entirely
+- Which are still on an older version (a NATS interruption or a slow restart)
+- Which have stopped responding
 
 ---
 
-## Pre-Deployment Checklist
+## Before you publish
 
-Before publishing a rule change, confirm:
+Before publishing a rule change, check:
 
-1. **All target instances are healthy** — publishing with a degraded instance means that node will keep running the old rules for an unknown duration
-2. **Versions are consistent** — if some instances are one version behind, you'll have split behavior during the rollout window
-3. **Heartbeat latency is normal** — elevated latency usually signals network instability or instance load spikes
+1. **All target instances are healthy.** A degraded instance may keep running the old rules for an unknown amount of time.
+2. **Versions match.** If some instances are a version behind, old and new rules both serve traffic during the rollout.
+3. **Heartbeat latency is normal.** High latency usually points to an unstable network or an overloaded instance.
 
-The Platform publish dialog integrates this check. If any target instance is unhealthy, you'll see an explicit warning before confirming — and you'll need to acknowledge it to proceed.
-
----
-
-## Multi-Tenant Isolation
-
-In a multi-tenant deployment, rule publications are scoped to the publishing tenant's engine instances. The service visibility page filters by tenant by default. Admin users get a global view across all tenants.
+The publish dialog in Platform runs this check. If a target instance is unhealthy, the dialog shows a warning and asks you to confirm before it continues.
 
 ---
 
-## Getting Started
+## Multi-tenancy
 
-Log in to Ordo Platform and navigate to **Infrastructure → Engines**. If the list is empty, `ordo-server` hasn't registered yet — check that `ORDO_PLATFORM_URL` and `ORDO_SERVER_TOKEN` are set correctly in your engine configuration.
+In a multi-tenant deployment, a tenant's rule releases only reach that tenant's engine instances. The service visibility page is filtered by tenant by default, and admin users can see all tenants.
 
-File issues at [GitHub](https://github.com/Ordo-Engine/Ordo/issues) or read the [deployment docs](https://docs.ordoengine.com).
+---
+
+## Getting started
+
+Log in to Ordo Platform and go to **Infrastructure → Engines**. If the list is empty, `ordo-server` hasn't registered yet. Check that `ORDO_PLATFORM_URL` and `ORDO_SERVER_TOKEN` are set correctly in the engine configuration.
+
+File issues on [GitHub](https://github.com/Ordo-Engine/Ordo/issues) or read the [deployment docs](https://docs.ordoengine.com).

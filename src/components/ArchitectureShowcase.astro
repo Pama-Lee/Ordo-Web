@@ -14,7 +14,7 @@ const copy = {
     flowTitle: '请求执行路径',
     flowSubtitle: 'Studio → Platform → ordo-server 的完整请求链路',
     releaseTitle: '发布与审批路径',
-    releaseSubtitle: '规则发布不是单次按钮，而是一个完整的治理流程',
+    releaseSubtitle: '发布规则要先建发布单、审批，再由 worker 推送到各个引擎',
     components: [
       {
         label: 'Studio',
@@ -53,7 +53,7 @@ const copy = {
         port: ':4222',
         accent: '#7C6B5A',
         tech: 'NATS 2.10 · JetStream',
-        desc: '控制面消息总线。承载 Server 注册（ordo.rules.*）、心跳、规则内容同步事件。Platform 和 ordo-server 均订阅此总线，实现解耦的节点发现与规则推送。',
+        desc: '控制面消息总线。承载 Server 注册（ordo.rules.*）、心跳、规则内容同步事件。Platform 和 ordo-server 都订阅这条总线，节点发现和规则推送都经过它。',
         details: ['节点注册与心跳', '规则内容同步', '控制事件广播', 'JetStream 持久化'],
       },
       {
@@ -109,14 +109,14 @@ const copy = {
   en: {
     eyebrow: 'Architecture',
     title: 'How Ordo is built',
-    subtitle: 'Studio is the visual workspace, Platform is the control plane, ordo-server is the execution engine. The three tiers sync rules over NATS JetStream; PostgreSQL persists all control-plane state.',
+    subtitle: 'Studio is the visual workspace, Platform is the control plane, and ordo-server executes rules. Rules sync between them over NATS JetStream, and PostgreSQL stores all control-plane state.',
     diagramTitle: 'System layer overview',
     diagramSubtitle: 'Actual deployment topology from compose.yml',
     componentsTitle: 'Component breakdown',
     flowTitle: 'Request execution path',
     flowSubtitle: 'The full request chain from Studio through Platform to ordo-server',
     releaseTitle: 'Release & approval path',
-    releaseSubtitle: 'Publishing is not a single button — it is a governed workflow',
+    releaseSubtitle: 'A release goes through a release request and an approval before the worker pushes it to each engine',
     components: [
       {
         label: 'Studio',
@@ -155,7 +155,7 @@ const copy = {
         port: ':4222',
         accent: '#7C6B5A',
         tech: 'NATS 2.10 · JetStream',
-        desc: 'Control-plane message bus. Carries server registration (ordo.rules.*), heartbeats, and rule sync events. Both Platform and ordo-server subscribe, enabling decoupled node discovery and rule push.',
+        desc: 'Control-plane message bus. Carries server registration (ordo.rules.*), heartbeats, and rule sync events. Platform and ordo-server both subscribe to it, and node discovery and rule pushes go through it.',
         details: ['Node registration & heartbeat', 'Rule content sync', 'Control event broadcast', 'JetStream persistence'],
       },
       {
@@ -218,7 +218,7 @@ const copy = {
     flowTitle: '請求執行路徑',
     flowSubtitle: 'Studio → Platform → ordo-server 的完整請求鏈路',
     releaseTitle: '發布與審批路徑',
-    releaseSubtitle: '規則發布不是單次按鈕，而是一個完整的治理流程',
+    releaseSubtitle: '發布規則要先建發布單、審批，再由 worker 推送到各個引擎',
     components: [
       {
         label: 'Studio',
@@ -257,7 +257,7 @@ const copy = {
         port: ':4222',
         accent: '#7C6B5A',
         tech: 'NATS 2.10 · JetStream',
-        desc: '控制面訊息匯流排。承載 Server 註冊（ordo.rules.*）、心跳、規則內容同步事件。Platform 和 ordo-server 均訂閱此匯流排，實現解耦的節點發現與規則推送。',
+        desc: '控制面訊息匯流排。承載 Server 註冊（ordo.rules.*）、心跳、規則內容同步事件。Platform 和 ordo-server 都訂閱這條匯流排，節點發現和規則推送都經過它。',
         details: ['節點註冊與心跳', '規則內容同步', '控制事件廣播', 'JetStream 持久化'],
       },
       {

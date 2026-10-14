@@ -1,35 +1,33 @@
 ---
-title: "Why Do You Need a Rule Engine?"
-description: "When business rules are scattered across your codebase and changing a discount policy requires a full release — it's time to separate decision logic from application code."
+title: "Why Use a Rule Engine"
+description: "When business rules are spread across the codebase, changing a discount means shipping a release. Moving decision logic out of application code removes that step."
 date: 2026-04-10
 author: "Pama Lee"
 tags: ["Engineering", "Architecture", "Rule Engine"]
 lang: "en"
 ---
 
-## The Problem
+## The problem
 
-Have you ever run into these situations?
+Many teams run into these:
 
-- Changing a discount rule requires a PR, code review, release, and deployment
-- Risk control policies live in three different microservices, and nobody knows the full logic
-- A product manager wants to see "the currently active approval workflow," but there's nowhere to look
+- Changing a discount rule takes a PR, a code review, a release and a deployment
+- Risk policies are split across three microservices, and nobody can describe the full logic
+- A product manager wants to see the approval workflow that is live right now, and there is no place to look it up
 
-The root cause is always the same: **business decision logic is tangled up with application code**.
+The cause is the same each time: business decision logic is mixed in with application code.
 
-## The Solution
+## The approach
 
-The core idea behind a rule engine is simple: separate "what decisions to make" from "how to execute them."
+A rule engine separates "what to decide" from "how the decision is executed".
 
-Ordo's approach is to describe decision logic in JSON/YAML, execute it via API, and return results to the caller. Modifying decision logic doesn't require redeploying your application.
+In Ordo, decision logic is written in JSON or YAML, executed through an API, and the result is returned to the caller. Changing the logic does not require redeploying your application.
 
-## Why Ordo
+## What Ordo offers
 
-Compared to traditional rule engines, Ordo stands out in several ways:
+1. Speed: built on Rust and Cranelift JIT, a single execution takes under a microsecond
+2. Visual editing: people who don't write code can read and edit rules in Studio
+3. Version control, audit logs and rollback
+4. Several ways to call it: HTTP, gRPC, WASM and CLI
 
-1. **Extreme Performance**: Sub-microsecond execution powered by Rust and Cranelift JIT
-2. **Visual Editing**: Studio lets non-technical team members participate in rule management
-3. **Platform-Grade Governance**: Version control, audit logs, and rollback built in
-4. **Run Anywhere**: HTTP, gRPC, WASM, CLI — one engine for every deployment scenario
-
-If your team is struggling with business rule management, give Ordo a try.
+If managing business rules is a problem for your team, give Ordo a try.
