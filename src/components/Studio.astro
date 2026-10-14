@@ -1,12 +1,12 @@
 ---
 import { getLangFromUrl } from '../i18n/utils';
 import { useHome, docsUrl } from '../i18n/home';
+import TableStudio from './demo/TableStudio';
 
 const lang = getLangFromUrl(Astro.url);
 const c = useHome(lang).studio;
 // '|' marks where a CJK title may break, so phrases are not split mid-word.
 const titleParts = c.title.split('|');
-const shot = `/images/screens/${lang === 'en' ? 'en' : 'zh'}/table.webp`;
 ---
 
 <section id="studio" class="py-24 reveal scroll-mt-16">
@@ -23,16 +23,11 @@ const shot = `/images/screens/${lang === 'en' ? 'en' : 'zh'}/table.webp`;
       </a>
     </div>
 
-    <div class="lg:col-span-7">
-      <img
-        src={shot}
-        alt={c.shot_alt}
-        width="2400"
-        height="1500"
-        class="block w-full h-auto rounded-xl border border-black/[0.08] shadow-[0_16px_48px_rgba(45,42,38,0.08)] select-none"
-        loading="lazy"
-        draggable="false"
-      />
+    <div class="lg:col-span-7 min-w-0">
+      <figure>
+        <figcaption class="sr-only">{c.shot_alt}</figcaption>
+        <TableStudio client:visible={{ rootMargin: '200px' }} lang={lang} />
+      </figure>
     </div>
   </div>
 </section>
