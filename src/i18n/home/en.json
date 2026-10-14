@@ -17,7 +17,7 @@
     "subtitle": "Models tell you what is going on. Ordo decides what to do about it, and shows who a change affects first.",
     "cta_primary": "Get started",
     "cta_github": "GitHub",
-    "shot_alt": "Ordo Studio showing a loan approval ruleset as a flow"
+    "shot_alt": "Ordo Studio running the refund-routing ruleset on four recorded refund requests, step by step"
   },
   "points": {
     "title": "What Ordo does for you",
@@ -59,7 +59,7 @@
     "title": "Rules your whole team can read",
     "desc": "See the same rules as a flow or as a table. Business teams read the logic, run tests and request releases there. Engineers keep working in the code repository.",
     "link": "About Studio",
-    "shot_alt": "Ordo Studio showing the same loan approval ruleset as a decision table"
+    "shot_alt": "The route step of the refund-routing ruleset as a decision table in Ordo Studio, matching one input at a time"
   },
   "cta": {
     "title": "Start from a ready-made example",

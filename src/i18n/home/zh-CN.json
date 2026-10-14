@@ -17,7 +17,7 @@
     "subtitle": "模型告诉你发生了什么，|Ordo 决定接下来怎么做。|规则单独管理，改之前先看清会影响谁。",
     "cta_primary": "快速上手",
     "cta_github": "GitHub",
-    "shot_alt": "Ordo Studio 用流程图展示一份贷款审批规则"
+    "shot_alt": "Ordo Studio 用退款分流规则逐步处理四条真实记录的退款请求"
   },
   "points": {
     "title": "Ordo 帮你做三件事",
@@ -59,7 +59,7 @@
     "title": "不写代码的同事，|也能看懂规则",
     "desc": "同一份规则可以看成流程图，也可以看成一张表。业务同事在这里看逻辑、跑测试、提发布，研发继续用代码仓库。",
     "link": "了解 Studio",
-    "shot_alt": "Ordo Studio 用决策表展示同一份贷款审批规则"
+    "shot_alt": "Ordo Studio 用决策表展示退款分流规则的路由步骤，逐条匹配输入"
   },
   "cta": {
     "title": "从一个现成的例子开始",

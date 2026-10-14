@@ -1,12 +1,12 @@
 ---
 import { getLangFromUrl } from '../i18n/utils';
 import { useHome, docsUrl, REPO_URL } from '../i18n/home';
+import HeroStudio from './demo/HeroStudio';
 
 const lang = getLangFromUrl(Astro.url);
 const c = useHome(lang).hero;
 // '|' marks where a CJK subtitle may break, so phrases are not split mid-word.
 const subtitleParts = c.subtitle.split('|');
-const shot = `/images/screens/${lang === 'en' ? 'en' : 'zh'}/flow.webp`;
 ---
 
 <section class="relative">
@@ -44,15 +44,26 @@ const shot = `/images/screens/${lang === 'en' ? 'en' : 'zh'}/flow.webp`;
     </div>
   </div>
 
-  <div class="hero-anim-5 max-w-[960px] mx-auto px-4 sm:px-6 pb-8">
-    <img
-      src={shot}
-      alt={c.shot_alt}
-      width="2400"
-      height="1500"
-      class="block w-full h-auto rounded-xl border border-black/[0.08] shadow-[0_20px_60px_rgba(45,42,38,0.08)] select-none"
-      loading="eager"
-      draggable="false"
-    />
+  <div class="hero-anim-5 max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+    <figure class="od-scale">
+      <figcaption class="sr-only">{c.shot_alt}</figcaption>
+      <div class="od-scale-inner">
+        <HeroStudio client:visible lang={lang} />
+      </div>
+    </figure>
+    <script is:inline>
+      // Scale the fixed-size Studio window to the column width before first paint.
+      (function () {
+        var els = document.querySelectorAll('.od-scale');
+        function fit(el) {
+          var dw = parseFloat(getComputedStyle(el).getPropertyValue('--dw')) || 1152;
+          el.style.setProperty('--s', String(el.clientWidth / dw));
+        }
+        els.forEach(function (el) {
+          fit(el);
+          if (window.ResizeObserver) new ResizeObserver(function () { fit(el); }).observe(el);
+        });
+      })();
+    </script>
   </div>
 </section>
