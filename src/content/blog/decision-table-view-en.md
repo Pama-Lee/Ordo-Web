@@ -1,68 +1,68 @@
 ---
-title: "Decision Table View: Making Rules Readable for Everyone"
-description: "Ordo Studio's decision table view transforms complex routing matrices and approval policies into a spreadsheet-like interface — so business teams can review and edit rules without touching JSON or code."
+title: "Decision Table View: Rules Business Teams Can Read"
+description: "Ordo Studio's decision table view shows routing matrices and approval policies as a table, so business teams can review and edit rules without reading JSON or code."
 date: 2026-04-19
 author: "Pama Lee"
 tags: ["Studio", "Decision Table", "Feature"]
 lang: "en"
 ---
 
-## The Problem with JSON-Only Rules
+## Why a table view
 
-In most rule engine setups, rules live as JSON or YAML — authored by developers, opaque to everyone else. Business teams file tickets, engineers translate requirements into logic, and by the time a rule ships it's already been through three rounds of interpretation overhead.
+In most rule engine setups, rules are stored as JSON or YAML. Developers write them, and business teams file tickets. Engineers translate each request into logic, and by the time a rule ships it has been reinterpreted several times.
 
-Ordo's decision table view takes a different approach: **expose the structure of rules, not the code of rules**.
-
----
-
-## What It Looks Like
-
-Open any ruleset in Studio and you'll see two view buttons at the top: **Flow** and **Table**. Switch to Table and you get:
-
-- **Columns**: input fields and output fields
-- **Rows**: individual rule branches
-- **Cells**: condition expressions (`>= 1000`, `in ["VIP", "SVIP"]`, etc.)
-
-It looks and feels like a spreadsheet. Click any cell to edit the condition directly — no knowledge of the underlying AST required.
+The decision table view shows the structure of the rules directly, so reviewers don't have to read code.
 
 ---
 
-## How It Works Under the Hood
+## What it looks like
 
-The decision table view is not a separate storage format. It's a projected view of the rule AST.
+Open a ruleset in Studio and you'll see two view buttons at the top: **Flow** and **Table**. In Table view:
 
-When Ordo parses rules, it maintains a **columnar canonical form** alongside the tree. The table view renders directly from that form. When you edit a cell, Studio writes the change back into the AST and immediately validates it using the in-browser WASM build of the engine.
+- Columns are input fields and output fields
+- Rows are rule branches
+- Cells hold condition expressions such as `>= 1000` or `in ["VIP", "SVIP"]`
 
-This means:
-- Flow view and table view are always in sync — no conversion step
-- Changes trigger instant local execution, so you see output changes in real time
-- Invalid expressions are flagged at the cell level, before you even hit save
-
----
-
-## Use Cases
-
-**Risk policy review**: Credit approval rules often span dozens or hundreds of branches. The table view lets risk teams audit the full matrix against business intent, without needing an engineer to translate it first.
-
-**Promotion rule governance**: E-commerce discount and stacking rules change every campaign cycle. Operations teams can make adjustments directly in Studio, skipping the dev queue entirely.
-
-**Compliance documentation**: In regulated industries, decision logic needs an audit trail. Tables can be exported as CSV and filed alongside compliance documentation.
+It works much like a spreadsheet. Click a cell to edit the condition. You don't need to know the underlying AST.
 
 ---
 
-## Flow vs. Table: Which to Use?
+## How it works
 
-They're complementary, not competing:
+The table is not a separate storage format. It is a view projected from the rule AST.
 
-- **Flow view** is better for understanding execution order and branching logic
-- **Table view** is better for bulk-reviewing conditions and output values
+When Ordo parses rules, it keeps a columnar canonical form next to the tree, and the table renders from that form. When you edit a cell, Studio writes the change back into the AST and validates it with the in-browser WASM build of the engine.
 
-A deeply nested flow is clearest in the flow diagram. But when you need to confirm "which branch does a tier-3 VIP user take?", the table lets you scan directly to the matching row and column.
+As a result:
+- Flow view and table view stay in sync, with no conversion step
+- Each change runs locally in WASM, so you see the output change right away
+- An invalid expression is flagged on its cell before you save
 
 ---
 
-## Try It
+## Where it helps
 
-Open any ruleset in Studio and click the view toggle in the top-right corner. If your ruleset hasn't been through columnar normalization yet, Studio will offer an automatic migration — it preserves rule semantics and only adjusts the internal layout.
+**Risk policy review**: credit approval rules often have dozens or hundreds of branches. Risk teams can check the whole matrix against the business intent without waiting for an engineer to translate it.
 
-Questions or feature requests? File them at [GitHub Issues](https://github.com/Ordo-Engine/Ordo/issues).
+**Promotion rules**: discount and stacking rules change with every campaign. Operations teams can adjust them in Studio without going through the dev queue.
+
+**Compliance records**: in regulated industries, decision logic needs an audit trail. Tables can be exported as CSV and filed with compliance documents.
+
+---
+
+## Flow or table
+
+Each view suits a different job:
+
+- **Flow view** shows execution order and branching
+- **Table view** is for reviewing many conditions and outputs at once
+
+A deeply nested flow is easier to follow in the flow diagram. To check "which branch does a tier-3 VIP user take?", the table takes you straight to the row and column.
+
+---
+
+## Try it
+
+Open any ruleset in Studio and click the view toggle in the top-right corner. If the ruleset hasn't been through columnar normalization yet, Studio offers an automatic migration. The migration keeps rule semantics and only changes the internal layout.
+
+Questions or feature requests go to [GitHub Issues](https://github.com/Ordo-Engine/Ordo/issues).

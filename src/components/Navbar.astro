@@ -16,10 +16,10 @@ try {
 } catch {}
 const starsLabel = stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : String(stars);
 const starTooltip = lang === 'en'
-  ? 'If Ordo has been useful to you, a star would mean a lot to us'
+  ? 'If Ordo is useful to you, you can star it on GitHub'
   : lang === 'zh-TW'
-  ? '若 Ordo 對您有幫助，歡迎為我們點亮一顆 Star，感謝支持'
-  : '若 Ordo 对你有帮助，欢迎为我们点亮一颗 Star，感谢支持';
+  ? '覺得 Ordo 有用的話，可以在 GitHub 上點個 Star'
+  : '觉得 Ordo 有用的话，可以在 GitHub 上点个 Star';
 
 const navItems = [
   { name: nav.product, href: `${base}/#how` },

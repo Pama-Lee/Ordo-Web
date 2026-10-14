@@ -1,34 +1,34 @@
 ---
 title: "Ordo v0.4.0: Studio Visual Editor Is Live"
-description: "We've released Ordo v0.4.0, bringing a brand-new visual Studio editor, decision table views, a template marketplace, and more."
+description: "Ordo v0.4.0 adds Studio, a visual editor, along with a decision table view and a template marketplace."
 date: 2026-04-19
 author: "Pama Lee"
 tags: ["Release", "Studio", "Visual"]
 lang: "en"
 ---
 
-## Highlights
+## What's in this release
 
-Ordo v0.4.0 is a milestone release. We started with a CLI tool and API, and now we finally have a full visual workbench.
+Until now Ordo had a CLI and an API. v0.4.0 adds Studio, a visual workbench.
 
-### Studio Editor
+### Studio editor
 
-Studio is Ordo's visual workbench. You can do everything in one interface:
+In Studio you can:
 
-- **Flow Editor**: Drag-and-drop decision flows with Decision, Action, Terminal, and other node types
-- **Decision Table View**: View and edit routing matrices in a spreadsheet-like table, making rule review accessible to business users
-- **Test Management**: Create, run, and export test suites for every ruleset
+- Edit flows: build decision flows by drag and drop, with Decision, Action, Terminal and other node types
+- View and edit routing matrices as a decision table, so business users can check the rules themselves
+- Manage tests: create, run and export tests for each ruleset
 
-### Template Marketplace
+### Template marketplace
 
-We've built in several common scenario templates and support loading community templates from GitHub. Pick a template and create a project in one click.
+Studio ships with templates for a few common scenarios and can load community templates from GitHub. Pick a template to create a project from it.
 
-### Platform Governance
+### Organizations and permissions
 
-Organization management, member permissions, project spaces — Ordo is no longer just an engine, but a complete decision platform.
+New organization management, member permissions and project spaces, so several teams can manage their own rules on one platform.
 
-## What's Next
+## What's next
 
-We're working on gRPC protocol support and the vectorized execution engine. Stay tuned for v0.5.0.
+We are working on gRPC protocol support and the vectorized execution engine, planned for v0.5.0.
 
-Thanks to all contributors and early adopters for your feedback!
+Thanks to all contributors and early users for the feedback.

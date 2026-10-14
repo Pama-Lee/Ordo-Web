@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Turn judgments into decisions",
-    "description": "Ordo is an open-source decision engine. Models like Jev tell you what is going on, and Ordo decides what to do about it. Rules have tests and versions, and you see which decisions a change moves before you make it."
+    "description": "Ordo is an open-source decision engine. Refunds, credit limits, discounts and similar business decisions live in rules with tests and versions, and you can see which decisions a change moves before you make it."
   },
   "nav": {
     "product": "Product",
@@ -38,10 +38,10 @@
   },
   "impact": {
     "eyebrow": "An example",
-    "title": "Every app that uses Jev has a 0.85 in it",
+    "title": "A 0.85 hard-coded in the app",
     "p1": "A customer writes in, Jev decides it is a refund request, and anything above 0.85 is refunded automatically. That 0.85 usually sits in code nobody has looked at, and after a model update it means something else.",
     "p2": "Once it lives in Ordo, someone proposes 0.80. Every test still passes. Ordo runs the old and new rules side by side and finds 18 cases that move from \"agent checks\" to \"refund now\". You decide before the change goes in.",
-    "ai": "Jev turns text into judgments. Ordo turns judgments into decisions.",
+    "ai": "You can swap the model or upgrade it. The refund threshold stays in Ordo, with tests and a version history.",
     "panel": {
       "label": "Auto refund threshold",
       "from": "0.85",
@@ -68,7 +68,7 @@
     "btn_packs": "Browse rule packs"
   },
   "footer": {
-    "desc": "An open-source decision engine. Models give the judgment, Ordo decides what happens next, and you see what a change affects first.",
+    "desc": "An open-source decision engine. Rules have tests and versions, and you can see what a change affects before you make it.",
     "product": "Product",
     "resources": "Resources",
     "packs": "Rule packs",
