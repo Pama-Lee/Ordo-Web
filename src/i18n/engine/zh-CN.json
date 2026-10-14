@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "title": "引擎",
+    "description": "Ordo 引擎用 Rust 编写。输入一份 JSON，按规则一步步执行，返回结果和完整的执行路径。可以作为服务运行，也可以嵌进程序或浏览器。"
+  },
+  "hero": {
+    "eyebrow": "引擎",
+    "title": "规则在这里执行",
+    "subtitle": "Ordo 的核心是一个用 Rust 写的规则引擎。|给它一份 JSON，它按规则一步步走完，|返回结果，也记下每一步为什么这样走。",
+    "cta_primary": "快速上手",
+    "cta_source": "看源码"
+  },
+  "run": {
+    "said": "客户说",
+    "jev": "Jev 的判断",
+    "facts": "业务数据",
+    "input": "输入",
+    "steps": "执行路径",
+    "result": "结果",
+    "matched": "成立",
+    "notMatched": "不成立",
+    "row": "第 {n} 行",
+    "defaultRow": "没有行命中，用默认值",
+    "goto": "下一步",
+    "end": "结束",
+    "caption": "退款分流规则（jev-routing 规则包）处理四条真实消息。Jev 的回答是 2026-10-13 用 typesafe/jev-1.13 拿到的，结果和 ordo trace 一致。",
+    "samples": {
+      "blender": "搅拌机",
+      "double": "重复扣款",
+      "parcel": "包裹",
+      "dispute": "银行争议"
+    }
+  },
+  "steps": {
+    "eyebrow": "规则的样子",
+    "title": "一条规则是一串步骤",
+    "desc": "规则集有一个入口步骤。每一步看完输入，决定下一步去哪，直到走到一个结束步骤。规则是 JSON 或 YAML 文件，可以放在代码仓库里审阅。",
+    "kinds": [
+      {
+        "name": "判断",
+        "type": "decision",
+        "desc": "按顺序检查几个条件，走第一个成立的分支，都不成立就走默认。"
+      },
+      {
+        "name": "决策表",
+        "type": "decision_table",
+        "desc": "一行一条规则，按列匹配。适合门槛多、组合多的地方。"
+      },
+      {
+        "name": "动作",
+        "type": "action",
+        "desc": "算出新的值，写进上下文，给后面的步骤用。"
+      },
+      {
+        "name": "结束",
+        "type": "terminal",
+        "desc": "给出结果码、说明和输出字段。"
+      }
+    ],
+    "fileLabel": "rulesets/refund-routing.json 里的第一步"
+  },
+  "pipeline": {
+    "eyebrow": "表达式",
+    "title": "条件先编译，再执行",
+    "desc": "规则加载时，每个条件只解析一次。之后每次执行都直接跑编译好的字节码，不再碰字符串。",
+    "stages": [
+      {
+        "name": "解析",
+        "desc": "读成语法树。加载时做一次，1 到 2 µs。"
+      },
+      {
+        "name": "优化",
+        "desc": "能提前算的先算好，走不到的分支删掉。"
+      },
+      {
+        "name": "字节码",
+        "desc": "编译成寄存器字节码，由虚拟机执行。两个条件的与运算约 80 ns。"
+      },
+      {
+        "name": "JIT",
+        "desc": "在 Rust 程序里声明好输入类型后，纯数值表达式可以编译成机器码，约 8 ns。服务和浏览器里走字节码。"
+      }
+    ],
+    "optNote": "这一条没有能提前算的部分。如果写的是 amount > 100 * 2，会先变成 amount > 200。",
+    "jitNote": "这一条有字符串比较，所以留在字节码。score * 0.6 + bonus * 0.4 这样的纯数值表达式才会进 JIT。",
+    "exprLabel": "规则里的一个条件"
+  },
+  "speed": {
+    "eyebrow": "速度",
+    "title": "执行一条规则不到一微秒",
+    "desc": "一条四个分支的规则，单次执行约 573 ns。接到业务请求里，大部分时间花在网络上，不在规则上。",
+    "chartTitle": "同一条四分支规则，单次执行耗时",
+    "lower": "越短越好",
+    "rows": [
+      {
+        "name": "Ordo（字节码）",
+        "ns": 573,
+        "ours": true
+      },
+      {
+        "name": "Rhai",
+        "ns": 728
+      },
+      {
+        "name": "Zen Engine / GoRules",
+        "ns": 4200
+      }
+    ],
+    "baseline": "参照：直接写 Rust if/else 是 3.5 ns",
+    "stats": [
+      {
+        "value": "约 6 万",
+        "label": "HTTP 单实例每秒请求，200 并发"
+      },
+      {
+        "value": "约 270 万",
+        "label": "批量执行每秒规则数"
+      },
+      {
+        "value": "24.6 MB",
+        "label": "服务空闲时内存"
+      }
+    ],
+    "note": "2026-03-11 在 Apple M1 Pro 上测得。换了机器和规则，结果会不同。",
+    "link": "测试方法和完整数据"
+  },
+  "correct": {
+    "eyebrow": "正确",
+    "title": "算得准，出错也说得清",
+    "desc": "规则管的是钱和额度，一个小数误差或者一个漏传的字段，都可能悄悄走错分支。下面是命令行的真实输出。",
+    "items": [
+      {
+        "title": "金额用精确小数",
+        "desc": "字段声明成 decimal，或者用 decimal() 包起来，就按十进制精确计算。",
+        "lines": [
+          {
+            "cmd": "ordo eval '0.1 + 0.2 == 0.3'",
+            "out": "false"
+          },
+          {
+            "cmd": "ordo eval 'decimal(0.1) + 0.2 == 0.3'",
+            "out": "true"
+          },
+          {
+            "cmd": "ordo eval 'decimal(\"19.99\") * 3'",
+            "out": "59.97"
+          }
+        ]
+      },
+      {
+        "title": "输入先校验",
+        "desc": "规则声明需要哪些字段、什么类型。缺了或类型不对，直接报错，不会走默认分支。",
+        "lines": [
+          {
+            "cmd": "缺 order.amount",
+            "out": "Invalid input: order.amount: required field is missing"
+          },
+          {
+            "cmd": "confidence 传成 \"high\"",
+            "out": "Invalid input: jev.intent.confidence: expected number, got string"
+          }
+        ]
+      },
+      {
+        "title": "规则带测试",
+        "desc": "测试用例和规则放在一起，改完跑一遍。发布出去的规则文件可以签名，加载时校验。",
+        "lines": [
+          {
+            "cmd": "ordo test",
+            "out": "12 tests: 12 passed"
+          }
+        ]
+      }
+    ]
+  },
+  "anywhere": {
+    "eyebrow": "运行方式",
+    "title": "同一份规则，在哪都能跑",
+    "desc": "写规则时用命令行，上线时用服务，也可以直接嵌进程序。规则文件是同一份。",
+    "items": [
+      {
+        "name": "命令行",
+        "desc": "本地写规则、跑测试、看改动的影响，不用装 Rust。",
+        "code": "npx @ordo-engine/cli test",
+        "doc": "/guide/quick-start"
+      },
+      {
+        "name": "服务",
+        "desc": "HTTP 在 8080，gRPC 在 50051，也能监听 Unix Socket。支持多租户和版本回滚。",
+        "code": "docker run -p 8080:8080 ghcr.io/ordo-engine/ordo",
+        "doc": "/guide/server"
+      },
+      {
+        "name": "嵌入",
+        "desc": "在 Rust 程序里用 ordo-core，或者在浏览器里用 WebAssembly，不用起服务。",
+        "code": "npm install @ordo-engine/wasm",
+        "doc": "/guide/embed"
+      },
+      {
+        "name": "决策模型网关",
+        "desc": "放在应用和 Jev 之间，用模型的回答跑规则，每次调用都记下来，改门槛前可以回放。",
+        "code": "TYPESAFE_BASE_URL=http://ordo:8080/systemone",
+        "doc": "/platform/decision-gateway"
+      }
+    ],
+    "docLink": "文档"
+  }
+}

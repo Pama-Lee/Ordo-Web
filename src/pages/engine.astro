@@ -1,19 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import PerformanceShowcase from '../components/PerformanceShowcase.astro';
+import EnginePage from '../components/engine/EnginePage.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl } from '../i18n/utils';
+import { useEngine } from '../i18n/engine';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const meta = useEngine(lang).meta;
 ---
 
-<Layout title={`${t('nav.benchmarks')} | Ordo`}>
+<Layout title={meta.title} description={meta.description}>
 	<Navbar />
-	<main class="grow pt-16">
-		<PerformanceShowcase />
+	<main class="grow">
+		<EnginePage />
 		<CTA />
 	</main>
 	<Footer />

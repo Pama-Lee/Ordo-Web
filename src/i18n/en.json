@@ -1,7 +1,6 @@
 {
   "nav": {
     "features": "Features",
-    "benchmarks": "Benchmarks",
     "docs": "Docs",
     "playground": "Playground",
     "integration": "Integration",
@@ -9,34 +8,6 @@
     "github": "GitHub",
     "blog": "Blog",
     "changelog": "Changelog"
-  },
-  "benchmarks": {
-    "title": "Benchmark results",
-    "description": "Single-thread numbers measured on Apple Silicon (M-series).",
-    "chart_title": "Execution Latency Comparison (µs)",
-    "chart_low_better": "lower is better",
-    "chart_traditional": "Traditional Engine (Typical)",
-    "chart_ordo": "Ordo Rule Engine",
-    "chart_note": "* About 600x faster, so rule execution barely shows up in request latency.",
-    "stat_eval": "Expression Eval Time",
-    "stat_api_qps": "HTTP API Single-thread QPS",
-    "stat_p99": "HTTP API P99 Latency",
-    "stat_heap": "Hot Path Heap Allocations",
-    "modes_title": "Execution modes",
-    "modes_desc": "The same rules can run in four ways. Pick the one that fits the workload.",
-    "mode_treewalk": "AST Tree-walk",
-    "mode_treewalk_desc": "Interprets the AST directly. Good for development and one-off rules.",
-    "mode_vm": "Bytecode VM",
-    "mode_vm_desc": "Compiles rules to bytecode. The default in production.",
-    "mode_vectorized": "Vectorized Execution",
-    "mode_vectorized_desc": "Processes inputs column by column in batches, for validating large datasets.",
-    "mode_jit": "Schema-Aware JIT",
-    "mode_jit_desc": "Compiles to native machine code, with latency in nanoseconds.",
-    "jit_title": "Schema-Aware JIT is available",
-    "jit_desc": "Compiles numeric rules to native machine code with Cranelift. 20–30x faster than the bytecode VM on compute-heavy rules.",
-    "jit_latency": "Evaluation Latency",
-    "jit_throughput": "Peak Throughput",
-    "jit_speedup": "Speedup"
   },
   "integration": {
     "title": "Integration",

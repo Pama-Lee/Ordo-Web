@@ -1,0 +1,190 @@
+---
+import { getLangFromUrl } from '../../i18n/utils';
+import { docsUrl, REPO_URL } from '../../i18n/home';
+import { useEngine } from '../../i18n/engine';
+import EngineRun from './EngineRun';
+import Pipeline from './Pipeline';
+import './engine.css';
+
+const lang = getLangFromUrl(Astro.url);
+const c = useEngine(lang);
+const split = (s: string) => s.split('|');
+
+// The first step of examples/rule-packs/jev-routing/rulesets/refund-routing.json, verbatim.
+const firstStep = `{
+  "id": "escalation",
+  "name": "Chargeback or legal threat",
+  "type": "decision",
+  "branches": [
+    {
+      "id": "threat",
+      "condition": "jev.chargeback.noul >= 0.5",
+      "nextStepId": "escalate"
+    }
+  ],
+  "defaultNextStepId": "intent"
+}`;
+
+const maxNs = Math.max(...c.speed.rows.map((r) => r.ns));
+const h2 = 'font-black text-[#2D2A26] tracking-[-0.03em] leading-[1.15] mb-6';
+const h2Style = 'font-size: clamp(1.75rem, 3.5vw, 2.4rem);';
+---
+
+<!-- Hero + live run -->
+<section class="relative">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center pt-36 pb-14">
+    <p class="hero-anim-1 text-[13px] font-semibold text-[#B86E35] tracking-[0.02em] mb-6">{c.hero.eyebrow}</p>
+    <h1 class="hero-anim-2 font-black text-[#2D2A26] leading-[1.05] tracking-[-0.04em] mb-6"
+      style="font-size: clamp(2.4rem, 6vw, 4rem);">{c.hero.title}</h1>
+    <p class="hero-anim-3 text-[#6B6560] max-w-xl mx-auto mb-10 leading-relaxed text-[17px]">
+      {split(c.hero.subtitle).map((t) => <span class="inline-block">{t}</span>)}
+    </p>
+    <div class="hero-anim-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href={docsUrl(lang, '/guide/quick-start')}
+        class="w-full sm:w-auto px-7 py-3 bg-[#2D2A26] hover:bg-[#1a1816] text-white font-semibold rounded-full text-[15px] transition-colors text-center">{c.hero.cta_primary}</a>
+      <a href={`${REPO_URL}/tree/main/crates/ordo-core`} target="_blank" rel="noopener noreferrer"
+        class="w-full sm:w-auto px-7 py-3 text-[#2D2A26] hover:bg-black/[0.04] font-semibold rounded-full text-[15px] transition-colors text-center border border-black/[0.12]">{c.hero.cta_source}</a>
+    </div>
+  </div>
+
+  <div class="hero-anim-5 max-w-5xl mx-auto px-4 sm:px-6 pb-6">
+    <EngineRun client:visible copy={c.run} />
+    <p class="mt-4 text-[13px] text-[#9C9590] leading-relaxed text-center max-w-3xl mx-auto">{c.run.caption}</p>
+  </div>
+</section>
+
+<!-- Steps -->
+<section id="steps" class="py-24 reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <div>
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.steps.eyebrow}</p>
+      <h2 class={h2} style={h2Style}>{c.steps.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed mb-8">{c.steps.desc}</p>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+        {c.steps.kinds.map((k) => (
+          <div class="border-t border-black/[0.10] pt-4">
+            <dt class="flex items-baseline gap-2 mb-1.5">
+              <span class="text-[16px] font-bold text-[#2D2A26]">{k.name}</span>
+              <code class="text-[12px] text-[#9C9590] font-mono">{k.type}</code>
+            </dt>
+            <dd class="text-[14px] text-[#6B6560] leading-relaxed">{k.desc}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <figure class="ecode">
+      <figcaption class="ecode-cap">{c.steps.fileLabel}</figcaption>
+      <pre>{firstStep}</pre>
+    </figure>
+  </div>
+</section>
+
+<!-- Expression pipeline -->
+<section id="expressions" class="py-24 bg-[#F5F1EA] reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12">
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.pipeline.eyebrow}</p>
+      <h2 class={h2} style={h2Style}>{c.pipeline.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed">{c.pipeline.desc}</p>
+    </div>
+    <Pipeline client:visible={{ rootMargin: "200px" }} stages={c.pipeline.stages} exprLabel={c.pipeline.exprLabel} optNote={c.pipeline.optNote} jitNote={c.pipeline.jitNote} />
+  </div>
+</section>
+
+<!-- Speed -->
+<section id="speed" class="py-24 reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12">
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.speed.eyebrow}</p>
+      <h2 class={h2} style={h2Style}>{c.speed.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed">{c.speed.desc}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
+      <div class="lg:col-span-3">
+        <div class="flex items-baseline justify-between mb-5">
+          <h3 class="text-[15px] font-semibold text-[#2D2A26]">{c.speed.chartTitle}</h3>
+          <span class="text-[12px] text-[#9C9590]">{c.speed.lower}</span>
+        </div>
+        <ul class="space-y-4">
+          {c.speed.rows.map((r) => (
+            <li>
+              <div class="flex justify-between text-[14px] mb-1.5">
+                <span class={r.ours ? 'font-semibold text-[#2D2A26]' : 'text-[#6B6560]'}>{r.name}</span>
+                <span class="font-mono tabular-nums text-[#2D2A26]">{r.ns.toLocaleString('en-US')} ns</span>
+              </div>
+              <div class="h-2.5 rounded-full bg-black/[0.05] overflow-hidden">
+                <div class={`ebar h-full rounded-full ${r.ours ? 'bg-[#C8743A]' : 'bg-[#B9AFA4]'}`} style={`--w:${(r.ns / maxNs) * 100}%`}></div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-4 text-[13px] text-[#9C9590]">{c.speed.baseline}</p>
+      </div>
+
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6">
+        {c.speed.stats.map((s) => (
+          <div class="border-t border-black/[0.10] pt-4">
+            <div class="text-[26px] font-black text-[#2D2A26] tracking-[-0.02em] tabular-nums">{s.value}</div>
+            <div class="text-[14px] text-[#6B6560] leading-snug mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <p class="mt-10 text-[13px] text-[#9C9590]">
+      {c.speed.note}
+      <a href={docsUrl(lang, '/reference/benchmarks')} class="ml-1 font-semibold text-[#6B6560] hover:text-[#B86E35] transition-colors">{c.speed.link} →</a>
+    </p>
+  </div>
+</section>
+
+<!-- Correctness -->
+<section id="correct" class="py-24 bg-[#F5F1EA] reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12">
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.correct.eyebrow}</p>
+      <h2 class={h2} style={h2Style}>{c.correct.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed">{c.correct.desc}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {c.correct.items.map((it) => (
+        <div>
+          <h3 class="text-[17px] font-bold text-[#2D2A26] mb-2">{it.title}</h3>
+          <p class="text-[14px] text-[#6B6560] leading-relaxed mb-4">{it.desc}</p>
+          <div class="eterm">
+            {it.lines.map((l) => (
+              <div class="eterm-line">
+                <div class="eterm-cmd">{l.cmd.startsWith('ordo') ? <><span class="eterm-ps">$</span> {l.cmd}</> : <span class="eterm-note">{l.cmd}</span>}</div>
+                <div class="eterm-out">{l.out}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Where it runs -->
+<section id="run" class="py-24 reveal scroll-mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12">
+      <p class="text-[13px] font-semibold text-[#B86E35] mb-4">{c.anywhere.eyebrow}</p>
+      <h2 class={h2} style={h2Style}>{c.anywhere.title}</h2>
+      <p class="text-[16px] text-[#6B6560] leading-relaxed">{c.anywhere.desc}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10">
+      {c.anywhere.items.map((it) => (
+        <div class="border-t border-black/[0.10] pt-5">
+          <div class="flex items-baseline justify-between gap-4 mb-2">
+            <h3 class="text-[18px] font-bold text-[#2D2A26]">{it.name}</h3>
+            <a href={docsUrl(lang, it.doc)} class="text-[13px] font-semibold text-[#6B6560] hover:text-[#B86E35] transition-colors shrink-0">{c.anywhere.docLink} →</a>
+          </div>
+          <p class="text-[15px] text-[#6B6560] leading-relaxed mb-4">{it.desc}</p>
+          <code class="ecmd">{it.code}</code>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

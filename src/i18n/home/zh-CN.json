@@ -5,6 +5,7 @@
   },
   "nav": {
     "product": "介绍",
+    "engine": "引擎",
     "studio": "Studio",
     "blog": "博客",
     "docs": "文档",
@@ -74,7 +75,6 @@
     "packs": "规则包",
     "roadmap": "路线图",
     "changelog": "更新日志",
-    "benchmarks": "基准测试",
     "architecture": "架构",
     "feedback": "反馈",
     "license": "许可"

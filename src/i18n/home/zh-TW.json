@@ -5,6 +5,7 @@
   },
   "nav": {
     "product": "介紹",
+    "engine": "引擎",
     "studio": "Studio",
     "blog": "部落格",
     "docs": "文件",
@@ -74,7 +75,6 @@
     "packs": "規則包",
     "roadmap": "路線圖",
     "changelog": "更新日誌",
-    "benchmarks": "基準測試",
     "architecture": "架構",
     "feedback": "回饋",
     "license": "許可"
