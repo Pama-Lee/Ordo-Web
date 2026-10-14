@@ -204,6 +204,8 @@ export interface Sample {
   key: 'double' | 'blender' | 'parcel' | 'dispute';
   message: string;
   input: RefundInput;
+  /** Per-step durations from `ordo trace` (release build) on this input, in µs. */
+  durationsUs: number[];
 }
 
 /** The four samples in the pack, with the Jev answers recorded on 2026-10-13 (typesafe/jev-1.13). */
@@ -213,23 +215,27 @@ export const SAMPLES: Sample[] = [
     message:
       'The blender arrived yesterday but it is much louder than the video showed. Not sure it is for me. What are my options?',
     input: input('refund', 0.97, 0.43, 0.04, '129.00', 1, 0),
+    durationsUs: [1, 1, 1, 2, 0, 0],
   },
   {
     key: 'double',
     message:
       'Hi, I was charged twice for order #4471 (EUR 39.90 each). Could you refund one of them? Thanks.',
     input: input('refund', 1, 0.2, 0.02, '39.90', 2, 0),
+    durationsUs: [4, 0, 1, 3, 0, 0],
   },
   {
     key: 'parcel',
     message: "Tracking has said 'in transit' for six days. Where is my parcel?",
     input: input('delivery', 1, 1.63, 0.06, '54.50', 0, 0),
+    durationsUs: [3, 1, 0],
   },
   {
     key: 'dispute',
     message:
       'Third email about my refund for the jacket. If it is not in my account by Friday I am filing a dispute with my bank.',
     input: input('refund', 1, 2, 0.98, '89.00', 12, 1),
+    durationsUs: [2, 0],
   },
 ];
 
